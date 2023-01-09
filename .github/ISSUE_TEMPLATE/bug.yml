@@ -1,0 +1,17 @@
+name: "Bug"
+description: "버그가 생겼어요"
+labels: 버그
+body:
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        버그에 관한 설명을 간단하게 작성해주세요.
+      placeholder: |
+        버그에 대한 서술
+  - type: textarea
+    attributes:
+      label: Additional
+      description: |
+        추가로 할 말
