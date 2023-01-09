@@ -1,0 +1,16 @@
+name: "Feat"
+description: "무엇을 구현하실 건가요?"
+body:
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        [Explain] 설명을 작성해주세요.
+      placeholder: |
+        구현할 내용
+  - type: textarea
+    attributes:
+      label: Additional
+      description: |
+        [추가사항] 별도로 알려줘야 할 사항이나 추가사항을 작성해주세요
