@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class AuthDetails implements UserDetails {
+public class AuthDetails implements UserDetails { //toDo userEntity 개발 후 변경 - 윤지빈
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
