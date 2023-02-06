@@ -5,10 +5,7 @@ import com.ds.ds.global.common.entity.BaseIdEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Timer extends BaseIdEntity {
@@ -21,7 +18,7 @@ public class Timer extends BaseIdEntity {
     @Column
     private Integer myTimer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 }
