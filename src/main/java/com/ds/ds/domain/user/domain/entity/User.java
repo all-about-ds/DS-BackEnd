@@ -13,10 +13,10 @@ import javax.persistence.Entity;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseIdEntity {
-    @Column(nullable = false)
+    @Column(name = "USER_NAME",nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "USER_EMAIL",nullable = false)
     private String email;
 
     @Column(nullable = false)

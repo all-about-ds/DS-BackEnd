@@ -8,16 +8,13 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class Group extends BaseIdEntity {
-    @Column(nullable = false,columnDefinition = "TEXT")
+    @Column(name = "GROUP_NAME",nullable = false,columnDefinition = "TEXT")
     private String title;
 
     @Column(nullable = false,columnDefinition = "TEXT")
@@ -33,6 +30,7 @@ public class Group extends BaseIdEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @Builder
