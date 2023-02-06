@@ -2,7 +2,6 @@ package com.ds.ds.domain.group.domain.entity;
 
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.global.common.entity.BaseIdEntity;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +17,10 @@ import javax.persistence.ManyToOne;
 @Getter
 @NoArgsConstructor
 public class Group extends BaseIdEntity {
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String groupDescription;
 
     private String groupImg;
@@ -29,7 +28,7 @@ public class Group extends BaseIdEntity {
     @Column
     private Long groupMaxCount;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,7 +36,8 @@ public class Group extends BaseIdEntity {
     private User user;
 
     @Builder
-    public Group(String groupDescription, String groupImg, Long groupMaxCount, String password) {
+    public Group(String title,String groupDescription, String groupImg, Long groupMaxCount, String password) {
+        this.title = title;
         this.groupDescription = groupDescription;
         this.groupImg = groupImg;
         this.groupMaxCount = groupMaxCount;
