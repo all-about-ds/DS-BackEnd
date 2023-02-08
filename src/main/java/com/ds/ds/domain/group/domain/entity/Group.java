@@ -2,6 +2,7 @@ package com.ds.ds.domain.group.domain.entity;
 
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.global.common.entity.BaseIdEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Group extends BaseIdEntity {
     @Column(name = "GROUP_NAME",nullable = false,columnDefinition = "TEXT")
     private String groupName;
