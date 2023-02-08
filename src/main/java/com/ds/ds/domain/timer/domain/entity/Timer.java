@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 public class Timer extends BaseIdEntity {
@@ -13,10 +14,7 @@ public class Timer extends BaseIdEntity {
     private String name;
 
     @Column
-    private Integer timer;
-
-    @Column
-    private Integer myTimer;
+    private LocalTime timer;
 
     @OneToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)

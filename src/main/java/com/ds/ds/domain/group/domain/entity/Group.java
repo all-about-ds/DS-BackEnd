@@ -25,8 +25,10 @@ public class Group extends BaseIdEntity {
     @Column
     private Long groupMaxCount;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
+
+    private boolean secrete;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
