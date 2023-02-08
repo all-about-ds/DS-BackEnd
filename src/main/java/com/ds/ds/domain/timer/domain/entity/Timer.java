@@ -13,7 +13,7 @@ public class Timer extends BaseIdEntity {
     @Column(nullable = false,columnDefinition = "TEXT")
     private String name;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalTime timer;
 
     @OneToOne(fetch = FetchType.LAZY)
