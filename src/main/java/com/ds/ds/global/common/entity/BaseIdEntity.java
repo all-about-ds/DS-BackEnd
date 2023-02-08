@@ -9,6 +9,5 @@ import javax.persistence.*;
 public abstract class BaseIdEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long idx;
 }

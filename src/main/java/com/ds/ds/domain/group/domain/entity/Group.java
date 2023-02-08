@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Group extends BaseIdEntity {
     @Column(name = "GROUP_NAME",nullable = false,columnDefinition = "TEXT")
-    private String title;
+    private String groupName;
 
     @Column(nullable = false,columnDefinition = "TEXT")
     private String groupDescription;
@@ -34,8 +34,8 @@ public class Group extends BaseIdEntity {
     private User user;
 
     @Builder
-    public Group(String title,String groupDescription, String groupImg, Long groupMaxCount, String password) {
-        this.title = title;
+    public Group(String groupName,String groupDescription, String groupImg, Long groupMaxCount, String password) {
+        this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupImg = groupImg;
         this.groupMaxCount = groupMaxCount;
