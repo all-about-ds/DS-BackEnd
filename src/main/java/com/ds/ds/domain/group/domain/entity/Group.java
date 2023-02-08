@@ -29,7 +29,7 @@ public class Group extends BaseIdEntity {
     @Column(nullable = true)
     private String password;
 
-    private boolean secrete;
+    private boolean secret;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
