@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 public class Timer extends BaseIdEntity {
-    @Column(nullable = false,columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)

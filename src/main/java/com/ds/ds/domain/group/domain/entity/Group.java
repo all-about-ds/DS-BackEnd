@@ -15,15 +15,15 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Group extends BaseIdEntity {
-    @Column(name = "GROUP_NAME",nullable = false,columnDefinition = "TEXT")
+    @Column(name = "group_name", nullable = false,columnDefinition = "TEXT")
     private String groupName;
 
-    @Column(nullable = false,columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String groupDescription;
-
+    @Column(name = "group_image")
     private String groupImg;
 
-    @Column
+    @Column(name = "group_max_count")
     private Long groupMaxCount;
 
     @Column(nullable = true)
@@ -33,11 +33,11 @@ public class Group extends BaseIdEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
-    public Group(String groupName,String groupDescription, String groupImg, Long groupMaxCount, String password) {
+    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, String password) {
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupImg = groupImg;

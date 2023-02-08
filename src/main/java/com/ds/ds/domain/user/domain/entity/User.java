@@ -13,19 +13,23 @@ import javax.persistence.Entity;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseIdEntity {
-    @Column(name = "USER_NAME",nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String name;
 
-    @Column(name = "USER_EMAIL",nullable = false)
+    @Column(name = "user_email", nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "user_profile_image", nullable = true)
+    private String profileImg;
+
     @Builder
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String profileImg) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.profileImg = profileImg;
     }
 }
