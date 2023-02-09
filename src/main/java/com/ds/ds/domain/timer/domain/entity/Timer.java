@@ -20,6 +20,7 @@ import java.time.LocalTime;
 public class Timer extends BaseIdEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String name;
+
     @Column(name = "timer")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalTime timer;
