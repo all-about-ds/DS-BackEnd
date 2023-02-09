@@ -25,10 +25,6 @@ public class Timer extends BaseIdEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalTime timer;
 
-    @Column(name = "group_timer")
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalTime groupTimer;
-
     @OneToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
@@ -39,9 +35,8 @@ public class Timer extends BaseIdEntity {
     private Group group;
 
     @Builder
-    public Timer(String name, LocalTime timer, LocalTime groupTimer) {
+    public Timer(String name, LocalTime timer) {
         this.name = name;
         this.timer = timer;
-        this.groupTimer = groupTimer;
     }
 }
