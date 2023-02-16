@@ -8,7 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
-    INTERNAL_SERVER_ERROR(500,"internal server error");
+    USER_NOT_FOUND(404, "User not found error"),
+    INTERNAL_SERVER_ERROR(500, "internal server error");
 
     private final int status;
     private final String message;
