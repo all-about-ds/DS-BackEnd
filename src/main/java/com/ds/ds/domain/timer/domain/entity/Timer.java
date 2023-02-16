@@ -16,17 +16,16 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 public class Timer extends BaseIdEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String name;
 
     @Column(name = "timer")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalTime timer;
 
     @OneToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
