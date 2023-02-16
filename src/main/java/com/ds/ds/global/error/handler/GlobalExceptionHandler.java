@@ -1,5 +1,6 @@
 package com.ds.ds.global.error.handler;
 
+import com.ds.ds.domain.user.exception.PasswordNotMatchException;
 import com.ds.ds.domain.user.exception.UserNotFoundException;
 import com.ds.ds.global.error.ErrorCode;
 import com.ds.ds.global.error.ErrorResponse;
@@ -20,6 +21,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> UserNotFoundException(UserNotFoundException e){
+        ErrorCode errorCode = e.getErrorCode();
+        return new ResponseEntity<>(new ErrorResponse(errorCode.getStatus(),errorCode.getMessage()),
+                HttpStatus.valueOf(errorCode.getStatus()));
+    }
+
+    @ExceptionHandler(PasswordNotMatchException.class)
+    public ResponseEntity<ErrorResponse> PasswordNotMatchException(PasswordNotMatchException e){
         ErrorCode errorCode = e.getErrorCode();
         return new ResponseEntity<>(new ErrorResponse(errorCode.getStatus(),errorCode.getMessage()),
                 HttpStatus.valueOf(errorCode.getStatus()));
