@@ -1,5 +1,6 @@
 package com.ds.ds.global.security.auth;
 
+import com.ds.ds.domain.user.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class AuthDetails implements UserDetails { //toDo userEntity 개발 후 변경 - 윤지빈
+public class AuthDetails implements UserDetails {
+    private final User user;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -15,12 +18,12 @@ public class AuthDetails implements UserDetails { //toDo userEntity 개발 후 �
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return String.valueOf(user.getIdx());
     }
 
     @Override
