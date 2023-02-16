@@ -2,7 +2,7 @@ package com.ds.ds.domain.auth.presentation;
 
 import com.ds.ds.domain.auth.presentation.dto.SignInDto;
 import com.ds.ds.domain.auth.presentation.request.SignInRequestDto;
-import com.ds.ds.domain.auth.presentation.response.TokenResponse;
+import com.ds.ds.domain.auth.presentation.response.TokenResponseDto;
 import com.ds.ds.domain.auth.service.SignInService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +25,9 @@ public class AuthController {
     기능: 로그인
      */
     @PostMapping("/signin")
-    public ResponseEntity<TokenResponse> signIn(@RequestBody SignInRequestDto signInRequestDto){
+    public ResponseEntity<TokenResponseDto> signIn(@RequestBody SignInRequestDto signInRequestDto){
         SignInDto signInDto = authConverter.toDto(signInRequestDto);
-        TokenResponse tokenResponse = signinService.signIn(signInDto);
+        TokenResponseDto tokenResponse = signinService.signIn(signInDto);
         return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
     }
 }
