@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -40,8 +41,11 @@ public class JwtProvider {
     public String generateRefreshToken(String email){
         return createToken(email,TokenType.REFRESH_TOKEN);
     }
+    public LocalDateTime getExpiredAt(){
+        return LocalDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRED_TIME);
+    }
     public Authentication getAuthentication(String token){
-        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.getAccessSecret()));
+        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
     public String resolveToken(HttpServletRequest servletRequest){
@@ -51,10 +55,10 @@ public class JwtProvider {
         }
         return null;
     }
-    private String getTokenSubject(String token, String secret){
-        return getTokenBody(token,secret).getSubject();
+    private String getTokenSubject(String token){
+        return getTokenBody(token).getSubject();
     }
-    private Claims getTokenBody(String token, String secret){
+    private Claims getTokenBody(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(getByteKey(jwtProperties.getAccessSecret()))
                 .build()
