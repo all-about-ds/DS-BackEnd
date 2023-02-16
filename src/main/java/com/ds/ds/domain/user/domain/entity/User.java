@@ -19,10 +19,10 @@ public class User extends BaseIdEntity {
     @Column(name = "user_email", nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "user_password", nullable = false)
     private String password;
 
-    @Column(name = "user_profile_image", nullable = true)
+    @Column(name = "user_profile_image")
     private String profileImg;
 
     @Builder
