@@ -24,8 +24,8 @@ import java.util.Date;
 public class JwtProvider {
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
-    private final long ACCESS_TOKEN_EXPIRED_TIME = 2 * 60 * 1000;
-    private final long REFRESH_TOKEN_EXPIRED_TIME = 7 * 24 * 60 * 60 * 1000; // 1주
+    private final long ACCESS_TOKEN_EXPIRED_TIME = 60L * 2;
+    private final long REFRESH_TOKEN_EXPIRED_TIME = 60L * 60 * 24 * 7; // 1주
 
     @AllArgsConstructor
     enum TokenType{
@@ -41,8 +41,11 @@ public class JwtProvider {
     public String generateRefreshToken(String email){
         return createToken(email,TokenType.REFRESH_TOKEN);
     }
-    public LocalDateTime getExpiredAt(){
+    public LocalDateTime getAccessTokenExpiredTime(){
         return LocalDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRED_TIME);
+    }
+    public LocalDateTime getRefreshTokenExpiredTime(){
+        return LocalDateTime.now().plusSeconds(REFRESH_TOKEN_EXPIRED_TIME);
     }
     public Authentication getAuthentication(String token){
         UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
