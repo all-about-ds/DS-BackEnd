@@ -25,7 +25,8 @@ public class AuthConverterImpl implements AuthConverter {
         return TokenResponseDto.builder()
                 .accessToken(tokenDto.getAccessToken())
                 .refreshToken(tokenDto.getRefreshToken())
-                .expiredAt(tokenDto.getExpiredAt())
+                .accessExp(tokenDto.getAccessExp())
+                .refreshExp(tokenDto.getRefreshExp())
                 .build();
     }
 }
