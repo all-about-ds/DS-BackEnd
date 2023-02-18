@@ -1,0 +1,1 @@
+insert into user values (1, 'test1234@naver.com', 'test', '$2a$10$5gLLAwYnrS614Ay3bVc4E.vnJZ/0a0blCNkm1m9p5SyVKJoQFY8/K', null);
