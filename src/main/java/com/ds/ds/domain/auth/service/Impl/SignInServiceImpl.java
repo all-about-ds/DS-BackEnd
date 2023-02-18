@@ -39,12 +39,14 @@ public class SignInServiceImpl implements SignInService {
     private TokenDto makeTokenDto(User user){
         String accessToken = jwtProvider.generateAccessToken(user.getEmail());
         String refreshToken = jwtProvider.generateRefreshToken(user.getEmail());
-        LocalDateTime expiredAt = jwtProvider.getExpiredAt();
+        LocalDateTime accessExpiredTime = jwtProvider.getAccessTokenExpiredTime();
+        LocalDateTime refreshExpiredTime = jwtProvider.getRefreshTokenExpiredTime();
 
         return TokenDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .expiredAt(expiredAt)
+                .accessExp(accessExpiredTime)
+                .refreshExp(refreshExpiredTime)
                 .build();
     }
 }
