@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 public class TokenDto {
     private final String accessToken;
     private final String refreshToken;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private final LocalDateTime expiredAt;
+    @JsonFormat(pattern = "yyyy-MM-dd 'T' HH:mm:ss")
+    private final LocalDateTime accessExp;
+    @JsonFormat(pattern = "yyyy-MM-dd 'T' HH:mm:ss")
+    private final LocalDateTime refreshExp;
 }

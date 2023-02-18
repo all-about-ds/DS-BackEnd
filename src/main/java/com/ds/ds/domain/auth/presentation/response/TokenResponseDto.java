@@ -1,5 +1,6 @@
 package com.ds.ds.domain.auth.presentation.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,5 +13,8 @@ import java.time.LocalDateTime;
 public class TokenResponseDto {
     private final String accessToken;
     private final String refreshToken;
-    private final LocalDateTime expiredAt;
+    @JsonFormat(pattern = "yyyy-MM-dd 'T' HH:mm:ss")
+    private final LocalDateTime accessExp;
+    @JsonFormat(pattern = "yyyy-MM-dd 'T' HH:mm:ss")
+    private final LocalDateTime refreshExp;
 }
