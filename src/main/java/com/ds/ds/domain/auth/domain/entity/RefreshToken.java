@@ -4,10 +4,8 @@ import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RedisHash(value = "refreshToken", timeToLive = 7 * 24 * 60 * 60 * 1000)
