@@ -1,8 +1,9 @@
 package com.ds.ds.domain.auth.presentation;
 
-import com.ds.ds.domain.auth.presentation.dto.SignInDto;
-import com.ds.ds.domain.auth.presentation.request.SignInRequestDto;
-import com.ds.ds.domain.auth.presentation.response.TokenResponseDto;
+import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
+import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
+import com.ds.ds.domain.auth.presentation.data.request.SignInRequestDto;
+import com.ds.ds.domain.auth.presentation.data.response.TokenResponseDto;
 import com.ds.ds.domain.auth.service.SignInService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,8 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<TokenResponseDto> signIn(@RequestBody SignInRequestDto signInRequestDto){
         SignInDto signInDto = authConverter.toDto(signInRequestDto);
-        TokenResponseDto tokenResponse = signinService.signIn(signInDto);
-        return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
+        TokenDto tokenDto = signinService.signIn(signInDto);
+        TokenResponseDto tokenResponseDto = authConverter.toResponse(tokenDto);
+        return new ResponseEntity<>(tokenResponseDto, HttpStatus.OK);
     }
 }

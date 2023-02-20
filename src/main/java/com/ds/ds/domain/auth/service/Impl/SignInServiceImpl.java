@@ -1,16 +1,19 @@
 package com.ds.ds.domain.auth.service.Impl;
 
-import com.ds.ds.domain.auth.presentation.dto.SignInDto;
-import com.ds.ds.domain.auth.presentation.dto.TokenDto;
-import com.ds.ds.domain.auth.presentation.response.TokenResponseDto;
+import com.ds.ds.domain.auth.domain.entity.RefreshToken;
+import com.ds.ds.domain.auth.domain.repository.RefreshTokenRepository;
+import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
+import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
+import com.ds.ds.domain.auth.presentation.data.response.TokenResponseDto;
 import com.ds.ds.domain.auth.service.SignInService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.domain.user.domain.entity.User;
+import com.ds.ds.domain.user.domain.repository.UserRepository;
 import com.ds.ds.domain.user.util.UserUtil;
 import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -20,33 +23,26 @@ public class SignInServiceImpl implements SignInService {
     private final AuthConverter authConverter;
     private final UserUtil userUtil;
     private final JwtProvider jwtProvider;
-    private final RedisTemplate<String, Object> redisTemplate;
-
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
-    public TokenResponseDto signIn(SignInDto signInDto) {
+    public TokenDto signIn(SignInDto signInDto) {
         User user = userUtil.findUserByEmail(signInDto.getEmail());
         userUtil.checkPassword(user.getPassword(), signInDto.getPassword());
 
-        TokenDto tokenDto = makeTokenDto(user);
-
-        redisTemplate.opsForValue()
-                .set("refreshToken:" + user.getIdx(), tokenDto.getRefreshToken());
-
-        return authConverter.toResponse(tokenDto);
-    }
-
-    private TokenDto makeTokenDto(User user){
         String accessToken = jwtProvider.generateAccessToken(user.getEmail());
         String refreshToken = jwtProvider.generateRefreshToken(user.getEmail());
         LocalDateTime accessExpiredTime = jwtProvider.getAccessTokenExpiredTime();
         LocalDateTime refreshExpiredTime = jwtProvider.getRefreshTokenExpiredTime();
 
-        return TokenDto.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .accessExp(accessExpiredTime)
-                .refreshExp(refreshExpiredTime)
-                .build();
+        RefreshToken refresh = authConverter.toEntity(user, refreshToken);
+        refreshTokenRepository.save(refresh);
+
+        return new TokenDto(
+                accessToken,
+                refreshToken,
+                accessExpiredTime,
+                refreshExpiredTime
+        );
     }
 }

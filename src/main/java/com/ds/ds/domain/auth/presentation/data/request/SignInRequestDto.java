@@ -1,4 +1,4 @@
-package com.ds.ds.domain.auth.presentation.request;
+package com.ds.ds.domain.auth.presentation.data.request;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,8 +1,9 @@
 package com.ds.ds.domain.auth.service;
 
-import com.ds.ds.domain.auth.presentation.dto.SignInDto;
-import com.ds.ds.domain.auth.presentation.response.TokenResponseDto;
+import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
+import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
+import com.ds.ds.domain.auth.presentation.data.response.TokenResponseDto;
 
 public interface SignInService {
-    TokenResponseDto signIn(SignInDto signInDto);
+    TokenDto signIn(SignInDto signInDto);
 }
