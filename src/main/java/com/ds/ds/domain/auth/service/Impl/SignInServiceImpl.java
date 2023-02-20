@@ -4,16 +4,13 @@ import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.domain.repository.RefreshTokenRepository;
 import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
 import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
-import com.ds.ds.domain.auth.presentation.data.response.TokenResponseDto;
 import com.ds.ds.domain.auth.service.SignInService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.domain.user.domain.entity.User;
-import com.ds.ds.domain.user.domain.repository.UserRepository;
 import com.ds.ds.domain.user.util.UserUtil;
 import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 

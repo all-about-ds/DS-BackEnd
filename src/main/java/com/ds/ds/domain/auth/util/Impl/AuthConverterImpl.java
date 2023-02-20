@@ -10,7 +10,6 @@ import com.ds.ds.domain.user.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -33,8 +32,6 @@ public class AuthConverterImpl implements AuthConverter {
                 .refreshExp(tokenDto.getRefreshExp())
                 .build();
     }
-
-
 
     @Override
     public RefreshToken toEntity(User user, String refreshToken) {

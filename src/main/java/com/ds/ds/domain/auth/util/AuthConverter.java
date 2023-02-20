@@ -7,7 +7,6 @@ import com.ds.ds.domain.auth.presentation.data.request.SignInRequestDto;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponseDto;
 import com.ds.ds.domain.user.domain.entity.User;
 
-import java.time.LocalDateTime;
 
 public interface AuthConverter {
     SignInDto toDto(SignInRequestDto signInRequestDto);
