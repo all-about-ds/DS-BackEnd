@@ -1,16 +1,23 @@
 package com.ds.ds.domain.auth.domain.entity;
 
+import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
-import javax.persistence.Id;
-import java.util.UUID;
-
-@RedisHash(value = "refreshToken")
-public class RefreshToken {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RedisHash(value = "RefreshToken", timeToLive = 60L * 60 * 24 * 7)
+public class RefreshToken{
     @Id
     @Indexed
-    private UUID userId = null;
+    private Long userId;
     @Indexed
     private String token;
+
+    @Builder
+    public RefreshToken(Long userId, String token){
+        this.userId = userId;
+        this.token = token;
+    }
 }

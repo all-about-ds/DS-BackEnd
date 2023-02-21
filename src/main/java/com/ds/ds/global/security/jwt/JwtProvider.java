@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -23,8 +24,8 @@ import java.util.Date;
 public class JwtProvider {
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
-    private final long ACCESS_TOKEN_EXPIRED_TIME = 2 * 60 * 1000;
-    private final long REFRESH_TOKEN_EXPIRED_TIME = 7 * 24 * 60 * 60 * 1000; // 1주
+    private final long ACCESS_TOKEN_EXPIRED_TIME = 60L * 2;
+    private final long REFRESH_TOKEN_EXPIRED_TIME = 60L * 60 * 24 * 7; // 1주
 
     @AllArgsConstructor
     enum TokenType{
@@ -40,8 +41,14 @@ public class JwtProvider {
     public String generateRefreshToken(String email){
         return createToken(email,TokenType.REFRESH_TOKEN);
     }
+    public LocalDateTime getAccessTokenExpiredTime(){
+        return LocalDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRED_TIME);
+    }
+    public LocalDateTime getRefreshTokenExpiredTime(){
+        return LocalDateTime.now().plusSeconds(REFRESH_TOKEN_EXPIRED_TIME);
+    }
     public Authentication getAuthentication(String token){
-        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.getAccessSecret()));
+        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
     public String resolveToken(HttpServletRequest servletRequest){
@@ -51,10 +58,10 @@ public class JwtProvider {
         }
         return null;
     }
-    private String getTokenSubject(String token, String secret){
-        return getTokenBody(token,secret).getSubject();
+    private String getTokenSubject(String token){
+        return getTokenBody(token).getSubject();
     }
-    private Claims getTokenBody(String token, String secret){
+    private Claims getTokenBody(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(getByteKey(jwtProperties.getAccessSecret()))
                 .build()

@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
-@Entity
+
+@Entity(name = "ds_group")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Group extends BaseIdEntity {
@@ -24,7 +25,6 @@ public class Group extends BaseIdEntity {
     @Column(name = "group_max_count")
     private Long groupMaxCount;
 
-    @Column(nullable = true)
     private String password;
 
     private boolean secret;
