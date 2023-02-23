@@ -29,7 +29,7 @@ public class AuthController {
     public ResponseEntity<TokenResponse> signIn(@RequestBody SignInRequest signInRequest){
         SignInDto signInDto = authConverter.toDto(signInRequest);
         TokenDto tokenDto = signinService.signIn(signInDto);
-        TokenResponse tokenResponseDto = authConverter.toResponse(tokenDto);
-        return new ResponseEntity<>(tokenResponseDto, HttpStatus.OK);
+        TokenResponse tokenResponse = authConverter.toResponse(tokenDto);
+        return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
     }
 }
