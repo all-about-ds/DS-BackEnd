@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class SignInRequestDto { // 정규식은 협의 헌 후 다시 할 예정
+public class SignInRequest { // 정규식은 협의 헌 후 다시 할 예정
 //    @Pattern(regexp = "^(?:\\w+\\.?)*\\w+@(?:\\w+\\.)+\\w+$", message = "이메일 형식이 올바르지 않습니다.")
     private final String email;
 

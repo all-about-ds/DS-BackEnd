@@ -3,8 +3,8 @@ package com.ds.ds.domain.auth.util.Impl;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
 import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
-import com.ds.ds.domain.auth.presentation.data.request.SignInRequestDto;
-import com.ds.ds.domain.auth.presentation.data.response.TokenResponseDto;
+import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
+import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.domain.user.domain.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +16,16 @@ import org.springframework.stereotype.Component;
 public class AuthConverterImpl implements AuthConverter {
 
     @Override
-    public SignInDto toDto(SignInRequestDto signInRequestDto) {
+    public SignInDto toDto(SignInRequest signInRequest) {
         return SignInDto.builder()
-                .email(signInRequestDto.getEmail())
-                .password(signInRequestDto.getPassword())
+                .email(signInRequest.getEmail())
+                .password(signInRequest.getPassword())
                 .build();
     }
 
     @Override
-    public TokenResponseDto toResponse(TokenDto tokenDto) {
-        return TokenResponseDto.builder()
+    public TokenResponse toResponse(TokenDto tokenDto) {
+        return TokenResponse.builder()
                 .accessToken(tokenDto.getAccessToken())
                 .refreshToken(tokenDto.getRefreshToken())
                 .accessExp(tokenDto.getAccessExp())
