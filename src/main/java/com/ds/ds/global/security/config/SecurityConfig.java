@@ -41,6 +41,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,"/auth/signin").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
 
+                .antMatchers(HttpMethod.GET, "/group").permitAll()
+
                 .anyRequest().denyAll()
 
                 .and()
