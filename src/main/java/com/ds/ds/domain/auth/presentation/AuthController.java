@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -42,7 +44,7 @@ public class AuthController {
     기능: 회원가입
      */
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@RequestBody SignupRequest signupRequest){
+    public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequest signupRequest){
         SignUpDto signUpDto = authConverter.toDto(signupRequest);
         signUpService.signUp(signUpDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
