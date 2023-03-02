@@ -1,4 +1,4 @@
-package com.ds.ds.domain.group.presentation.data.response;
+package com.ds.ds.domain.group.presentation.data.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class GroupListInfoResponse {
+public class GroupDto {
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;

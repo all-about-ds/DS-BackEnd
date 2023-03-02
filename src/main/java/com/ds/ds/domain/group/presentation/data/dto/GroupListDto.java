@@ -3,17 +3,14 @@ package com.ds.ds.domain.group.presentation.data.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 @Getter
 @Builder
 @RequiredArgsConstructor
 public class GroupListDto {
-    private final String groupName;
-    private final String groupImg;
-    private final String groupDescription;
-    private final Long groupmemberCount;
-    private final Long groupMaxCount;
-    private final String groupLeaderImg;
-    private final String groupLeaderName;
-    private final Boolean secret;
+    private final Pageable pageable;
+    private final List<GroupDto> groups;
 }

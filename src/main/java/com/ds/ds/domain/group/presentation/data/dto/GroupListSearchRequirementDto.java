@@ -11,7 +11,7 @@ import java.util.Optional;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class GroupListSearchRequirement {
+public class GroupListSearchRequirementDto {
     private final Pageable pageable;
     private final Optional<String> keyword;
 }
