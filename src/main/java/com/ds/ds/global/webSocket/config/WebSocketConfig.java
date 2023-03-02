@@ -1,2 +1,4 @@
-package com.ds.ds.global.webSocket.config;public class WebSocketConfig {
+package com.ds.ds.global.webSocket.config;
+
+public class WebSocketConfig {
 }
