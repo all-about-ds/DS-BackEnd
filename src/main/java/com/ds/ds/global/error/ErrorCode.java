@@ -13,6 +13,8 @@ public enum ErrorCode {
     INVALID_TOKEN(401, "유효하지 않은 토큰입니다."),
     UNAUTHORIZED(401, "권한이 없습니다."),
     USER_NOT_FOUND(404, "유저를 찾을 수 없습니다."),
+    DUPLICATE_NAME(409, "이미 존재하는 닉네임입니다."),
+    DUPLICATE_EMAIL(409, "이미 존재하는 이메일입니다."),
     INTERNAL_SERVER_ERROR(500, "internal server error");
 
     private final int status;
