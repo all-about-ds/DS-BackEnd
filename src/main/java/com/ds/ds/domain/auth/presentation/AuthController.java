@@ -1,10 +1,13 @@
 package com.ds.ds.domain.auth.presentation;
 
 import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
+import com.ds.ds.domain.auth.presentation.data.dto.SignUpDto;
 import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
+import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.service.SignInService;
+import com.ds.ds.domain.auth.service.SignUpService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthConverter authConverter;
     private final SignInService signinService;
+    private final SignUpService signUpService;
 
     /*
     담당자: 노혁
@@ -31,5 +37,16 @@ public class AuthController {
         TokenDto tokenDto = signinService.signIn(signInDto);
         TokenResponse tokenResponse = authConverter.toResponse(tokenDto);
         return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
+    }
+
+    /*
+    담당자: 노혁
+    기능: 회원가입
+     */
+    @PostMapping("/signup")
+    public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequest signupRequest){
+        SignUpDto signUpDto = authConverter.toDto(signupRequest);
+        signUpService.signUp(signUpDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

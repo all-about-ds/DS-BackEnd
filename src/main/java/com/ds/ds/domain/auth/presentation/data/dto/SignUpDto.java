@@ -1,4 +1,4 @@
-package com.ds.ds.domain.auth.presentation.data.request;
+package com.ds.ds.domain.auth.presentation.data.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class SignInRequest {
+public class SignUpDto {
+    private final String name;
     private final String email;
     private final String password;
 }
