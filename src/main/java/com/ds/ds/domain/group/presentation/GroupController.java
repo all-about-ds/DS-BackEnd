@@ -1,7 +1,7 @@
 package com.ds.ds.domain.group.presentation;
 
-import com.ds.ds.domain.group.presentation.data.dto.GroupInfoDto;
-import com.ds.ds.domain.group.presentation.data.response.GroupInfoResponse;
+import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
+import com.ds.ds.domain.group.presentation.data.response.GroupListInfoResponse;
 import com.ds.ds.domain.group.service.FindGroupListService;
 import com.ds.ds.domain.group.util.GroupConverter;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class GroupController {
     private final FindGroupListService findGroupListService;
 
     @GetMapping
-    public ResponseEntity<List<GroupInfoResponse>> findGroupList() {
-        List<GroupInfoDto> dto = findGroupListService.findGroupList();
-        List<GroupInfoResponse> response = dto.stream()
+    public ResponseEntity<List<GroupListInfoResponse>> findGroupList() {
+        List<GroupListDto> dto = findGroupListService.findGroupList();
+        List<GroupListInfoResponse> response = dto.stream()
                 .map(it -> groupConverter.toResponse(it))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);

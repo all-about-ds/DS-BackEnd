@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class GroupInfoDto {
+public class GroupListDto {
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;

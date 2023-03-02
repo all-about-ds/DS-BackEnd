@@ -1,8 +1,8 @@
 package com.ds.ds.domain.group.util;
 
-import com.ds.ds.domain.group.presentation.data.dto.GroupInfoDto;
-import com.ds.ds.domain.group.presentation.data.response.GroupInfoResponse;
+import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
+import com.ds.ds.domain.group.presentation.data.response.GroupListInfoResponse;
 
 public interface GroupConverter {
-    GroupInfoResponse toResponse(GroupInfoDto dto);
+    GroupListInfoResponse toResponse(GroupListDto dto);
 }
