@@ -40,6 +40,7 @@ public class SecurityConfig {
                 //auth
                 .antMatchers(HttpMethod.POST,"/auth/signin").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/email/**").permitAll()
 
                 .anyRequest().denyAll()
 
