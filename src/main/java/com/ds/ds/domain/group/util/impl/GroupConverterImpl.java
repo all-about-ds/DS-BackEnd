@@ -24,7 +24,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupName(dto.getGroupName())
                 .groupImg(dto.getGroupImg())
                 .groupDescription(dto.getGroupDescription())
-                .groupmemberCount(dto.getGroupmemberCount())
+                .groupMemberCount(dto.getGroupmemberCount())
                 .groupMaxCount(dto.getGroupMaxCount())
                 .groupLeaderImg(dto.getGroupLeaderImg())
                 .groupLeaderName(dto.getGroupLeaderName())
