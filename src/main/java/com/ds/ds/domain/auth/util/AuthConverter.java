@@ -1,5 +1,6 @@
 package com.ds.ds.domain.auth.util;
 
+import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
 import com.ds.ds.domain.auth.presentation.data.dto.SignUpDto;
@@ -16,4 +17,5 @@ public interface AuthConverter {
     TokenResponse toResponse(TokenDto tokenDto);
     RefreshToken toEntity(User user, String refreshToken);
     User toEntity(SignUpDto signUpDto);
+    AuthCode toEntity(String email, String code);
 }

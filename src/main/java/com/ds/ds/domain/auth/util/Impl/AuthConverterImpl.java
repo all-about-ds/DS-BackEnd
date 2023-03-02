@@ -1,5 +1,6 @@
 package com.ds.ds.domain.auth.util.Impl;
 
+import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
 import com.ds.ds.domain.auth.presentation.data.dto.SignUpDto;
@@ -60,6 +61,14 @@ public class AuthConverterImpl implements AuthConverter {
                 .name(signUpDto.getName())
                 .email(signUpDto.getEmail())
                 .password(passwordEncoder.encode(signUpDto.getPassword()))
+                .build();
+    }
+
+    @Override
+    public AuthCode toEntity(String email, String code) {
+        return AuthCode.builder()
+                .email(email)
+                .code(code)
                 .build();
     }
 }
