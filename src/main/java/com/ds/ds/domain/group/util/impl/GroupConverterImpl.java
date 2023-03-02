@@ -13,14 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class GroupConverterImpl implements GroupConverter {
     @Override
-    public GroupListSearchRequirementDto toDto(GroupListRequest request) {
+    public GroupListSearchRequirementDto toDto(Pageable pageable, Optional<String> keyword) {
         return GroupListSearchRequirementDto.builder()
-                .pageable(PageRequest.of(request.getPage(), request.getSize()))
-                .keyword(request.getKeyword())
+                .pageable(pageable)
+                .keyword(keyword)
                 .build();
     }
 

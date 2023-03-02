@@ -9,9 +9,9 @@ import com.ds.ds.domain.group.service.FindGroupListService;
 import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.util.Streams;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +24,7 @@ public class FindGroupListServiceImpl implements FindGroupListService {
     @Override
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
         List<Group> groups;
-        List<GroupDto> result = null;
+        List<GroupDto> result = new ArrayList<>();
         if(dto.getPageable() == null) {
             groups = groupRepository.findAll(dto.getPageable()).toList();
         } else {
@@ -33,7 +33,7 @@ public class FindGroupListServiceImpl implements FindGroupListService {
         List<Long> groupsMemberCount = groups.stream()
                 .map(it -> memberRepository.countByGroup(it))
                 .collect(Collectors.toList());
-       for(int i = 0; i <= groups.size(); i++) {
+       for(int i = 0; i < groups.size(); i++) {
            result.add(groupConverter.toDto(groups.get(i), groupsMemberCount.get(i)));
        }
        return groupConverter.toDto(dto.getPageable(), result);

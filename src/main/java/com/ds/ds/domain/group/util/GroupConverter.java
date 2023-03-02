@@ -10,9 +10,10 @@ import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GroupConverter {
-    GroupListSearchRequirementDto toDto(GroupListRequest request);
+    GroupListSearchRequirementDto toDto(Pageable pageable, Optional<String> keyword);
     GroupDto toDto(Group group, Long memberCount);
     GroupListDto toDto(Pageable pageable, List<GroupDto> dto);
 
