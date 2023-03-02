@@ -1,4 +1,4 @@
-package com.ds.ds.domain.member.domain;
+package com.ds.ds.domain.member.domain.entity;
 
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.user.domain.entity.User;
