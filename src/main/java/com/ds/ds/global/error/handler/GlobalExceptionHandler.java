@@ -1,5 +1,8 @@
 package com.ds.ds.global.error.handler;
 
+import com.ds.ds.domain.auth.exception.DuplicateEmailException;
+import com.ds.ds.domain.auth.exception.DuplicateNameException;
+import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
 import com.ds.ds.domain.user.exception.PasswordNotMatchException;
 import com.ds.ds.domain.user.exception.UserNotFoundException;
 import com.ds.ds.global.error.ErrorCode;
@@ -28,6 +31,24 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(PasswordNotMatchException.class)
     public ResponseEntity<ErrorResponse> PasswordNotMatchException(PasswordNotMatchException e){
+        ErrorCode errorCode = e.getErrorCode();
+        return new ResponseEntity<>(new ErrorResponse(errorCode.getStatus(),errorCode.getMessage()),
+                HttpStatus.valueOf(errorCode.getStatus()));
+    }
+    @ExceptionHandler(InValidAuthCodeException.class)
+    public ResponseEntity<ErrorResponse> InValidAuthCodeException(InValidAuthCodeException e){
+        ErrorCode errorCode = e.getErrorCode();
+        return new ResponseEntity<>(new ErrorResponse(errorCode.getStatus(),errorCode.getMessage()),
+                HttpStatus.valueOf(errorCode.getStatus()));
+    }
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<ErrorResponse> DuplicateEmailException(DuplicateEmailException e){
+        ErrorCode errorCode = e.getErrorCode();
+        return new ResponseEntity<>(new ErrorResponse(errorCode.getStatus(),errorCode.getMessage()),
+                HttpStatus.valueOf(errorCode.getStatus()));
+    }
+    @ExceptionHandler(DuplicateNameException.class)
+    public ResponseEntity<ErrorResponse> DuplicateNameException(DuplicateNameException e){
         ErrorCode errorCode = e.getErrorCode();
         return new ResponseEntity<>(new ErrorResponse(errorCode.getStatus(),errorCode.getMessage()),
                 HttpStatus.valueOf(errorCode.getStatus()));
