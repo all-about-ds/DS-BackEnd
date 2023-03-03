@@ -6,7 +6,6 @@ import com.ds.ds.domain.auth.presentation.data.dto.*;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
-import com.ds.ds.domain.auth.presentation.data.response.SendAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.user.domain.entity.User;
 
