@@ -1,10 +1,9 @@
 package com.ds.ds.domain.auth.presentation;
 
-import com.ds.ds.domain.auth.presentation.data.dto.SignInDto;
-import com.ds.ds.domain.auth.presentation.data.dto.SignUpDto;
-import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
+import com.ds.ds.domain.auth.presentation.data.dto.*;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
+import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.service.SignInService;
@@ -58,5 +57,17 @@ public class AuthController {
         emailService.sendSimpleMessage(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /*
+    담당자: 노혁
+    기능: 인증번호 확인
+     */
+    @GetMapping("/code")
+    public ResponseEntity<CheckAuthCodeResponse> code(@RequestParam("code") String code){
+        CheckAuthCodeDto checkAuthCodeDto = emailService.checkAuthCode(code);
+        CheckAuthCodeResponse checkAuthCodeResponse = authConverter.toResponse(checkAuthCodeDto);
+        return new ResponseEntity<>(checkAuthCodeResponse, HttpStatus.OK);
+    }
+
 
 }
