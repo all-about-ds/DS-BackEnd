@@ -2,8 +2,11 @@ package com.ds.ds.domain.auth.service.Impl;
 
 import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
+import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
+import com.ds.ds.domain.auth.presentation.data.dto.CheckAuthCodeDto;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.util.AuthConverter;
+import com.ds.ds.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -51,6 +54,7 @@ public class EmailServiceImpl implements EmailService {
         return key.toString();
     }
 
+    @Override
     public void sendSimpleMessage(String to)throws Exception {
         MimeMessage message = createMessage(to);
         javaMailSender.send(message); // 메일 발송
@@ -59,7 +63,16 @@ public class EmailServiceImpl implements EmailService {
         authCodeRepository.save(authCode);
     }
 
-    public String setContext(String code) {
+    @Override
+    public CheckAuthCodeDto checkAuthCode(String authCode) {
+        if(!authCode.equals(code)){
+            throw new InValidAuthCodeException(ErrorCode.INVALID_AUTH_CODE);
+        }
+        AuthCode findAuthCode = authCodeRepository.findByCode(authCode);
+        return authConverter.toDto(findAuthCode.getEmail());
+    }
+
+    private String setContext(String code) {
         Context context = new Context();
         context.setVariable("code", code);
         return templateEngine.process("mail", context); //mail.html
