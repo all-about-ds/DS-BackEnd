@@ -38,19 +38,24 @@ public class JwtProvider {
     public String generateAccessToken(String email){
         return createToken(email,TokenType.ACCESS_TOKEN);
     }
+
     public String generateRefreshToken(String email){
         return createToken(email,TokenType.REFRESH_TOKEN);
     }
+
     public LocalDateTime getAccessTokenExpiredTime(){
         return LocalDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRED_TIME);
     }
+
     public LocalDateTime getRefreshTokenExpiredTime(){
         return LocalDateTime.now().plusSeconds(REFRESH_TOKEN_EXPIRED_TIME);
     }
+
     public Authentication getAuthentication(String token){
         UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
+
     public String resolveToken(HttpServletRequest servletRequest){
         String token = servletRequest.getHeader("Authorization");
         if((token != null) && token.startsWith("Bearer ")){
@@ -58,9 +63,20 @@ public class JwtProvider {
         }
         return null;
     }
+
+    public boolean validateToken(String token){
+        try{
+            getTokenBody(token).getExpiration();
+            return false;
+        }catch (Exception e){
+            return true;
+        }
+    }
+
     private String getTokenSubject(String token){
         return getTokenBody(token).getSubject();
     }
+
     private Claims getTokenBody(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(getByteKey(jwtProperties.getAccessSecret()))
@@ -69,10 +85,12 @@ public class JwtProvider {
                 .getBody();
 
     }
+
     private Key getByteKey(String key){
         byte[] keyByte = key.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyByte);
     }
+
     private String createToken(String email,TokenType tokenType){
         return Jwts.builder()
                 .signWith(getKeyByTokenType(tokenType),SignatureAlgorithm.HS256)
@@ -83,6 +101,7 @@ public class JwtProvider {
                 .setExpiration(new Date(System.currentTimeMillis() + getTokenExpiredTime(tokenType) * 1000))
                 .compact();
     }
+
     private Key getKeyByTokenType(TokenType tokenType){
         if(tokenType == TokenType.ACCESS_TOKEN){
             return getByteKey(jwtProperties.getAccessSecret());
@@ -91,6 +110,7 @@ public class JwtProvider {
             return getByteKey(jwtProperties.getRefreshSecret());
         }
     }
+
     private long getTokenExpiredTime(TokenType tokenType){
         if(tokenType == TokenType.ACCESS_TOKEN){
             return ACCESS_TOKEN_EXPIRED_TIME;
