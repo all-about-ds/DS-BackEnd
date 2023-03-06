@@ -1,9 +1,12 @@
 package com.ds.ds.global.security.jwt;
 
+import com.ds.ds.domain.auth.exception.ExpiredTokenException;
+import com.ds.ds.global.error.ErrorCode;
 import com.ds.ds.global.security.auth.AuthDetailsService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.ds.ds.domain.auth.exception.IllegalArgumentJwtTokenException;
+import com.ds.ds.domain.auth.exception.InvalidJwtSignatureException;
+import com.ds.ds.domain.auth.exception.UnsupportedJwtTokenException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +30,7 @@ public class JwtProvider {
     private final long REFRESH_TOKEN_EXPIRED_TIME = 60L * 60 * 24 * 7; // 1주
 
     @AllArgsConstructor
-    enum TokenType{
+    public enum TokenType{
         ACCESS_TOKEN("accessToken"),
         REFRESH_TOKEN("refreshToken");
 
@@ -51,7 +54,7 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
-        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
+        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, TokenType.ACCESS_TOKEN));
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
 
@@ -63,22 +66,28 @@ public class JwtProvider {
         return null;
     }
 
-    public boolean validateToken(String token){
+    public boolean validateToken(String token, TokenType tokenType) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
         try{
-            getTokenBody(token).getExpiration();
+            getTokenBody(token, tokenType);
             return false;
-        }catch (Exception e){
-            return true;
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            throw new InvalidJwtSignatureException(ErrorCode.INVALID_JWT_SIGNATURE);
+        } catch (ExpiredJwtException e) {
+            throw new ExpiredTokenException(ErrorCode.EXPIRED_TOKEN);
+        } catch (UnsupportedJwtException e) {
+            throw new UnsupportedJwtTokenException(ErrorCode.UNSUPPORTED_JWT);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentJwtTokenException(ErrorCode.ILLEGAL_ARGUMENT_JWT);
         }
     }
 
-    public String getTokenSubject(String token){
-        return getTokenBody(token).getSubject();
+    public String getTokenSubject(String token, TokenType tokenType){
+        return getTokenBody(token, tokenType).getSubject();
     }
 
-    private Claims getTokenBody(String token){
+    private Claims getTokenBody(String token, TokenType tokenType){
         return Jwts.parserBuilder()
-                .setSigningKey(getByteKey(jwtProperties.getAccessSecret()))
+                .setSigningKey(getKeyByTokenType(tokenType))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
