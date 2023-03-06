@@ -27,4 +27,7 @@ public class ChatService {
 
         return chatRooms;
     }
+    public ChatRoomDto findRoomById(String roomId){
+        return ChatRoomMap.getInstance().getChatRooms().get(roomId);
+    }
 }
