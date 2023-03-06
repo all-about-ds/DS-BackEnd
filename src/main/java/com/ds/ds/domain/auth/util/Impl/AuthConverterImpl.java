@@ -90,15 +90,9 @@ public class AuthConverterImpl implements AuthConverter {
     @Override
     public SearchPasswordDto toDto(SearchPasswordRequest searchPasswordRequest) {
         return SearchPasswordDto.builder()
+                .email(searchPasswordRequest.getEmail())
                 .password(searchPasswordRequest.getPassword())
                 .checkPassword(searchPasswordRequest.getCheckPassword())
-                .build();
-    }
-
-    @Override
-    public PasswordResponse toResponse(PasswordDto passwordDto) {
-        return PasswordResponse.builder()
-                .password(passwordDto.getPassword())
                 .build();
     }
 }

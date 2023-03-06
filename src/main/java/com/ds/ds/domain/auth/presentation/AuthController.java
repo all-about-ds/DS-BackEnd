@@ -86,11 +86,10 @@ public class AuthController {
     담당자: 노혁
     기능: 비밀번호 찾기
      */
-    @GetMapping
-    public ResponseEntity<PasswordResponse> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
+    @PostMapping("/search")
+    public ResponseEntity<Void> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
         SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
-        PasswordDto passwordDto = searchPasswordService.search(searchPasswordDto);
-        PasswordResponse passwordResponse = authConverter.toResponse(passwordDto);
-        return new ResponseEntity<>(passwordResponse, HttpStatus.OK);
+        searchPasswordService.search(searchPasswordDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
