@@ -5,8 +5,8 @@ import com.ds.ds.global.error.exceptions.GlobalException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
 public class DuplicateNameException extends GlobalException {
-    private final ErrorCode errorCode;
+    public DuplicateNameException(ErrorCode errorCode) {
+        super(errorCode);
+    }
 }
