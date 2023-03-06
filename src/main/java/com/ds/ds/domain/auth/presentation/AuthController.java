@@ -8,6 +8,7 @@ import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.service.SignInService;
 import com.ds.ds.domain.auth.service.SignUpService;
+import com.ds.ds.domain.auth.service.TokenReissueService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class AuthController {
     private final SignInService signinService;
     private final SignUpService signUpService;
     private final EmailService emailService;
+    private final TokenReissueService tokenReissueService;
 
     /*
     담당자: 노혁
@@ -69,5 +71,15 @@ public class AuthController {
         return new ResponseEntity<>(checkAuthCodeResponse, HttpStatus.OK);
     }
 
+    /*
+    담당자: 노혁
+    기능: 토큰 재발급
+     */
+    @PatchMapping
+    public ResponseEntity<TokenResponse> tokenReissue(@RequestHeader("RefreshToken") String refreshToken){
+        TokenDto tokenDto = tokenReissueService.reissue(refreshToken);
+        TokenResponse tokenResponse = authConverter.toResponse(tokenDto);
+        return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
+    }
 
 }

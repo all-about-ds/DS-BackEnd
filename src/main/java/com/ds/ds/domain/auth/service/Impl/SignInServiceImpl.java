@@ -32,7 +32,7 @@ public class SignInServiceImpl implements SignInService {
         LocalDateTime accessExpiredTime = jwtProvider.getAccessTokenExpiredTime();
         LocalDateTime refreshExpiredTime = jwtProvider.getRefreshTokenExpiredTime();
 
-        RefreshToken refresh = authConverter.toEntity(user, refreshToken);
+        RefreshToken refresh = authConverter.toEntity(user.getIdx(), refreshToken);
         refreshTokenRepository.save(refresh);
 
         return new TokenDto(
