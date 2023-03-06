@@ -42,7 +42,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/email/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/auth/code/**").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
 
+                //group
                 .antMatchers(HttpMethod.GET, "/group").permitAll()
 
                 .anyRequest().denyAll()
