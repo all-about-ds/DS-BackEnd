@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class ChatService {
-    private final MsgChatServce msgChatServce;
+    private final MsgChatService msgChatServce;
     private final RtcChatService rtcChatService;
     //전체 방 조회
     public List<ChatRoomDto> findAllRoom(){
@@ -32,13 +32,14 @@ public class ChatService {
         return ChatRoomMap.getInstance().getChatRooms().get(roomId);
     }
 
-    public ChatRoomDto createChatRoom(String roomName, String roomPwd, boolean secretChk, int maxUserCnt, String chatType){
+    public ChatRoomDto createChatRoom(String roomName, String roomPwd, boolean secretChk, int maxUserCnt, String chatType) {
         ChatRoomDto room;
 
         if (chatType.equals("msgChat")) {
-            room = msgChatServce.createChatRoom(roomName,roomPwd, secretChk,maxUserCnt);
-        }else {
+            room = msgChatServce.createChatRoom(roomName, roomPwd, secretChk, maxUserCnt);
+        } else {
             room = rtcChatService.createChatRoom(roomName, roomPwd, secretChk, maxUserCnt);
         }
+        return room;
     }
 }
