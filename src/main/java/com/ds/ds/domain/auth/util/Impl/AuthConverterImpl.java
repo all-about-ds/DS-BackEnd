@@ -3,9 +3,11 @@ package com.ds.ds.domain.auth.util.Impl;
 import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.*;
+import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
+import com.ds.ds.domain.auth.presentation.data.response.PasswordResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.domain.user.domain.entity.User;
@@ -47,14 +49,6 @@ public class AuthConverterImpl implements AuthConverter {
     }
 
     @Override
-    public RefreshToken toEntity(User user, String refreshToken) {
-        return RefreshToken.builder()
-                .userId(user.getIdx())
-                .token(refreshToken)
-                .build();
-    }
-
-    @Override
     public RefreshToken toEntity(Long userId, String refreshToken) {
         return RefreshToken.builder()
                 .userId(userId)
@@ -90,6 +84,21 @@ public class AuthConverterImpl implements AuthConverter {
     public CheckAuthCodeResponse toResponse(CheckAuthCodeDto checkAuthCodeDto) {
         return CheckAuthCodeResponse.builder()
                 .email(checkAuthCodeDto.getEmail())
+                .build();
+    }
+
+    @Override
+    public SearchPasswordDto toDto(SearchPasswordRequest searchPasswordRequest) {
+        return SearchPasswordDto.builder()
+                .password(searchPasswordRequest.getPassword())
+                .checkPassword(searchPasswordRequest.getCheckPassword())
+                .build();
+    }
+
+    @Override
+    public PasswordResponse toResponse(PasswordDto passwordDto) {
+        return PasswordResponse.builder()
+                .password(passwordDto.getPassword())
                 .build();
     }
 }
