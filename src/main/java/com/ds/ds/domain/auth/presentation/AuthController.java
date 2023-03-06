@@ -1,9 +1,11 @@
 package com.ds.ds.domain.auth.presentation;
 
 import com.ds.ds.domain.auth.presentation.data.dto.*;
+import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
+import com.ds.ds.domain.auth.presentation.data.response.PasswordResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.service.SignInService;
@@ -26,6 +28,7 @@ public class AuthController {
     private final SignUpService signUpService;
     private final EmailService emailService;
     private final TokenReissueService tokenReissueService;
+    private final SearchPasswordService searchPasswordService;
 
     /*
     담당자: 노혁
@@ -82,4 +85,15 @@ public class AuthController {
         return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
     }
 
+    /*
+    담당자: 노혁
+    기능: 비밀번호 찾기
+     */
+    @GetMapping
+    public ResponseEntity<PasswordResponse> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
+        SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequeset);
+        PasswordDto passwordDto = searchPasswordService.search(searchPasswordDto);
+        PasswordResponse passwordResponse = authConverter.toResponse(passwordDto);
+        return new ResponseEntity<>(passwordResponse, HttpStatus.OK);
+    }
 }
