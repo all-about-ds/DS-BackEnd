@@ -1,13 +1,11 @@
 package com.ds.ds.domain.auth.presentation.data.request;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class SignInRequest {
-    private final String email;
-    private final String password;
+    private String email;
+    private String password;
 }
