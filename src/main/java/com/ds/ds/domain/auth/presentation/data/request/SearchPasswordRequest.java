@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@Builder
 @RequiredArgsConstructor
 public class SearchPasswordRequest {
+    private final String password;
+    private final String checkPassword;
 }
