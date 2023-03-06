@@ -14,7 +14,6 @@ public interface AuthConverter {
     SignInDto toDto(SignInRequest signInRequest);
     SignUpDto toDto(SignupRequest signupRequest);
     TokenResponse toResponse(TokenDto tokenDto);
-    RefreshToken toEntity(User user, String refreshToken);
     RefreshToken toEntity(Long userId, String refreshToken);
     User toEntity(SignUpDto signUpDto);
     AuthCode toEntity(String email, String code);
