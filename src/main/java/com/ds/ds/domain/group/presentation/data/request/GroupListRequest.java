@@ -7,13 +7,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Getter
-@Builder
-@AllArgsConstructor @NoArgsConstructor
+@RequiredArgsConstructor
 public class GroupListRequest {
     @NotNull
-    private Integer Size;
+    private final Integer Size;
     @NotNull
-    private Integer page;
+    private final Integer page;
     @NotNull
-    private Optional<String> keyword;
+    private final Optional<String> keyword;
 }
