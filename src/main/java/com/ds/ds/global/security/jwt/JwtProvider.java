@@ -1,6 +1,5 @@
 package com.ds.ds.global.security.jwt;
 
-import antlr.Token;
 import com.ds.ds.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -73,7 +72,7 @@ public class JwtProvider {
         }
     }
 
-    private String getTokenSubject(String token){
+    public String getTokenSubject(String token){
         return getTokenBody(token).getSubject();
     }
 
@@ -81,7 +80,7 @@ public class JwtProvider {
         return Jwts.parserBuilder()
                 .setSigningKey(getByteKey(jwtProperties.getAccessSecret()))
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
 
     }
