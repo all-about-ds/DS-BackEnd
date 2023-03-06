@@ -47,14 +47,6 @@ public class AuthConverterImpl implements AuthConverter {
     }
 
     @Override
-    public RefreshToken toEntity(User user, String refreshToken) {
-        return RefreshToken.builder()
-                .userId(user.getIdx())
-                .token(refreshToken)
-                .build();
-    }
-
-    @Override
     public RefreshToken toEntity(Long userId, String refreshToken) {
         return RefreshToken.builder()
                 .userId(userId)
