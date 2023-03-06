@@ -1,5 +1,6 @@
 package com.ds.ds.domain.chat.presentation.dto;
 
+import com.ds.ds.domain.chat.rtc.KurentoUserSession;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class KurentoRoomDto extends ChatRoomDto implements Closeable {
     //로깅 객체생성
     private final Logger logger = LoggerFactory.getLogger(KurentoRoomDto.class);
 
-    private KurentoClient kurentoClient;
+    private KurentoClient kurento;
 
     private MediaPipeline pipeline;
 
@@ -48,5 +49,9 @@ public class KurentoRoomDto extends ChatRoomDto implements Closeable {
         this.chatType = chatType;
         this.kurento = kurento;
         this.participants = (ConcurrentMap<String, KurentoUserSession>) this.userList;
+    }
+    public String getRoomId(){
+        return roomId;
+    }
 }
 
