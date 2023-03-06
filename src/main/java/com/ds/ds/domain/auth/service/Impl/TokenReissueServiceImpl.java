@@ -2,17 +2,14 @@ package com.ds.ds.domain.auth.service.Impl;
 
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.domain.repository.RefreshTokenRepository;
-import com.ds.ds.domain.auth.exception.ExpiredTokenException;
 import com.ds.ds.domain.auth.presentation.data.dto.TokenDto;
 import com.ds.ds.domain.auth.service.TokenReissueService;
 import com.ds.ds.domain.auth.util.AuthConverter;
-import com.ds.ds.domain.user.util.UserUtil;
-import com.ds.ds.global.error.ErrorCode;
+import com.ds.ds.domain.auth.exception.UnsupportedJwtTokenException;
 import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
 @Service
@@ -22,14 +19,11 @@ public class TokenReissueServiceImpl implements TokenReissueService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthConverter authConverter;
 
-    @Transactional
     @Override
-    public TokenDto reissue(String refreshToken) {
-        if(jwtProvider.validateToken(refreshToken)){
-            throw new ExpiredTokenException(ErrorCode.EXPIRED_TOKEN);
-        }
+    public TokenDto reissue(String refreshToken) throws UnsupportedJwtTokenException {
+        jwtProvider.validateToken(refreshToken, JwtProvider.TokenType.REFRESH_TOKEN);
 
-        String email = jwtProvider.getTokenBody(refreshToken).getSubject();
+        String email = jwtProvider.getTokenSubject(refreshToken, JwtProvider.TokenType.REFRESH_TOKEN);
         RefreshToken existingRefreshToken = refreshTokenRepository.findByToken(refreshToken);
 
         String newAccessToken = jwtProvider.generateAccessToken(email);

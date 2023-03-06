@@ -66,10 +66,9 @@ public class JwtProvider {
         return null;
     }
 
-    public boolean validateToken(String token, TokenType tokenType) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
+    public void validateToken(String token, TokenType tokenType) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
         try{
             getTokenBody(token, tokenType);
-            return false;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             throw new InvalidJwtSignatureException(ErrorCode.INVALID_JWT_SIGNATURE);
         } catch (ExpiredJwtException e) {
