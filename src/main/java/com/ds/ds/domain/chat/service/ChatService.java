@@ -27,7 +27,18 @@ public class ChatService {
 
         return chatRooms;
     }
+
     public ChatRoomDto findRoomById(String roomId){
         return ChatRoomMap.getInstance().getChatRooms().get(roomId);
+    }
+
+    public ChatRoomDto createChatRoom(String roomName, String roomPwd, boolean secretChk, int maxUserCnt, String chatType){
+        ChatRoomDto room;
+
+        if (chatType.equals("msgChat")) {
+            room = msgChatServce.createChatRoom(roomName,roomPwd, secretChk,maxUserCnt);
+        }else {
+            room = rtcChatService.createChatRoom(roomName, roomPwd, secretChk, maxUserCnt);
+        }
     }
 }
