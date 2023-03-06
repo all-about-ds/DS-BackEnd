@@ -7,10 +7,7 @@ import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.PasswordResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
-import com.ds.ds.domain.auth.service.EmailService;
-import com.ds.ds.domain.auth.service.SignInService;
-import com.ds.ds.domain.auth.service.SignUpService;
-import com.ds.ds.domain.auth.service.TokenReissueService;
+import com.ds.ds.domain.auth.service.*;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -91,7 +88,7 @@ public class AuthController {
      */
     @GetMapping
     public ResponseEntity<PasswordResponse> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
-        SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequeset);
+        SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
         PasswordDto passwordDto = searchPasswordService.search(searchPasswordDto);
         PasswordResponse passwordResponse = authConverter.toResponse(passwordDto);
         return new ResponseEntity<>(passwordResponse, HttpStatus.OK);
