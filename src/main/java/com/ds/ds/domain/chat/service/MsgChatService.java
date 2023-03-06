@@ -22,7 +22,7 @@ public class MsgChatService {
                 .userCount(0)
                 .maxUserCount(maxUserCnt)
                 .build();
-        room.setUserList(new HashMap<String, String>());
+        //room.setUserList(new HashMap<String, String>());
         room.setChatType(ChatRoomDto.ChatType.MSG);
         ChatRoomMap.getInstance().getChatRooms().put(room.getRoomId(), room);
 
