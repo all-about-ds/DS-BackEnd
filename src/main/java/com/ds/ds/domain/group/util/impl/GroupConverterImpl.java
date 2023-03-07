@@ -1,14 +1,12 @@
 package com.ds.ds.domain.group.util.impl;
 
-import com.ds.ds.domain.group.domain.entity.Group;
+import  com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
-import com.ds.ds.domain.group.presentation.data.request.GroupListRequest;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import com.ds.ds.domain.group.util.GroupConverter;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
