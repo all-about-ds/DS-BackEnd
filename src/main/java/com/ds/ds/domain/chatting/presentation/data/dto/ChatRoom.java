@@ -14,7 +14,7 @@ public class ChatRoom {
     private String roomName;
     private Long userCount;
 
-    private HashMap<String,String> userList = new HashMap<String,String>();
+    private final HashMap<String,String> userList = new HashMap<String,String>();
 
     public ChatRoom create(String roomName){
         ChatRoom chatRoom = new ChatRoom();
