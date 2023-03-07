@@ -7,6 +7,7 @@ import com.ds.ds.domain.user.exception.UserNotFoundException;
 import com.ds.ds.domain.user.util.UserUtil;
 import com.ds.ds.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -26,5 +27,11 @@ public class UserUtilImpl implements UserUtil {
         if(!passwordEncoder.matches(requestPassword, userPassword)){
             throw new PasswordNotMatchException(ErrorCode.PASSWORD_NOT_MATCH);
         }
+    }
+
+    @Override
+    public User currentUser(){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return findUserByEmail(email);
     }
 }
