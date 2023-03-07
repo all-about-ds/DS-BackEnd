@@ -1,7 +1,9 @@
 package com.ds.ds.domain.group.presentation;
 
+import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
+import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import com.ds.ds.domain.group.service.FindGroupListService;
@@ -38,9 +40,9 @@ public class GroupController {
     }
 
     @GetMapping("/detail/{group_idx}")
-    public ResponseEntity<GroupResponse> viewGroupDetail(@PathVariable("group_idx")Long groupIdx) {
-        GroupDto groupDto = viewGroupDetailService.viewGroupDetail(groupIdx);
-        GroupResponse groupResponse = groupConverter.toResponse(groupDto);
+    public ResponseEntity<DetailGroupResponse> viewGroupDetail(@PathVariable("group_idx")Long groupIdx) {
+        DetailGroupDto detailGroupDto = viewGroupDetailService.viewGroupDetail(groupIdx);
+        DetailGroupResponse groupResponse = groupConverter.toResponse(detailGroupDto);
         return new ResponseEntity<>(groupResponse, HttpStatus.OK);
     }
 }
