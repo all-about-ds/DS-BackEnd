@@ -10,12 +10,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class SearchPasswordServiceImpl implements SearchPasswordService {
     private final PasswordEncoder passwordEncoder;
     private final UserUtil userUtil;
+
     @Override
+    @Transactional
     public void search(SearchPasswordDto searchPasswordDto) {
         if(!searchPasswordDto.getPassword().equals(searchPasswordDto.getCheckPassword())){
             throw new PasswordNotMatchException(ErrorCode.PASSWORD_NOT_MATCH);
