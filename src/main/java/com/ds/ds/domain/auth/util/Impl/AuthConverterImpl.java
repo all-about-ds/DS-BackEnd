@@ -7,7 +7,7 @@ import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
-import com.ds.ds.domain.auth.presentation.data.response.PasswordResponse;
+import com.ds.ds.domain.auth.presentation.data.response.SendAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.domain.user.domain.entity.User;
@@ -70,6 +70,7 @@ public class AuthConverterImpl implements AuthConverter {
         return AuthCode.builder()
                 .email(email)
                 .code(code)
+                .authentication(false)
                 .build();
     }
 
@@ -93,6 +94,20 @@ public class AuthConverterImpl implements AuthConverter {
                 .email(searchPasswordRequest.getEmail())
                 .password(searchPasswordRequest.getPassword())
                 .checkPassword(searchPasswordRequest.getCheckPassword())
+                .build();
+    }
+
+    @Override
+    public SendAuthCodeDto toDto(AuthCode authCode) {
+        return SendAuthCodeDto.builder()
+                .email(authCode.getEmail())
+                .build();
+    }
+
+    @Override
+    public SendAuthCodeResponse toResponse(SendAuthCodeDto sendAuthCodeDto) {
+        return SendAuthCodeResponse.builder()
+                .email(sendAuthCodeDto.getEmail())
                 .build();
     }
 }

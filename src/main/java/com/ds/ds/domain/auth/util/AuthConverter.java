@@ -7,6 +7,7 @@ import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
+import com.ds.ds.domain.auth.presentation.data.response.SendAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.user.domain.entity.User;
 
@@ -21,4 +22,6 @@ public interface AuthConverter {
     CheckAuthCodeDto toDto(String code);
     CheckAuthCodeResponse toResponse(CheckAuthCodeDto checkAuthCodeDto);
     SearchPasswordDto toDto(SearchPasswordRequest searchPasswordRequest);
+    SendAuthCodeDto toDto(AuthCode authCode);
+    SendAuthCodeResponse toResponse(SendAuthCodeDto sendAuthCodeDto);
 }
