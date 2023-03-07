@@ -1,21 +1,17 @@
 package com.ds.ds.domain.chatting.presentation.data.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ChatDto {
     public enum MessageType{
         ENTER, TALK, LEAVE;
     }
-    private MessageType type;
-    private String roomId;
-    private String sender; //보낸사람
-    private String message;
-    private String time; //채팅 발송 시간
+    private final MessageType type;
+    private final String roomId;
+    private final String sender; //보낸사람
+    private final String message;
+    private final String time; //채팅 발송 시간
 }
