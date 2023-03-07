@@ -1,6 +1,7 @@
 package com.ds.ds.domain.group.util.impl;
 
 import  com.ds.ds.domain.group.domain.entity.Group;
+import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
@@ -24,12 +25,25 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public GroupDto toDto(Group group, Long memberCount) {
-        return GroupDto.builder()
+    public DetailGroupDto toDto(Group group, Long memberCount) {
+        return DetailGroupDto.builder()
                 .groupName(group.getGroupName())
                 .groupImg(group.getGroupImg())
                 .groupDescription(group.getGroupDescription())
                 .groupMemberCount(memberCount)
+                .groupMaxCount(group.getGroupMaxCount())
+                .groupLeaderImg(group.getUser().getProfileImg())
+                .groupLeaderName(group.getUser().getName())
+                .secret(group.isSecret())
+                .build();
+    }
+
+    @Override
+    public GroupDto toDto(Group group) {
+        return GroupDto.builder()
+                .groupName(group.getGroupName())
+                .groupImg(group.getGroupImg())
+                .groupDescription(group.getGroupDescription())
                 .groupMaxCount(group.getGroupMaxCount())
                 .groupLeaderImg(group.getUser().getProfileImg())
                 .groupLeaderName(group.getUser().getName())
