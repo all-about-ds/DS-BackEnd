@@ -22,18 +22,17 @@ public class FindGroupListServiceImpl implements FindGroupListService {
     private final GroupConverter groupConverter;
     @Override
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
-        List<Group> groups;
+        List<GroupDto> groups = getCroupList(dto).stream()
+                .map(group -> groupConverter.toDto(group))
+                .collect(Collectors.toList());
 
-        if(dto.getPageable() == null) {
-            groups = groupRepository.findAll(dto.getPageable()).toList();
+       return groupConverter.toDto(dto.getPageable(), groups);
+    }
+    private List<Group> getCroupList(GroupListSearchRequirementDto dto) {
+        if(dto.getKeyword().isEmpty()) {
+           return groupRepository.findAll(dto.getPageable()).toList();
         } else {
-            groups = groupRepository.findAllByGroupNameContaining(dto.getPageable(), dto.getKeyword().toString()).toList();
+           return groupRepository.findAllByGroupNameContaining(dto.getPageable(), dto.getKeyword().toString()).toList();
         }
-
-       List<GroupDto> result = groups.stream()
-               .map(group -> groupConverter.toDto(group))
-               .collect(Collectors.toList());
-
-       return groupConverter.toDto(dto.getPageable(), result);
     }
 }
