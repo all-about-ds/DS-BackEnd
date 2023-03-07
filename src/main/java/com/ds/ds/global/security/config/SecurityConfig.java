@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/auth/code/**").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/search").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/auth/logout").authenticated()
 
                 //group
                 .antMatchers(HttpMethod.GET, "/group").permitAll()
