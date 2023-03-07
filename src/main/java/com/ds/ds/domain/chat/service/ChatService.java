@@ -46,5 +46,11 @@ public class ChatService {
     public boolean confiemPwd(String roomId, String roomPwd) {
         return roomPwd.equals(ChatRoomMap.getInstance().getChatRooms().get(roomId).getRoomPwd());
     }
+    //방인원 +1
+    public void plusUserCnt(String roomId){
+        log.info("cht{}",ChatRoomMap.getInstance().getChatRooms().get(roomId).getUserCount());
+        ChatRoomDto room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+        room.setUserCount(room.getUserCount()+1);
+    }
 
 }
