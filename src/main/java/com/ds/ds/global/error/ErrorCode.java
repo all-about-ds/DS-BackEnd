@@ -17,6 +17,7 @@ public enum ErrorCode {
     UNSUPPORTED_JWT(401, "지원되지 않는 JWT 토큰입니다."),
     ILLEGAL_ARGUMENT_JWT(401, "JWT 토큰이 잘못되었습니다."),
     USER_NOT_FOUND(404, "유저를 찾을 수 없습니다."),
+    GROUP_NOT_FOUND(404, "그룹을 찾을 수 없습니다."),
     DUPLICATE_NAME(409, "이미 존재하는 닉네임입니다."),
     DUPLICATE_EMAIL(409, "이미 존재하는 이메일입니다."),
     INTERNAL_SERVER_ERROR(500, "internal server error");
