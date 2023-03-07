@@ -11,7 +11,10 @@ import org.kurento.client.MediaPipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PreDestroy;
 import java.io.Closeable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentMap;
 
 @Getter
@@ -52,6 +55,21 @@ public class KurentoRoomDto extends ChatRoomDto implements Closeable {
     }
     public String getRoomId(){
         return roomId;
+    }
+
+    public void createPipline(){
+        this.pipeline = this.kurento.createMediaPipeline();
+    }
+
+    @PreDestroy
+    private void shutdown() {
+        this.close();
+    }
+    public Collection<KurentoUserSession> getParticipants(){
+        return participants.values();
+    }
+    public KurentoUserSession getParticipant(String name) {
+        return participants.get(name);
     }
 }
 
