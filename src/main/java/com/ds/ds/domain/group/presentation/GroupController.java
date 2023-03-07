@@ -39,7 +39,6 @@ public class GroupController {
 
     @GetMapping("/detail/{group_idx}")
     public ResponseEntity<GroupResponse> viewGroupDetail(@PathVariable("group_idx")Long groupIdx) {
-        System.out.println(groupIdx);
         GroupDto groupDto = viewGroupDetailService.viewGroupDetail(groupIdx);
         GroupResponse groupResponse = groupConverter.toResponse(groupDto);
         return new ResponseEntity<>(groupResponse, HttpStatus.OK);
