@@ -67,8 +67,8 @@ public class AuthController {
     기능: 인증번호 확인
      */
     @GetMapping("/code")
-    public ResponseEntity<CheckAuthCodeResponse> code(@RequestParam("code") String code){
-        CheckAuthCodeDto checkAuthCodeDto = emailService.checkAuthCode(code);
+    public ResponseEntity<CheckAuthCodeResponse> code(@RequestParam("code") String code, @RequestParam("email") String email){
+        CheckAuthCodeDto checkAuthCodeDto = emailService.checkAuthCode(code, email);
         CheckAuthCodeResponse checkAuthCodeResponse = authConverter.toResponse(checkAuthCodeDto);
         return new ResponseEntity<>(checkAuthCodeResponse, HttpStatus.OK);
     }
