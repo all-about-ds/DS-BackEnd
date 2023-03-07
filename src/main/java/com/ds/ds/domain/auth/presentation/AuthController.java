@@ -26,6 +26,7 @@ public class AuthController {
     private final EmailService emailService;
     private final TokenReissueService tokenReissueService;
     private final SearchPasswordService searchPasswordService;
+    private final LogoutService logoutService;
 
     /*
     담당자: 노혁
@@ -91,5 +92,15 @@ public class AuthController {
         SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
         searchPasswordService.search(searchPasswordDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /*
+    담당자: 노혁
+    기능: 로그아웃
+     */
+    @DeleteMapping
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String accessToken) {
+        logoutService.logout(accessToken);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
