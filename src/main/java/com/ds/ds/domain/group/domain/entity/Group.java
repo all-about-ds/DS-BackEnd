@@ -25,9 +25,6 @@ public class Group extends BaseIdEntity {
     @Column(name = "group_max_count")
     private Long groupMaxCount;
 
-    private String password;
-
-    private boolean secret;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -35,12 +32,11 @@ public class Group extends BaseIdEntity {
     private User user;
 
     @Builder
-    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, String password) {
+    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount) {
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupImg = groupImg;
         this.groupMaxCount = groupMaxCount;
-        this.password = password;
     }
 
 }
