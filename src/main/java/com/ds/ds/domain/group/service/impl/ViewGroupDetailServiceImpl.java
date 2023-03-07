@@ -3,6 +3,7 @@ package com.ds.ds.domain.group.service.impl;
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
+import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.service.ViewGroupDetailService;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -19,7 +20,7 @@ public class ViewGroupDetailServiceImpl implements ViewGroupDetailService {
     private final MemberRepository memberRepository;
 
     @Override
-    public GroupDto viewGroupDetail(Long groupIdx) {
+    public DetailGroupDto viewGroupDetail(Long groupIdx) {
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
         Long groupMemberCount = memberRepository.countByGroup(group);

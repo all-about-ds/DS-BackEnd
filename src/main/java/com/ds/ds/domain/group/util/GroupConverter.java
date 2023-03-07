@@ -5,6 +5,7 @@ import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
+import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import org.springframework.data.domain.Pageable;
@@ -18,5 +19,6 @@ public interface GroupConverter {
     GroupDto toDto(Group group);
     GroupListDto toDto(Pageable pageable, List<GroupDto> dto);
     GroupResponse toResponse(GroupDto dto);
+    DetailGroupResponse toResponse(DetailGroupDto dto);
     GroupListResponse toResponse(Pageable pageable, List<GroupResponse> response);
 }

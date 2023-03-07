@@ -5,6 +5,7 @@ import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
+import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -62,6 +63,19 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public GroupResponse toResponse(GroupDto dto) {
         return GroupResponse.builder()
+                .groupName(dto.getGroupName())
+                .groupImg(dto.getGroupImg())
+                .groupDescription(dto.getGroupDescription())
+                .groupMaxCount(dto.getGroupMaxCount())
+                .groupLeaderImg(dto.getGroupLeaderImg())
+                .groupLeaderName(dto.getGroupLeaderName())
+                .secret(dto.getSecret())
+                .build();
+    }
+
+    @Override
+    public DetailGroupResponse toResponse(DetailGroupDto dto) {
+        return DetailGroupResponse.builder()
                 .groupName(dto.getGroupName())
                 .groupImg(dto.getGroupImg())
                 .groupDescription(dto.getGroupDescription())
