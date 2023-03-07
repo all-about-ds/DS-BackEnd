@@ -8,6 +8,7 @@ import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.service.*;
 import com.ds.ds.domain.auth.util.AuthConverter;
+import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class AuthController {
     private final EmailService emailService;
     private final TokenReissueService tokenReissueService;
     private final SearchPasswordService searchPasswordService;
+    private final LogoutService logoutService;
 
     /*
     담당자: 노혁
@@ -90,5 +92,16 @@ public class AuthController {
         SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
         searchPasswordService.search(searchPasswordDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /*
+    담당자: 노혁
+    기능: 로그아웃
+     */
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String accessToken) {
+        String token = accessToken.replace("Bearer ", "");
+        logoutService.logout(token);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

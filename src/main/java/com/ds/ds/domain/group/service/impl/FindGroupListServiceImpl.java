@@ -19,23 +19,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FindGroupListServiceImpl implements FindGroupListService {
     private final GroupRepository groupRepository;
-    private final MemberRepository memberRepository;
     private final GroupConverter groupConverter;
     @Override
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
-        List<Group> groups;
-        List<GroupDto> result = new ArrayList<>();
-        if(dto.getPageable() == null) {
-            groups = groupRepository.findAll(dto.getPageable()).toList();
-        } else {
-            groups = groupRepository.findAllByGroupNameContaining(dto.getPageable(), dto.getKeyword().toString()).toList();
-        }
-        List<Long> groupsMemberCount = groups.stream()
-                .map(it -> memberRepository.countByGroup(it))
+        List<GroupDto> groups = getCroupList(dto).stream()
+                .map(group -> groupConverter.toDto(group))
                 .collect(Collectors.toList());
-       for(int i = 0; i < groups.size(); i++) {
-           result.add(groupConverter.toDto(groups.get(i), groupsMemberCount.get(i)));
-       }
-       return groupConverter.toDto(dto.getPageable(), result);
+
+       return groupConverter.toDto(dto.getPageable(), groups);
+    }
+    private List<Group> getCroupList(GroupListSearchRequirementDto dto) {
+        if(dto.getKeyword().isEmpty()) {
+           return groupRepository.findAll(dto.getPageable()).toList();
+        } else {
+           return groupRepository.findAllByGroupNameContaining(dto.getPageable(), dto.getKeyword().toString()).toList();
+        }
     }
 }

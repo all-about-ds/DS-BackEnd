@@ -20,6 +20,8 @@ public enum ErrorCode {
     GROUP_NOT_FOUND(404, "그룹을 찾을 수 없습니다."),
     DUPLICATE_NAME(409, "이미 존재하는 닉네임입니다."),
     DUPLICATE_EMAIL(409, "이미 존재하는 이메일입니다."),
+    BLACKLIST_ALREADY_EXIST(409, "블랙리스트에 이미 등록되어있습니다."),
+
     INTERNAL_SERVER_ERROR(500, "internal server error");
 
     private final int status;
