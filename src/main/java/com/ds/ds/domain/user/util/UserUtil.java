@@ -6,4 +6,5 @@ public interface UserUtil {
     User findUserByEmail(String email);
 
     void checkPassword(String userPassword,String password);
+    User currentUser();
 }
