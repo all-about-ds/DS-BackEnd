@@ -70,7 +70,7 @@ public class AuthConverterImpl implements AuthConverter {
         return AuthCode.builder()
                 .email(email)
                 .code(code)
-                .authentication(false)
+                .authentication(true)
                 .build();
     }
 
