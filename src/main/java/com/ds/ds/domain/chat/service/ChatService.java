@@ -57,4 +57,15 @@ public class ChatService {
         ChatRoomDto room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
         room.setUserCount(room.getUserCount()-1);
     }
+    // maxUserCnt 에 따른 채팅방 입장 여부
+    public boolean chkRoomUserCnt(String roomId){
+        ChatRoomDto room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+
+
+        if (room.getUserCount() + 1 > room.getMaxUserCount()) {
+            return false;
+        }
+
+        return true;
+    }
 }
