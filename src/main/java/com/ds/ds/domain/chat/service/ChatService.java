@@ -42,4 +42,9 @@ public class ChatService {
         }
         return room;
     }
+    //채팅방 비밀번호 조회
+    public boolean confiemPwd(String roomId, String roomPwd) {
+        return roomPwd.equals(ChatRoomMap.getInstance().getChatRooms().get(roomId).getRoomPwd());
+    }
+
 }
