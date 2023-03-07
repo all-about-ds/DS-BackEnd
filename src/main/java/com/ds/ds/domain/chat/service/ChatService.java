@@ -52,5 +52,9 @@ public class ChatService {
         ChatRoomDto room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
         room.setUserCount(room.getUserCount()+1);
     }
-
+    //방인원 -1
+    public void minusUserCnt(String roomId){
+        ChatRoomDto room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+        room.setUserCount(room.getUserCount()-1);
+    }
 }
