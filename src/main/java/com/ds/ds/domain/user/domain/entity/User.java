@@ -32,4 +32,8 @@ public class User extends BaseIdEntity {
         this.password = password;
         this.profileImg = profileImg;
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }

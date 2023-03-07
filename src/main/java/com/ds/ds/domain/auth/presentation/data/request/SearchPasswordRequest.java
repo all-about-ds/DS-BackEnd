@@ -1,13 +1,12 @@
 package com.ds.ds.domain.auth.presentation.data.request;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class SignInRequest {
+public class SearchPasswordRequest {
     private final String email;
     private final String password;
+    private final String checkPassword;
 }
-
