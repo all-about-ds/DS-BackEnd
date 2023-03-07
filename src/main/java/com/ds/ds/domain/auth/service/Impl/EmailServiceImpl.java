@@ -67,12 +67,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public CheckAuthCodeDto checkAuthCode(String authCode) {
+    public CheckAuthCodeDto checkAuthCode(String authCode, String email) {
         if(!authCode.equals(code)){
             throw new InValidAuthCodeException(ErrorCode.INVALID_AUTH_CODE);
         }
-        AuthCode findAuthCode = authCodeRepository.findByCode(authCode);
-        return authConverter.toDto(findAuthCode.getEmail());
+        return authConverter.toDto(email);
     }
 
     private String setContext(String code) {
