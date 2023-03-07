@@ -1,14 +1,13 @@
 package com.ds.ds.domain.auth.presentation;
 
 import com.ds.ds.domain.auth.presentation.data.dto.*;
+import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
+import com.ds.ds.domain.auth.presentation.data.response.PasswordResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
-import com.ds.ds.domain.auth.service.EmailService;
-import com.ds.ds.domain.auth.service.SignInService;
-import com.ds.ds.domain.auth.service.SignUpService;
-import com.ds.ds.domain.auth.service.TokenReissueService;
+import com.ds.ds.domain.auth.service.*;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +25,7 @@ public class AuthController {
     private final SignUpService signUpService;
     private final EmailService emailService;
     private final TokenReissueService tokenReissueService;
+    private final SearchPasswordService searchPasswordService;
 
     /*
     담당자: 노혁
@@ -82,4 +82,14 @@ public class AuthController {
         return new ResponseEntity<>(tokenResponse, HttpStatus.OK);
     }
 
+    /*
+    담당자: 노혁
+    기능: 비밀번호 찾기
+     */
+    @PostMapping("/search")
+    public ResponseEntity<Void> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
+        SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
+        searchPasswordService.search(searchPasswordDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
