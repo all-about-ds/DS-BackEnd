@@ -84,6 +84,12 @@ public class JwtProvider {
         return getTokenBody(token, tokenType).getSubject();
     }
 
+    public Long getExpiration(String accessToken) {
+        Date expiration = getTokenBody(accessToken, TokenType.ACCESS_TOKEN).getExpiration();
+        long now = new Date().getTime();
+        return (expiration.getTime() - now);
+    }
+
     private Claims getTokenBody(String token, TokenType tokenType){
         return Jwts.parserBuilder()
                 .setSigningKey(getKeyByTokenType(tokenType))
