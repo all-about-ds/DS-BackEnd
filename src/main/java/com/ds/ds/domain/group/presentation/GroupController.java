@@ -2,13 +2,11 @@ package com.ds.ds.domain.group.presentation;
 
 import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
+import com.ds.ds.domain.group.presentation.data.dto.GroupMainDto;
 import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
-import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
-import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
-import com.ds.ds.domain.group.presentation.data.response.GroupMainResponse;
-import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
+import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.service.*;
 import com.ds.ds.domain.group.util.GroupConverter;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +52,15 @@ public class GroupController {
 
     @GetMapping("/information/{group-idx}")
     public ResponseEntity<GroupMainResponse> findGroupMain(@PathVariable("group-idx") Long groupIdx) {
+        GroupMainDto dto = findGroupMainService.findGroupMain(groupIdx);
 
+        List<MemberResponse> responses = dto.getMemberList().stream()
+                .map(member -> groupConverter.toResponse(member))
+                .collect(Collectors.toList());
+        
+        GroupMainResponse response = groupConverter.toResponse(dto, responses);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PatchMapping("{group-idx}")

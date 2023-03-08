@@ -108,7 +108,7 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public GroupMainResponse toResponse(GroupDto dto, List<MemberResponse> memberDto) {
+    public GroupMainResponse toResponse(GroupMainDto dto, List<MemberResponse> memberDto) {
         return GroupMainResponse.builder()
                 .idx(dto.getIdx())
                 .groupName(dto.getGroupName())

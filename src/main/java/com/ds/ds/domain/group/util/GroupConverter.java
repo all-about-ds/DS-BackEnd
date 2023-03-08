@@ -24,8 +24,9 @@ public interface GroupConverter {
     GroupResponse toResponse(GroupDto dto);
     DetailGroupResponse toResponse(DetailGroupDto dto);
     MemberResponse toResponse(MemberDto dto);
-    GroupMainResponse toResponse(GroupDto dto, List<MemberResponse> memberResponses);
+    GroupMainResponse toResponse(GroupMainDto dto, List<MemberResponse> memberResponses);
     GroupListResponse toResponse(Pageable pageable, List<GroupResponse> response);
     Group toEntity(CreateGroupDto dto, User user);
     GroupSecret toEntity(Group entity, String password);
+
 }

@@ -1,7 +1,7 @@
 package com.ds.ds.domain.group.service;
 
-import com.ds.ds.domain.group.presentation.data.response.GroupMainResponse;
+import com.ds.ds.domain.group.presentation.data.dto.GroupMainDto;
 
 public interface FindGroupMainService {
-    GroupMainResponse findGroupMain(Long groupIdx);
+    GroupMainDto findGroupMain(Long groupIdx);
 }
