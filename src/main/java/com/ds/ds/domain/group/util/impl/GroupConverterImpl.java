@@ -1,10 +1,8 @@
 package com.ds.ds.domain.group.util.impl;
 
 import  com.ds.ds.domain.group.domain.entity.Group;
-import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
+import com.ds.ds.domain.group.presentation.data.dto.*;
+import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
@@ -22,6 +20,18 @@ public class GroupConverterImpl implements GroupConverter {
         return GroupListSearchRequirementDto.builder()
                 .pageable(pageable)
                 .keyword(keyword)
+                .build();
+    }
+
+    @Override
+    public CreateGroupDto toDto(CreateGroupRequest request) {
+        return CreateGroupDto.builder()
+                .groupName(request.getGroupName())
+                .groupDescription(request.getGroupDescription())
+                .groupMaxCount(request.getGroupMaxCount())
+                .groupImg(request.getGroupImg())
+                .secret(request.getSecret())
+                .password(request.getPassword())
                 .build();
     }
 

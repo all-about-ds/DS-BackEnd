@@ -1,10 +1,8 @@
 package com.ds.ds.domain.group.util;
 
 import com.ds.ds.domain.group.domain.entity.Group;
-import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
+import com.ds.ds.domain.group.presentation.data.dto.*;
+import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
@@ -15,6 +13,7 @@ import java.util.Optional;
 
 public interface GroupConverter {
     GroupListSearchRequirementDto toDto(Pageable pageable, Optional<String> keyword);
+    CreateGroupDto toDto(CreateGroupRequest request);
     DetailGroupDto toDto(Group group, Long memberCount);
     GroupDto toDto(Group group);
     GroupListDto toDto(Pageable pageable, List<GroupDto> dto);
