@@ -1,10 +1,14 @@
 package com.ds.ds.domain.chatting.presentation.data.dto;
 
+import com.ds.ds.domain.chatting.config.WebSocketConfig;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -16,6 +20,7 @@ public class ChatRoom {
     private Long userCount;
 
     private final HashMap<String,String> userList = new HashMap<String,String>();
+    private Set<WebSocketSession> sessions = new HashSet<>();
 
     public static ChatRoom create(String roomName){
         ChatRoom chatRoom = new ChatRoom();
