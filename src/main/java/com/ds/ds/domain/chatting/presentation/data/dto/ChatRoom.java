@@ -2,11 +2,13 @@ package com.ds.ds.domain.chatting.presentation.data.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 public class ChatRoom {
     private String roomId;

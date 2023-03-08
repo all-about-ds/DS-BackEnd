@@ -13,7 +13,7 @@ public class StompChatController {
     //클라이언트가 Send할 수 있는 경로
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatDto message){
-        message.seta(message.getWriter() + "님이 채팅방에 참여하였습니다");
+        message.(message.getWriter() + "님이 채팅방에 참여하였습니다");
         template.convertAndSend("sub/chat/room/" + message.getRoomId(), message);
 
     }

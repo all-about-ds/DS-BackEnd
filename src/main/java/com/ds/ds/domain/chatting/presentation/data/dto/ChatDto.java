@@ -4,6 +4,7 @@ import lombok.*;
 
 @Getter
 @Builder
+@Setter
 @RequiredArgsConstructor
 public class ChatDto {
     public enum MessageType{
