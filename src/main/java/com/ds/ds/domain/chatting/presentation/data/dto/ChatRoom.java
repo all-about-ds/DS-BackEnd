@@ -1,6 +1,5 @@
 package com.ds.ds.domain.chatting.presentation.data.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
