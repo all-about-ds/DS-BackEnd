@@ -12,6 +12,7 @@ public enum ErrorCode {
     INVALID_AUTH_CODE(400, "올바르지 않는 인증코드입니다."),
     NOT_AUTHENTICATED(400, "인증되지 않는 이메일입니다."),
     NOT_FOUND_EMAIL(400, "존재하지 않는 이메일입니다."),
+    NOT_BOSS(400, "방장이 아닙니다."),
     EXPIRED_TOKEN(401, "만료된 토큰 입니다."),
     INVALID_TOKEN(401, "유효하지 않는 토큰입니다."),
     UNAUTHORIZED(401, "권한이 없습니다."),
