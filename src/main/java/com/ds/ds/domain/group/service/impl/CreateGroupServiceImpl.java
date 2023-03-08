@@ -27,7 +27,7 @@ public class CreateGroupServiceImpl implements CreateGroupService {
         Group group = groupConverter.toEntity(dto, user);
 
         groupRepository.save(group);
-        
+
         if(dto.getSecret()) {
             groupSecretRepository.save(groupConverter.toEntity(group, dto.getPassword().toString()));
         }
