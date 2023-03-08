@@ -4,9 +4,11 @@ import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
 import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
+import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
+import com.ds.ds.domain.group.service.CreateGroupService;
 import com.ds.ds.domain.group.service.FindGroupListService;
 import com.ds.ds.domain.group.service.UpdateGroupService;
 import com.ds.ds.domain.group.service.ViewGroupDetailService;
@@ -29,6 +31,7 @@ public class GroupController {
     private final GroupConverter groupConverter;
     private final FindGroupListService findGroupListService;
     private final ViewGroupDetailService viewGroupDetailService;
+    private final CreateGroupService createGroupService;
     private final UpdateGroupService updateGroupService;
 
     @GetMapping
@@ -54,5 +57,11 @@ public class GroupController {
         UpdateGroupDto updateGroupDto = groupConverter.toDto(updateGroupRequest);
         updateGroupService.updateGroup(groupIdx, updateGroupDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
+        createGroupService.createGroup(groupConverter.toDto(request));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

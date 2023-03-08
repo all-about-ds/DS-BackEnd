@@ -17,10 +17,13 @@ public class AuthCode {
     private String email;
     @Indexed
     private String code;
+    @Indexed
+    private boolean authentication;
 
     @Builder
-    public AuthCode(String email, String code){
+    public AuthCode(String email, String code, boolean authentication){
         this.email = email;
         this.code = code;
+        this.authentication = authentication;
     }
 }

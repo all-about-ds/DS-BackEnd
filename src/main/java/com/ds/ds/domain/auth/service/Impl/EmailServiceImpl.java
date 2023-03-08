@@ -4,6 +4,7 @@ import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
 import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
 import com.ds.ds.domain.auth.presentation.data.dto.CheckAuthCodeDto;
+import com.ds.ds.domain.auth.presentation.data.dto.SendAuthCodeDto;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.global.error.ErrorCode;
@@ -55,21 +56,22 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendSimpleMessage(String to)throws Exception {
+    public SendAuthCodeDto sendSimpleMessage(String to)throws Exception {
         MimeMessage message = createMessage(to);
         javaMailSender.send(message); // 메일 발송
 
         AuthCode authCode = authConverter.toEntity(to, code);
         authCodeRepository.save(authCode);
+
+        return authConverter.toDto(authCode);
     }
 
     @Override
-    public CheckAuthCodeDto checkAuthCode(String authCode) {
+    public CheckAuthCodeDto checkAuthCode(String authCode, String email) {
         if(!authCode.equals(code)){
             throw new InValidAuthCodeException(ErrorCode.INVALID_AUTH_CODE);
         }
-        AuthCode findAuthCode = authCodeRepository.findByCode(authCode);
-        return authConverter.toDto(findAuthCode.getEmail());
+        return authConverter.toDto(email);
     }
 
     private String setContext(String code) {
