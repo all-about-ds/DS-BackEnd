@@ -5,9 +5,7 @@ import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
-import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
-import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
-import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
+import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.data.domain.Pageable;
@@ -55,6 +53,7 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public GroupDto toDto(Group group) {
         return GroupDto.builder()
+                .idx(group.getIdx())
                 .groupName(group.getGroupName())
                 .groupImg(group.getGroupImg())
                 .groupDescription(group.getGroupDescription())
@@ -76,6 +75,7 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public GroupResponse toResponse(GroupDto dto) {
         return GroupResponse.builder()
+                .idx(dto.getIdx())
                 .groupName(dto.getGroupName())
                 .groupImg(dto.getGroupImg())
                 .groupDescription(dto.getGroupDescription())
@@ -97,6 +97,26 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupLeaderImg(dto.getGroupLeaderImg())
                 .groupLeaderName(dto.getGroupLeaderName())
                 .secret(dto.getSecret())
+                .build();
+    }
+
+    @Override
+    public MemberResponse toResponse(MemberDto dto) {
+        return MemberResponse.builder()
+                .idx(dto.getIdx())
+                .name(dto.getName())
+                .profileImg(dto.getProfileImg())
+                .build();
+    }
+
+    @Override
+    public GroupMainResponse toResponse(GroupMainDto dto, List<MemberResponse> memberDto) {
+        return GroupMainResponse.builder()
+                .idx(dto.getIdx())
+                .groupName(dto.getGroupName())
+                .groupDescription(dto.getGroupDescription())
+                .groupImg(dto.getGroupImg())
+                .memberList(memberDto)
                 .build();
     }
 
@@ -138,6 +158,26 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupMaxCount(updateGroupRequest.getGroupMaxCount())
                 .secret(updateGroupRequest.getSecret())
                 .password(updateGroupRequest.getPassword())
+                .build();
+    }
+
+    @Override
+    public MemberDto toDto(User user) {
+        return MemberDto.builder()
+                .idx(user.getIdx())
+                .name(user.getName())
+                .profileImg(user.getProfileImg())
+                .build();
+    }
+
+    @Override
+    public GroupMainDto toDto(Group group, List<MemberDto> list) {
+        return GroupMainDto.builder()
+                .idx(group.getIdx())
+                .groupName(group.getGroupName())
+                .groupDescription(group.getGroupDescription())
+                .groupImg(group.getGroupImg())
+                .memberList(list)
                 .build();
     }
 }

@@ -19,6 +19,7 @@ public enum ErrorCode {
     INVALID_JWT_SIGNATURE(401, "올발지 않는 서명입니다."),
     UNSUPPORTED_JWT(401, "지원되지 않는 JWT 토큰입니다."),
     ILLEGAL_ARGUMENT_JWT(401, "JWT 토큰이 잘못되었습니다."),
+    USER_NOT_MEMBER(403,"멤버가 아닙니다."),
     USER_NOT_FOUND(404, "유저를 찾을 수 없습니다."),
     GROUP_NOT_FOUND(404, "그룹을 찾을 수 없습니다."),
     DUPLICATE_NAME(409, "이미 존재하는 닉네임입니다."),

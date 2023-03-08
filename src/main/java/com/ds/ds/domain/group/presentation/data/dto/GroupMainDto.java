@@ -4,16 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class GroupDto {
+public class GroupMainDto {
     private final Long idx;
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;
-    private final Long groupMaxCount;
-    private final String groupLeaderImg;
-    private final String groupLeaderName;
-    private final Boolean secret;
+    private final List<MemberDto> memberList;
 }
