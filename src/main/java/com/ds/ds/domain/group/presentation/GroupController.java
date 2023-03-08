@@ -57,7 +57,7 @@ public class GroupController {
         List<MemberResponse> responses = dto.getMemberList().stream()
                 .map(member -> groupConverter.toResponse(member))
                 .collect(Collectors.toList());
-        
+
         GroupMainResponse response = groupConverter.toResponse(dto, responses);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
