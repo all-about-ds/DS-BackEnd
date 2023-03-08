@@ -51,7 +51,7 @@ public class GroupController {
 
     @PostMapping
     public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
-        createGroupService.createClub(groupConverter.toDto(request));
+        createGroupService.createGroup(groupConverter.toDto(request));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
