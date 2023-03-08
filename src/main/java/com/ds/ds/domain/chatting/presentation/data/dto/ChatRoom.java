@@ -16,7 +16,7 @@ public class ChatRoom {
 
     private final HashMap<String,String> userList = new HashMap<String,String>();
 
-    public ChatRoom create(String roomName){
+    public static ChatRoom create(String roomName){
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.roomId = UUID.randomUUID().toString();
         chatRoom.roomName =roomName;
