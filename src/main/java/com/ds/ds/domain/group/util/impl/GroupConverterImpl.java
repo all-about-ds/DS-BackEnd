@@ -53,6 +53,7 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public GroupDto toDto(Group group) {
         return GroupDto.builder()
+                .idx(group.getIdx())
                 .groupName(group.getGroupName())
                 .groupImg(group.getGroupImg())
                 .groupDescription(group.getGroupDescription())
@@ -74,6 +75,7 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public GroupResponse toResponse(GroupDto dto) {
         return GroupResponse.builder()
+                .idx(dto.getIdx())
                 .groupName(dto.getGroupName())
                 .groupImg(dto.getGroupImg())
                 .groupDescription(dto.getGroupDescription())
