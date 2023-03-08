@@ -33,12 +33,13 @@ public class Group extends BaseIdEntity {
     private User user;
 
     @Builder
-    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, boolean secret) {
+    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, boolean secret, User user) {
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupImg = groupImg;
         this.groupMaxCount = groupMaxCount;
         this.secret = secret;
+        this.user = user;
     }
 
 }

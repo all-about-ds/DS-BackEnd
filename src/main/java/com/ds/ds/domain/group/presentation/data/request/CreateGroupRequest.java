@@ -11,7 +11,7 @@ public class CreateGroupRequest {
     private final String groupName;
     private final String groupDescription;
     private final String groupImg;
-    private final Integer groupMaxCount;
+    private final Long groupMaxCount;
     private final Boolean secret;
     private final Optional<String> password;
 }
