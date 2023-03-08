@@ -5,10 +5,10 @@ import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
+import com.ds.ds.domain.auth.presentation.data.response.SendAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.auth.service.*;
 import com.ds.ds.domain.auth.util.AuthConverter;
-import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +56,10 @@ public class AuthController {
     기능: 인증번호 전송
      */
     @PostMapping("/email")
-    public ResponseEntity<Void> email(@RequestParam("email") String email) throws Exception {
-        emailService.sendSimpleMessage(email);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<SendAuthCodeResponse> email(@RequestParam("email") String email) throws Exception {
+        SendAuthCodeDto sendAuthCodeDto = emailService.sendSimpleMessage(email);
+        SendAuthCodeResponse sendAuthCodeResponse = authConverter.toResponse(sendAuthCodeDto);
+        return new ResponseEntity<>(sendAuthCodeResponse, HttpStatus.OK);
     }
 
     /*
@@ -66,8 +67,8 @@ public class AuthController {
     기능: 인증번호 확인
      */
     @GetMapping("/code")
-    public ResponseEntity<CheckAuthCodeResponse> code(@RequestParam("code") String code){
-        CheckAuthCodeDto checkAuthCodeDto = emailService.checkAuthCode(code);
+    public ResponseEntity<CheckAuthCodeResponse> code(@RequestParam("code") String code, @RequestParam("email") String email){
+        CheckAuthCodeDto checkAuthCodeDto = emailService.checkAuthCode(code, email);
         CheckAuthCodeResponse checkAuthCodeResponse = authConverter.toResponse(checkAuthCodeDto);
         return new ResponseEntity<>(checkAuthCodeResponse, HttpStatus.OK);
     }
