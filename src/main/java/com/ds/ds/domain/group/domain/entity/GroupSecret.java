@@ -2,6 +2,7 @@ package com.ds.ds.domain.group.domain.entity;
 
 import com.ds.ds.global.common.entity.BaseIdEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -21,5 +22,11 @@ public class GroupSecret extends BaseIdEntity {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    private Long password;
+    private String password;
+
+    @Builder
+    public GroupSecret(Group group, String password) {
+        this.group = group;
+        this.password = password;
+    }
 }

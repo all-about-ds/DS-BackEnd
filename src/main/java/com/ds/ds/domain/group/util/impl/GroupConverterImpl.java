@@ -1,14 +1,14 @@
 package com.ds.ds.domain.group.util.impl;
 
 import  com.ds.ds.domain.group.domain.entity.Group;
-import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
+import com.ds.ds.domain.group.domain.entity.GroupSecret;
+import com.ds.ds.domain.group.presentation.data.dto.*;
+import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import com.ds.ds.domain.group.util.GroupConverter;
+import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +22,18 @@ public class GroupConverterImpl implements GroupConverter {
         return GroupListSearchRequirementDto.builder()
                 .pageable(pageable)
                 .keyword(keyword)
+                .build();
+    }
+
+    @Override
+    public CreateGroupDto toDto(CreateGroupRequest request) {
+        return CreateGroupDto.builder()
+                .groupName(request.getGroupName())
+                .groupDescription(request.getGroupDescription())
+                .groupMaxCount(request.getGroupMaxCount())
+                .groupImg(request.getGroupImg())
+                .secret(request.getSecret())
+                .password(request.getPassword())
                 .build();
     }
 
@@ -93,6 +105,26 @@ public class GroupConverterImpl implements GroupConverter {
                 .size(pageable.getPageSize())
                 .page(pageable.getPageNumber())
                 .groups(response)
+                .build();
+    }
+
+    @Override
+    public Group toEntity(CreateGroupDto dto, User user) {
+        return Group.builder()
+                .groupName(dto.getGroupName())
+                .groupDescription(dto.getGroupDescription())
+                .groupMaxCount(dto.getGroupMaxCount())
+                .groupImg(dto.getGroupImg())
+                .secret(dto.getSecret())
+                .user(user)
+                .build();
+    }
+
+    @Override
+    public GroupSecret toEntity(Group group, String password) {
+        return GroupSecret.builder()
+                .group(group)
+                .password(password)
                 .build();
     }
 }

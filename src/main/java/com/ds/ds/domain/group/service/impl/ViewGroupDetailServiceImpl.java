@@ -11,6 +11,7 @@ import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import com.ds.ds.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class ViewGroupDetailServiceImpl implements ViewGroupDetailService {
     private final MemberRepository memberRepository;
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public DetailGroupDto viewGroupDetail(Long groupIdx) {
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));

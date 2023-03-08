@@ -3,9 +3,11 @@ package com.ds.ds.domain.group.presentation;
 import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
+import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
+import com.ds.ds.domain.group.service.CreateGroupService;
 import com.ds.ds.domain.group.service.FindGroupListService;
 import com.ds.ds.domain.group.service.ViewGroupDetailService;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -27,6 +29,7 @@ public class GroupController {
     private final GroupConverter groupConverter;
     private final FindGroupListService findGroupListService;
     private final ViewGroupDetailService viewGroupDetailService;
+    private final CreateGroupService createGroupService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -44,5 +47,11 @@ public class GroupController {
         DetailGroupDto detailGroupDto = viewGroupDetailService.viewGroupDetail(groupIdx);
         DetailGroupResponse groupResponse = groupConverter.toResponse(detailGroupDto);
         return new ResponseEntity<>(groupResponse, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
+        createGroupService.createGroup(groupConverter.toDto(request));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
