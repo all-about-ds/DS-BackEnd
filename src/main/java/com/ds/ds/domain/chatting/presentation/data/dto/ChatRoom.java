@@ -1,6 +1,5 @@
 package com.ds.ds.domain.chatting.presentation.data.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +15,7 @@ public class ChatRoom {
 
     private final HashMap<String,String> userList = new HashMap<String,String>();
 
-    public ChatRoom create(String roomName){
+    public static ChatRoom create(String roomName){
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.roomId = UUID.randomUUID().toString();
         chatRoom.roomName =roomName;
