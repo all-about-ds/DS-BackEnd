@@ -8,10 +8,7 @@ import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
-import com.ds.ds.domain.group.service.CreateGroupService;
-import com.ds.ds.domain.group.service.FindGroupListService;
-import com.ds.ds.domain.group.service.UpdateGroupService;
-import com.ds.ds.domain.group.service.ViewGroupDetailService;
+import com.ds.ds.domain.group.service.*;
 import com.ds.ds.domain.group.util.GroupConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +30,7 @@ public class GroupController {
     private final ViewGroupDetailService viewGroupDetailService;
     private final CreateGroupService createGroupService;
     private final UpdateGroupService updateGroupService;
+    private final DeleteGroupService deleteGroupService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -62,6 +60,12 @@ public class GroupController {
     @PostMapping
     public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("{group-idx}")
+    public ResponseEntity<Void> deleteGroup(@PathVariable("group-idx")Long groupIdx){
+        deleteGroupService.deleteGroup(groupIdx);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
