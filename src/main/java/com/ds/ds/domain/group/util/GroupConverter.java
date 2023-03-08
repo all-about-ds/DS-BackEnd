@@ -4,6 +4,7 @@ import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
+import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 public interface GroupConverter {
     GroupListSearchRequirementDto toDto(Pageable pageable, Optional<String> keyword);
+    UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest);
     CreateGroupDto toDto(CreateGroupRequest request);
     DetailGroupDto toDto(Group group, Long memberCount);
     GroupDto toDto(Group group);

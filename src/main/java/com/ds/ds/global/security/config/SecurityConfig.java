@@ -49,6 +49,8 @@ public class SecurityConfig {
                 //group
                 .antMatchers(HttpMethod.GET, "/group").permitAll()
                 .antMatchers(HttpMethod.GET, "/group/detail/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/group").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/group/**").authenticated()
 
                 .anyRequest().denyAll()
 

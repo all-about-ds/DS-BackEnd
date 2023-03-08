@@ -1,14 +1,16 @@
 package com.ds.ds.domain.group.presentation;
 
 import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
 import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
+import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
+import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import com.ds.ds.domain.group.service.CreateGroupService;
 import com.ds.ds.domain.group.service.FindGroupListService;
+import com.ds.ds.domain.group.service.UpdateGroupService;
 import com.ds.ds.domain.group.service.ViewGroupDetailService;
 import com.ds.ds.domain.group.util.GroupConverter;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class GroupController {
     private final FindGroupListService findGroupListService;
     private final ViewGroupDetailService viewGroupDetailService;
     private final CreateGroupService createGroupService;
+    private final UpdateGroupService updateGroupService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -42,16 +45,23 @@ public class GroupController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/detail/{group_idx}")
-    public ResponseEntity<DetailGroupResponse> viewGroupDetail(@PathVariable("group_idx")Long groupIdx) {
+    @GetMapping("/detail/{group-idx}")
+    public ResponseEntity<DetailGroupResponse> viewGroupDetail(@PathVariable("group-idx")Long groupIdx) {
         DetailGroupDto detailGroupDto = viewGroupDetailService.viewGroupDetail(groupIdx);
         DetailGroupResponse groupResponse = groupConverter.toResponse(detailGroupDto);
         return new ResponseEntity<>(groupResponse, HttpStatus.OK);
     }
 
+    @PatchMapping("{group-idx}")
+    public ResponseEntity<Void> updateGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody UpdateGroupRequest updateGroupRequest){
+        UpdateGroupDto updateGroupDto = groupConverter.toDto(updateGroupRequest);
+        updateGroupService.updateGroup(groupIdx, updateGroupDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

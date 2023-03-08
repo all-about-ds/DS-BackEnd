@@ -1,5 +1,6 @@
 package com.ds.ds.domain.group.domain.entity;
 
+import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.global.common.entity.BaseIdEntity;
 import lombok.AccessLevel;
@@ -42,4 +43,11 @@ public class Group extends BaseIdEntity {
         this.user = user;
     }
 
+    public void updateGroup(UpdateGroupDto updateGroupDto) {
+        this.groupDescription = updateGroupDto.getGroupDescription();
+        this.groupImg = updateGroupDto.getGroupImg();
+        this.groupMaxCount = updateGroupDto.getGroupMaxCount();
+        this.secret = updateGroupDto.getSecret();
+        this.groupName = updateGroupDto.getGroupName();
+    }
 }

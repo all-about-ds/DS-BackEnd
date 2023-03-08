@@ -4,6 +4,7 @@ import  com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
+import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
@@ -125,6 +126,18 @@ public class GroupConverterImpl implements GroupConverter {
         return GroupSecret.builder()
                 .group(group)
                 .password(password)
+                .build();
+    }
+
+    @Override
+    public UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest) {
+        return UpdateGroupDto.builder()
+                .groupDescription(updateGroupRequest.getGroupDescription())
+                .groupName(updateGroupRequest.getGroupName())
+                .groupImg(updateGroupRequest.getGroupImg())
+                .groupMaxCount(updateGroupRequest.getGroupMaxCount())
+                .secret(updateGroupRequest.getSecret())
+                .password(updateGroupRequest.getPassword())
                 .build();
     }
 }
