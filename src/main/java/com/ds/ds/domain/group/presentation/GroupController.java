@@ -62,6 +62,6 @@ public class GroupController {
     @PostMapping
     public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
