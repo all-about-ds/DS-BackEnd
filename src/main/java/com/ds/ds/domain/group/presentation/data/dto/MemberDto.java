@@ -10,5 +10,5 @@ import lombok.RequiredArgsConstructor;
 public class MemberDto {
     private final Long idx;
     private final String name;
-    private final String img;
+    private final String profileImg;
 }

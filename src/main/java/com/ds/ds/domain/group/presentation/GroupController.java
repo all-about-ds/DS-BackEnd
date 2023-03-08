@@ -7,6 +7,7 @@ import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
+import com.ds.ds.domain.group.presentation.data.response.GroupMainResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
 import com.ds.ds.domain.group.service.*;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -31,6 +32,7 @@ public class GroupController {
     private final CreateGroupService createGroupService;
     private final UpdateGroupService updateGroupService;
     private final DeleteGroupService deleteGroupService;
+    private final FindGroupMainService findGroupMainService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -48,6 +50,11 @@ public class GroupController {
         DetailGroupDto detailGroupDto = viewGroupDetailService.viewGroupDetail(groupIdx);
         DetailGroupResponse groupResponse = groupConverter.toResponse(detailGroupDto);
         return new ResponseEntity<>(groupResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/information/{group-idx}")
+    public ResponseEntity<GroupMainResponse> findGroupMain(@PathVariable("group-idx") Long groupIdx) {
+
     }
 
     @PatchMapping("{group-idx}")

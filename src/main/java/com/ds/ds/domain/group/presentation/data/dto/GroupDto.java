@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 public class GroupDto {
+    private final Long idx;
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;

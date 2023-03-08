@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 @RequiredArgsConstructor
 public class GroupMainResponse {
+    private final Long idx;
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;
