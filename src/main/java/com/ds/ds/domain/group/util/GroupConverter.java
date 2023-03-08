@@ -1,10 +1,8 @@
 package com.ds.ds.domain.group.util;
 
 import com.ds.ds.domain.group.domain.entity.Group;
-import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDto;
+import com.ds.ds.domain.group.presentation.data.dto.*;
+import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.DetailGroupResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupListResponse;
 import com.ds.ds.domain.group.presentation.data.response.GroupResponse;
@@ -21,4 +19,5 @@ public interface GroupConverter {
     GroupResponse toResponse(GroupDto dto);
     DetailGroupResponse toResponse(DetailGroupDto dto);
     GroupListResponse toResponse(Pageable pageable, List<GroupResponse> response);
+    UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest);
 }
