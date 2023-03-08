@@ -3,6 +3,8 @@ package com.ds.ds.domain.group.presentation.data.request;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @Getter
 @RequiredArgsConstructor
 public class UpdateGroupRequest {
@@ -11,5 +13,5 @@ public class UpdateGroupRequest {
     private final String groupImg;
     private final Long groupMaxCount;
     private final Boolean secret;
-    private final String password;
+    private final Optional<String> password;
 }

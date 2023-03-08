@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @Getter
 @Builder
 @RequiredArgsConstructor
@@ -13,5 +15,5 @@ public class UpdateGroupDto {
     private final String groupImg;
     private final Long groupMaxCount;
     private final Boolean secret;
-    private final String password;
+    private final Optional<String> password;
 }
