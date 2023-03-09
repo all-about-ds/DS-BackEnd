@@ -23,11 +23,7 @@ public class UserConverterImpl implements UserConverter {
 
     @Override
     public UserDto.GroupDto toDto(Group group) {
-        return UserDto.GroupDto.builder()
-                .idx(group.getIdx())
-                .name(group.getGroupName())
-                .img(group.getGroupImg())
-                .build();
+        return new UserDto.GroupDto(group.getIdx(), group.getGroupName(), group.getGroupImg());
     }
 
     @Override
@@ -42,10 +38,6 @@ public class UserConverterImpl implements UserConverter {
 
     @Override
     public UserResponse.GroupResponse toResponse(UserDto.GroupDto dto) {
-        return UserResponse.GroupResponse.builder()
-                .idx(dto.getIdx())
-                .name(dto.getName())
-                .img(dto.getImg())
-                .build();
+        return new UserResponse.GroupResponse(dto.getIdx(), dto.getName(), dto.getImg());
     }
 }

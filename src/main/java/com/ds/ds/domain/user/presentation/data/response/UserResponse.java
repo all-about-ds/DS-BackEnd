@@ -16,9 +16,8 @@ public class UserResponse {
     private final List<GroupResponse> groups;
 
     @Getter
-    @Builder
     @RequiredArgsConstructor
-    public class GroupResponse {
+    public static class GroupResponse {
         private final Long idx;
         private final String name;
         private final String img;

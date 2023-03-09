@@ -16,9 +16,8 @@ public class UserDto {
     private final List<GroupDto> groups;
 
     @Getter
-    @Builder
     @RequiredArgsConstructor
-    public class GroupDto {
+    public static class GroupDto {
         private final Long idx;
         private final String name;
         private final String img;
