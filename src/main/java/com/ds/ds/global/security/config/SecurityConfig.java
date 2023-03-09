@@ -56,6 +56,9 @@ public class SecurityConfig {
 
                 .anyRequest().denyAll()
 
+                //user
+                .antMatchers(HttpMethod.DELETE, "/user").authenticated()
+
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper))
