@@ -30,12 +30,12 @@ public class JoinGroupServiceImpl implements JoinGroupService {
         User user = userUtil.currentUser();
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
-        GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(groupIdx);
 
         if(group.isSecret()){
-           if(!joinGroupDto.getPassword().equals(groupSecret.getPassword())){
+            GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(groupIdx);
+            if(!joinGroupDto.getPassword().equals(groupSecret.getPassword())){
                 throw new GroupPasswordNotMatchException(ErrorCode.GROUP_PASSWORD_NOT_MATCH);
-           }
+            }
         }
 
         Member member = groupConverter.toEntity(group, user);
