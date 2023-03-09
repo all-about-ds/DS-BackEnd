@@ -5,8 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +25,12 @@ public class RoomController {
 
         mv.addObject("list",chatRoomRepository.findAllRooms());
         return mv;
-
+    }
+    //채팅방 개설
+    @PostMapping(value = "/room")
+    public String create(@RequestParam String name, RedirectAttributes rttr) {
+        log.info("# create chat room , name"+ name);
+        rttr.addFlashAttribute("roomName",chatRoomRepository.createChatRoomDto(name));
+        return "redirect:/chat/rooms";
     }
 }
