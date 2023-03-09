@@ -1,7 +1,9 @@
 package com.ds.ds.domain.auth.service.Impl;
 
 import com.ds.ds.domain.auth.domain.entity.AuthCode;
+import com.ds.ds.domain.auth.domain.entity.SaveAuthCode;
 import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
+import com.ds.ds.domain.auth.domain.repository.SaveAuthCodeRepository;
 import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
 import com.ds.ds.domain.auth.presentation.data.dto.CheckAuthCodeDto;
 import com.ds.ds.domain.auth.presentation.data.dto.SendAuthCodeDto;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -29,6 +32,7 @@ public class EmailServiceImpl implements EmailService {
     private final AuthCodeRepository authCodeRepository;
     private final AuthConverter authConverter;
     private final TemplateEngine templateEngine;
+    private final SaveAuthCodeRepository saveAuthCodeRepository;
 
     private final String code = createKey();
 
@@ -56,12 +60,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
     public SendAuthCodeDto sendSimpleMessage(String to)throws Exception {
         MimeMessage message = createMessage(to);
         javaMailSender.send(message); // 메일 발송
 
         AuthCode authCode = authConverter.toEntity(to, code);
         authCodeRepository.save(authCode);
+
+        SaveAuthCode saveAuthCode = authConverter.toSaveAuthCodeEntity(to, authCode.getCode());
+        saveAuthCodeRepository.save(saveAuthCode);
 
         return authConverter.toDto(authCode);
     }

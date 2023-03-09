@@ -1,7 +1,7 @@
 package com.ds.ds.domain.auth.service.Impl;
 
-import com.ds.ds.domain.auth.domain.entity.AuthCode;
-import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
+import com.ds.ds.domain.auth.domain.entity.SaveAuthCode;
+import com.ds.ds.domain.auth.domain.repository.SaveAuthCodeRepository;
 import com.ds.ds.domain.auth.exception.DuplicateEmailException;
 import com.ds.ds.domain.auth.exception.DuplicateNameException;
 import com.ds.ds.domain.auth.exception.NotAuthenticatedException;
@@ -22,7 +22,7 @@ import javax.transaction.Transactional;
 public class SignUpServiceImpl implements SignUpService {
     private final AuthConverter authConverter;
     private final UserRepository userRepository;
-    private final AuthCodeRepository authCodeRepository;
+    private final SaveAuthCodeRepository saveAuthCodeRepository;
     @Override
     @Transactional
     public void signUp(SignUpDto signUpDto) {
@@ -33,10 +33,10 @@ public class SignUpServiceImpl implements SignUpService {
 
         User user = authConverter.toEntity(signUpDto);
 
-        AuthCode authCode = authCodeRepository.findByEmail(user.getEmail())
+        SaveAuthCode saveAuthCode = saveAuthCodeRepository.findById(user.getEmail())
                 .orElseThrow(() -> new NotFoundEmailException(ErrorCode.NOT_FOUND_EMAIL));
 
-        if(authCode.isAuthentication()){
+        if(saveAuthCode.isAuthentication()){
             userRepository.save(user);
         } else {
             throw new NotAuthenticatedException(ErrorCode.NOT_AUTHENTICATED);

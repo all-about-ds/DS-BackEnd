@@ -2,6 +2,7 @@ package com.ds.ds.domain.auth.util;
 
 import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
+import com.ds.ds.domain.auth.domain.entity.SaveAuthCode;
 import com.ds.ds.domain.auth.presentation.data.dto.*;
 import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
@@ -24,4 +25,5 @@ public interface AuthConverter {
     SearchPasswordDto toDto(SearchPasswordRequest searchPasswordRequest);
     SendAuthCodeDto toDto(AuthCode authCode);
     SendAuthCodeResponse toResponse(SendAuthCodeDto sendAuthCodeDto);
+    SaveAuthCode toSaveAuthCodeEntity(String to, String code);
 }
