@@ -1,11 +1,9 @@
 package com.ds.ds.domain.auth.service.Impl;
 
-import com.ds.ds.domain.auth.domain.entity.AuthCode;
-import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
+import com.ds.ds.domain.auth.domain.repository.AuthenticationRepository;
 import com.ds.ds.domain.auth.exception.DuplicateEmailException;
 import com.ds.ds.domain.auth.exception.DuplicateNameException;
 import com.ds.ds.domain.auth.exception.NotAuthenticatedException;
-import com.ds.ds.domain.auth.exception.NotFoundEmailException;
 import com.ds.ds.domain.auth.presentation.data.dto.SignUpDto;
 import com.ds.ds.domain.auth.service.SignUpService;
 import com.ds.ds.domain.auth.util.AuthConverter;
@@ -22,7 +20,7 @@ import javax.transaction.Transactional;
 public class SignUpServiceImpl implements SignUpService {
     private final AuthConverter authConverter;
     private final UserRepository userRepository;
-    private final AuthCodeRepository authCodeRepository;
+    private final AuthenticationRepository authenticationRepository;
     @Override
     @Transactional
     public void signUp(SignUpDto signUpDto) {
@@ -30,16 +28,11 @@ public class SignUpServiceImpl implements SignUpService {
             throw new DuplicateNameException(ErrorCode.DUPLICATE_NAME);
         else if(userRepository.existsByEmail(signUpDto.getEmail()))
             throw new DuplicateEmailException(ErrorCode.DUPLICATE_EMAIL);
-
-        User user = authConverter.toEntity(signUpDto);
-
-        AuthCode authCode = authCodeRepository.findByEmail(user.getEmail())
-                .orElseThrow(() -> new NotFoundEmailException(ErrorCode.NOT_FOUND_EMAIL));
-
-        if(authCode.isAuthentication()){
-            userRepository.save(user);
-        } else {
+        else if(!authenticationRepository.existsById(signUpDto.getEmail())) {
             throw new NotAuthenticatedException(ErrorCode.NOT_AUTHENTICATED);
         }
+
+        User user = authConverter.toEntity(signUpDto);
+        userRepository.save(user);
     }
 }

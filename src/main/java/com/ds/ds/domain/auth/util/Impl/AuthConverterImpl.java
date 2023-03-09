@@ -1,6 +1,7 @@
 package com.ds.ds.domain.auth.util.Impl;
 
 import com.ds.ds.domain.auth.domain.entity.AuthCode;
+import com.ds.ds.domain.auth.domain.entity.Authentication;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.*;
 import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
@@ -70,7 +71,6 @@ public class AuthConverterImpl implements AuthConverter {
         return AuthCode.builder()
                 .email(email)
                 .code(code)
-                .authentication(true)
                 .build();
     }
 
@@ -108,6 +108,13 @@ public class AuthConverterImpl implements AuthConverter {
     public SendAuthCodeResponse toResponse(SendAuthCodeDto sendAuthCodeDto) {
         return SendAuthCodeResponse.builder()
                 .email(sendAuthCodeDto.getEmail())
+                .build();
+    }
+
+    @Override
+    public Authentication toEntity(String email) {
+        return Authentication.builder()
+                .email(email)
                 .build();
     }
 }

@@ -16,7 +16,7 @@ public enum ErrorCode {
     EXPIRED_TOKEN(401, "만료된 토큰 입니다."),
     INVALID_TOKEN(401, "유효하지 않는 토큰입니다."),
     UNAUTHORIZED(401, "권한이 없습니다."),
-    INVALID_JWT_SIGNATURE(401, "올발지 않는 서명입니다."),
+    INVALID_JWT_SIGNATURE(401, "올바르지 않는 서명입니다."),
     UNSUPPORTED_JWT(401, "지원되지 않는 JWT 토큰입니다."),
     ILLEGAL_ARGUMENT_JWT(401, "JWT 토큰이 잘못되었습니다."),
     USER_NOT_MEMBER(403,"멤버가 아닙니다."),
