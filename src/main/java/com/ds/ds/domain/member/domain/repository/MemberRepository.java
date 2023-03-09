@@ -10,6 +10,6 @@ import java.util.List;
 public interface MemberRepository extends CrudRepository<Member, Long> {
     Long countByGroup(Group group);
     List<Member> findMemberByGroup(Group group);
-
+    List<Member> findMemberByUser(User user);
     Boolean existsByUser(User user);
 }
