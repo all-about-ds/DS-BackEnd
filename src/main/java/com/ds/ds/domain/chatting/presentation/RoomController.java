@@ -4,6 +4,7 @@ import com.ds.ds.domain.chatting.domain.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +33,12 @@ public class RoomController {
         log.info("# create chat room , name"+ name);
         rttr.addFlashAttribute("roomName",chatRoomRepository.createChatRoomDto(name));
         return "redirect:/chat/rooms";
+    }
+    //채팅방 조회
+    @GetMapping("/room")
+    public void getRoom(String roomdId, Model model) {
+        log.info("# get Chat Room, roomId : " + roomdId);
+
+        model.addAttribute("room",chatRoomRepository.findRoomById(roomdId));
     }
 }
