@@ -10,5 +10,6 @@ import java.util.Optional;
 @Builder
 @RequiredArgsConstructor
 public class JoinGroupDto {
+    private final Long groupIdx;
     private final Optional<String> password;
 }

@@ -30,6 +30,6 @@ public interface GroupConverter {
     GroupListResponse toResponse(Pageable pageable, List<GroupResponse> response);
     Group toEntity(CreateGroupDto dto, User user);
     GroupSecret toEntity(Group entity, String password);
-    JoinGroupDto toDto(JoinGroupRequest joinGroupRequest);
+    JoinGroupDto toDto(Long groupIdx, Optional<String> password);
     Member toEntity(Group group, User user);
 }

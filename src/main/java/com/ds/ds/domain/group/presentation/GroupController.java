@@ -82,8 +82,9 @@ public class GroupController {
     }
 
     @PostMapping("/join/{group-idx}")
-    public ResponseEntity<Void> joinGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody JoinGroupRequest joinGroupRequest) {
-        JoinGroupDto joinGroupDto = groupConverter.toDto(joinGroupRequest);
+    public ResponseEntity<Void> joinGroup(@PathVariable("group-idx")Long groupIdx,
+                                          @RequestParam("password")Optional<String> password) {
+        JoinGroupDto joinGroupDto = groupConverter.toDto(groupIdx, password);
         joinGroupService.joinGroup(joinGroupDto, groupIdx);
         return new ResponseEntity<>(HttpStatus.OK);
     }
