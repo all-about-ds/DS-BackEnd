@@ -40,4 +40,8 @@ public class User extends BaseIdEntity {
     public void updateProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
 }
