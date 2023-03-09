@@ -3,8 +3,10 @@ package com.ds.ds.domain.user.util.Impl;
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.presentation.data.dto.UpdateUserNameDto;
+import com.ds.ds.domain.user.presentation.data.dto.UpdateUserProfileImgDto;
 import com.ds.ds.domain.user.presentation.data.dto.UserDto;
 import com.ds.ds.domain.user.presentation.data.request.UpdateUserNameRequest;
+import com.ds.ds.domain.user.presentation.data.request.UpdateUserProfileImgRequest;
 import com.ds.ds.domain.user.presentation.data.response.UserResponse;
 import com.ds.ds.domain.user.util.UserConverter;
 import org.springframework.stereotype.Component;
@@ -32,6 +34,13 @@ public class UserConverterImpl implements UserConverter {
     public UpdateUserNameDto toDto(UpdateUserNameRequest request) {
         return UpdateUserNameDto.builder()
                 .name(request.getName())
+                .build();
+    }
+
+    @Override
+    public UpdateUserProfileImgDto toDto(UpdateUserProfileImgRequest request) {
+        return UpdateUserProfileImgDto.builder()
+                .updateUserProfileImg(request.getUpdateUserProfile())
                 .build();
     }
 
