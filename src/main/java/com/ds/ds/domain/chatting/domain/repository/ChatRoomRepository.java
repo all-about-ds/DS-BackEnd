@@ -30,4 +30,17 @@ public class ChatRoomRepository {
 
         return room;
     }
+    //채팅방 유저 이름 중복확인
+    //중복시 랜덤한 숫자를 붙임
+    public String isDuplicateName(String roomId, String username) {
+        ChatRoom room = chatRoomMap.get(roomId);
+        String tmp = username;
+
+        while (room.getUserList().containsValue(tmp)){
+            int ranNum = (int) (Math.random()*100)+1;
+
+            tmp = username+ranNum;
+        }
+        return tmp;
+    }
 }
