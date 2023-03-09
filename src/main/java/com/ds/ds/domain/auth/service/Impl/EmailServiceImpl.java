@@ -1,9 +1,9 @@
 package com.ds.ds.domain.auth.service.Impl;
 
 import com.ds.ds.domain.auth.domain.entity.AuthCode;
-import com.ds.ds.domain.auth.domain.entity.SaveAuthCode;
+import com.ds.ds.domain.auth.domain.entity.Authentication;
 import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
-import com.ds.ds.domain.auth.domain.repository.SaveAuthCodeRepository;
+import com.ds.ds.domain.auth.domain.repository.AuthenticationRepository;
 import com.ds.ds.domain.auth.exception.DuplicateEmailException;
 import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
 import com.ds.ds.domain.auth.exception.NotFoundEmailException;
@@ -36,7 +36,7 @@ public class EmailServiceImpl implements EmailService {
     private final AuthCodeRepository authCodeRepository;
     private final AuthConverter authConverter;
     private final TemplateEngine templateEngine;
-    private final SaveAuthCodeRepository saveAuthCodeRepository;
+    private final AuthenticationRepository authenticationRepository;
     private final UserRepository userRepository;
     private final RedisUtil redisUtil;
 
@@ -77,10 +77,6 @@ public class EmailServiceImpl implements EmailService {
         AuthCode authCode = authConverter.toEntity(to, code);
         authCodeRepository.save(authCode);
 
-        SaveAuthCode saveAuthCode = authConverter.toSaveAuthCodeEntity(to, authCode.getCode());
-        saveAuthCodeRepository.save(saveAuthCode);
-
-        redisUtil.setDataExpire(authCode.getCode(), authCode.getEmail(), 60 * 5L);
         return authConverter.toDto(authCode);
     }
 
@@ -92,6 +88,10 @@ public class EmailServiceImpl implements EmailService {
         if(!authCode.equals(authCodeEntity.getCode())){
             throw new InValidAuthCodeException(ErrorCode.INVALID_AUTH_CODE);
         }
+
+        Authentication authentication = authConverter.toEntity(email);
+        authenticationRepository.save(authentication);
+
         return authConverter.toDto(email);
     }
 

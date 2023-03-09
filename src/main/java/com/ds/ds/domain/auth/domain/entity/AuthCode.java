@@ -10,20 +10,17 @@ import org.springframework.data.redis.core.index.Indexed;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RedisHash(value = "AuthCode")
+@RedisHash(value = "AuthCode",timeToLive = 60 * 5L)
 public class AuthCode {
     @Id
     @Indexed
     private String email;
     @Indexed
     private String code;
-    @Indexed
-    private boolean authentication;
 
     @Builder
-    public AuthCode(String email, String code, boolean authentication){
+    public AuthCode(String email, String code){
         this.email = email;
         this.code = code;
-        this.authentication = authentication;
     }
 }
