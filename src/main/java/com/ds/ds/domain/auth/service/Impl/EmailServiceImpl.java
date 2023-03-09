@@ -85,7 +85,7 @@ public class EmailServiceImpl implements EmailService {
         AuthCode authCodeEntity = authCodeRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundEmailException(ErrorCode.NOT_FOUND_EMAIL));
 
-        if(!authCode.equals(authCodeEntity.getCode())){
+        if(!authCode.equals(authCodeEntity.getCode())) {
             throw new InValidAuthCodeException(ErrorCode.INVALID_AUTH_CODE);
         }
 
