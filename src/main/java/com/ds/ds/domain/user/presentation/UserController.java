@@ -3,6 +3,7 @@ package com.ds.ds.domain.user.presentation;
 import com.ds.ds.domain.user.presentation.data.dto.UserDto;
 import com.ds.ds.domain.user.presentation.data.response.UserResponse;
 import com.ds.ds.domain.user.service.FindUserService;
+import com.ds.ds.domain.user.service.WithdrawUserService;
 import com.ds.ds.domain.user.util.UserConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class UserController {
     private final FindUserService findUserService;
     private final UserConverter userConverter;
+    private final WithdrawUserService withdrawUserService;
 
     @GetMapping
     public ResponseEntity<UserResponse> findUser() {
@@ -36,6 +38,8 @@ public class UserController {
 
     @DeleteMapping
     public ResponseEntity<Void> withdrawUser() {
+        withdrawUserService.withdrawUser();
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
