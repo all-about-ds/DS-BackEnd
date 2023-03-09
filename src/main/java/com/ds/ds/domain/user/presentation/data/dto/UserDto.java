@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 @RequiredArgsConstructor
 public class UserDto {
+    private final Long idx;
     private final String name;
     private final String profileImg;
     private final List<GroupDto> groups;

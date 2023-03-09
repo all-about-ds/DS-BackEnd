@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Getter
+@Builder
 @RequiredArgsConstructor
 public class UserResponse {
+    private final Long idx;
     private final String name;
     private final String profileImg;
     private final List<GroupResponse> groups;
