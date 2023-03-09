@@ -29,7 +29,7 @@ public class UserController {
     private final UserConverter userConverter;
     private final UpdateUserProfileService updateUserProfileService;
     private final WithdrawUserService withdrawUserService;
-    private final UpdateUserNameService updateUserNameService
+    private final UpdateUserNameService updateUserNameService;
 
     @GetMapping
     public ResponseEntity<UserResponse> findUser() {
