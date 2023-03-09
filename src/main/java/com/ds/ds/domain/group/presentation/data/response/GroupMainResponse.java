@@ -14,5 +14,6 @@ public class GroupMainResponse {
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;
+    private final MemberResponse head;
     private final List<MemberResponse> memberList;
 }
