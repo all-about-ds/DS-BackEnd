@@ -2,9 +2,7 @@ package com.ds.ds.domain.user.util.Impl;
 
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.user.domain.entity.User;
-import com.ds.ds.domain.user.presentation.data.dto.UpdateUserProfileDto;
 import com.ds.ds.domain.user.presentation.data.dto.UserDto;
-import com.ds.ds.domain.user.presentation.data.request.UpdateUserProfileRequest;
 import com.ds.ds.domain.user.presentation.data.response.UserResponse;
 import com.ds.ds.domain.user.util.UserConverter;
 import org.springframework.stereotype.Component;
@@ -26,13 +24,6 @@ public class UserConverterImpl implements UserConverter {
     @Override
     public UserDto.GroupDto toDto(Group group) {
         return new UserDto.GroupDto(group.getIdx(), group.getGroupName(), group.getGroupImg());
-    }
-
-    @Override
-    public UpdateUserProfileDto toDto(UpdateUserProfileRequest request) {
-        return UpdateUserProfileDto.builder()
-                .profileImg(request.getProfileImg())
-                .build();
     }
 
     @Override
