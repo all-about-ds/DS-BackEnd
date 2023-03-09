@@ -1,9 +1,11 @@
 package com.ds.ds.domain.user.presentation;
 
 import com.ds.ds.domain.user.presentation.data.dto.UserDto;
+import com.ds.ds.domain.user.presentation.data.request.UpdateUserNameRequest;
 import com.ds.ds.domain.user.presentation.data.request.UpdateUserProfileImgRequest;
 import com.ds.ds.domain.user.presentation.data.response.UserResponse;
 import com.ds.ds.domain.user.service.FindUserService;
+import com.ds.ds.domain.user.service.UpdateUserNameService;
 import com.ds.ds.domain.user.service.UpdateUserProfileService;
 import com.ds.ds.domain.user.service.WithdrawUserService;
 import com.ds.ds.domain.user.util.UserConverter;
@@ -27,6 +29,7 @@ public class UserController {
     private final UserConverter userConverter;
     private final UpdateUserProfileService updateUserProfileService;
     private final WithdrawUserService withdrawUserService;
+    private final UpdateUserNameService updateUserNameService
 
     @GetMapping
     public ResponseEntity<UserResponse> findUser() {
@@ -41,9 +44,15 @@ public class UserController {
     }
 
 
-    @PatchMapping
+    @PatchMapping("/image")
     public ResponseEntity<Void> updateUserProfile(@RequestBody UpdateUserProfileImgRequest request) {
         updateUserProfileService.updateUserProfileImg(userConverter.toDto(request));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/name")
+    public ResponseEntity<Void> updateName(@RequestBody UpdateUserNameRequest request) {
+        updateUserNameService.updateUserName(userConverter.toDto(request));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

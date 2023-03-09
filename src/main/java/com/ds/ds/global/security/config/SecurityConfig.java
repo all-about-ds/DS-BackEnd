@@ -55,8 +55,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/group/**").authenticated()
 
                 //user
-                .antMatchers(HttpMethod.GET, "/group").authenticated()
-                .antMatchers(HttpMethod.PATCH, "/group").authenticated()
+                .antMatchers(HttpMethod.GET, "/user").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/user/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
                 .anyRequest().denyAll()
