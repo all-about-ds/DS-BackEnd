@@ -4,12 +4,16 @@ import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.SaveAuthCode;
 import com.ds.ds.domain.auth.domain.repository.AuthCodeRepository;
 import com.ds.ds.domain.auth.domain.repository.SaveAuthCodeRepository;
+import com.ds.ds.domain.auth.exception.DuplicateEmailException;
 import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
+import com.ds.ds.domain.auth.exception.NotFoundEmailException;
 import com.ds.ds.domain.auth.presentation.data.dto.CheckAuthCodeDto;
 import com.ds.ds.domain.auth.presentation.data.dto.SendAuthCodeDto;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.util.AuthConverter;
+import com.ds.ds.domain.user.domain.repository.UserRepository;
 import com.ds.ds.global.error.ErrorCode;
+import com.ds.ds.global.redis.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -33,10 +37,15 @@ public class EmailServiceImpl implements EmailService {
     private final AuthConverter authConverter;
     private final TemplateEngine templateEngine;
     private final SaveAuthCodeRepository saveAuthCodeRepository;
+    private final UserRepository userRepository;
+    private final RedisUtil redisUtil;
 
     private final String code = createKey();
 
     private MimeMessage createMessage(String to)throws MessagingException {
+        if(userRepository.existsByEmail(to)){
+            throw new DuplicateEmailException(ErrorCode.DUPLICATE_EMAIL);
+        }
         String setFrom = "shgurtns7236@naver.com"; //email-config 에 설정한 자신의 이메일 주소(보내는 사람)
         String title = "DS 인증 번호"; //제목
 
@@ -71,12 +80,16 @@ public class EmailServiceImpl implements EmailService {
         SaveAuthCode saveAuthCode = authConverter.toSaveAuthCodeEntity(to, authCode.getCode());
         saveAuthCodeRepository.save(saveAuthCode);
 
+        redisUtil.setDataExpire(authCode.getCode(), authCode.getEmail(), 60 * 5L);
         return authConverter.toDto(authCode);
     }
 
     @Override
     public CheckAuthCodeDto checkAuthCode(String authCode, String email) {
-        if(!authCode.equals(code)){
+        AuthCode authCodeEntity = authCodeRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundEmailException(ErrorCode.NOT_FOUND_EMAIL));
+
+        if(!authCode.equals(authCodeEntity.getCode())){
             throw new InValidAuthCodeException(ErrorCode.INVALID_AUTH_CODE);
         }
         return authConverter.toDto(email);

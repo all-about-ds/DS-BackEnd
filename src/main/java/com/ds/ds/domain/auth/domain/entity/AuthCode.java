@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.index.Indexed;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RedisHash(value = "AuthCode", timeToLive = 60 * 5L)
+@RedisHash(value = "AuthCode")
 public class AuthCode {
     @Id
     @Indexed
