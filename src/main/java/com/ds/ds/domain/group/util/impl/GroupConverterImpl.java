@@ -4,9 +4,11 @@ import  com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
+import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.util.GroupConverter;
+import com.ds.ds.domain.member.domain.entity.Member;
 import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -147,6 +149,21 @@ public class GroupConverterImpl implements GroupConverter {
         return GroupSecret.builder()
                 .group(group)
                 .password(password)
+                .build();
+    }
+
+    @Override
+    public JoinGroupDto toDto(JoinGroupRequest joinGroupRequest) {
+        return JoinGroupDto.builder()
+                .password(joinGroupRequest.getPassword())
+                .build();
+    }
+
+    @Override
+    public Member toEntity(Group group, User user) {
+        return Member.builder()
+                .group(group)
+                .user(user)
                 .build();
     }
 

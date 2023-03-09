@@ -4,8 +4,10 @@ import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
+import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
+import com.ds.ds.domain.member.domain.entity.Member;
 import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.data.domain.Pageable;
 
@@ -28,5 +30,6 @@ public interface GroupConverter {
     GroupListResponse toResponse(Pageable pageable, List<GroupResponse> response);
     Group toEntity(CreateGroupDto dto, User user);
     GroupSecret toEntity(Group entity, String password);
-
+    JoinGroupDto toDto(JoinGroupRequest joinGroupRequest);
+    Member toEntity(Group group, User user);
 }
