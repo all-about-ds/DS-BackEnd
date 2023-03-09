@@ -4,6 +4,7 @@ import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.global.common.entity.BaseIdEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -27,4 +28,10 @@ public class Member extends BaseIdEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "group_id")
     private Group group;
+
+    @Builder
+    public Member(User user, Group group){
+        this.user = user;
+        this.group = group;
+    }
 }
