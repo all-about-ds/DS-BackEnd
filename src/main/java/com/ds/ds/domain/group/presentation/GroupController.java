@@ -1,9 +1,7 @@
 package com.ds.ds.domain.group.presentation;
 
-import com.ds.ds.domain.group.presentation.data.dto.DetailGroupDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupListDto;
-import com.ds.ds.domain.group.presentation.data.dto.GroupMainDto;
-import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
+import com.ds.ds.domain.group.presentation.data.dto.*;
+import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
@@ -31,6 +29,7 @@ public class GroupController {
     private final UpdateGroupService updateGroupService;
     private final DeleteGroupService deleteGroupService;
     private final FindGroupMainService findGroupMainService;
+    private final JoinGroupService joinGroupService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -63,8 +62,8 @@ public class GroupController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("{group-idx}")
-    public ResponseEntity<Void> updateGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody UpdateGroupRequest updateGroupRequest){
+    @PatchMapping("/{group-idx}")
+    public ResponseEntity<Void> updateGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody UpdateGroupRequest updateGroupRequest) {
         UpdateGroupDto updateGroupDto = groupConverter.toDto(updateGroupRequest);
         updateGroupService.updateGroup(groupIdx, updateGroupDto);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -76,9 +75,16 @@ public class GroupController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("{group-idx}")
-    public ResponseEntity<Void> deleteGroup(@PathVariable("group-idx")Long groupIdx){
+    @DeleteMapping("/{group-idx}")
+    public ResponseEntity<Void> deleteGroup(@PathVariable("group-idx")Long groupIdx) {
         deleteGroupService.deleteGroup(groupIdx);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/join/{group-idx}")
+    public ResponseEntity<Void> joinGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody JoinGroupRequest joinGroupRequest) {
+        JoinGroupDto joinGroupDto = groupConverter.toDto(joinGroupRequest);
+        joinGroupService.joinGroup(joinGroupDto, groupIdx);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
