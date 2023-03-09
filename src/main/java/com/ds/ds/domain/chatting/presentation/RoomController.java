@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "chat")
 @Slf4j
 public class RoomController {
-    private final ChatRoomRepository chatRoomRepository
+    private final ChatRoomRepository chatRoomRepository;
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
     public ModelAndView rooms(){
@@ -40,5 +37,14 @@ public class RoomController {
         log.info("# get Chat Room, roomId : " + roomdId);
 
         model.addAttribute("room",chatRoomRepository.findRoomById(roomdId));
+    }
+    //채팅에 참여한 유저 닉네임 중복 확인
+    @GetMapping("/chat/duplicateName")
+    @ResponseBody
+    public String isDuplicateName(@RequestParam("roomId") String roomId, @RequestParam("username")String username) {
+        String userName = chatRoomRepository.isDuplicateName(roomId,username);
+        log.info("동작확인 {}",userName);
+
+        return userName;
     }
 }
