@@ -7,6 +7,9 @@ import lombok.*;
 @Setter
 @RequiredArgsConstructor
 public class ChatDto {
+    public void setMessage(String s) {
+    }
+
     public enum MessageType{
         ENTER, TALK, LEAVE;
     }
