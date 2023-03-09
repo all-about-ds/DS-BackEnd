@@ -1,5 +1,6 @@
 package com.ds.ds.domain.user.domain.entity;
 
+import com.ds.ds.domain.user.presentation.data.dto.UpdateUserProfileDto;
 import com.ds.ds.global.common.entity.BaseIdEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -35,5 +36,9 @@ public class User extends BaseIdEntity {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void updateProfileImg(UpdateUserProfileDto dto) {
+        this.profileImg = dto.getProfileImg();
     }
 }
