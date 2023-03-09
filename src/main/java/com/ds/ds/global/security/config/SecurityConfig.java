@@ -53,6 +53,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/group/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/group/**").authenticated()
 
+                //Chatting
+                .antMatchers("/websocket/**").permitAll()
                 .anyRequest().denyAll()
 
                 .and()

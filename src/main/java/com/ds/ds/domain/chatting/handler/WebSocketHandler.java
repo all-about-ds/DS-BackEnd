@@ -1,8 +1,6 @@
 package com.ds.ds.domain.chatting.handler;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class WebSocketHamdler extends TextWebSocketHandler {
+public class WebSocketHandler extends TextWebSocketHandler {
     private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 
     @Override
