@@ -14,6 +14,6 @@ public class GroupMainDto {
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;
-    private final MemberDto memberDto;
+    private final MemberDto head;
     private final List<MemberDto> memberList;
 }

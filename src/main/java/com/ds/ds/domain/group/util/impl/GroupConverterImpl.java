@@ -116,6 +116,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupName(dto.getGroupName())
                 .groupDescription(dto.getGroupDescription())
                 .groupImg(dto.getGroupImg())
+                .head(toResponse(dto.getHead()))
                 .memberList(memberDto)
                 .build();
     }
@@ -177,6 +178,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupName(group.getGroupName())
                 .groupDescription(group.getGroupDescription())
                 .groupImg(group.getGroupImg())
+                .head(toDto(group.getUser()))
                 .memberList(list)
                 .build();
     }
