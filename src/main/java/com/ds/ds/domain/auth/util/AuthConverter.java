@@ -12,6 +12,8 @@ import com.ds.ds.domain.auth.presentation.data.response.SendAuthCodeResponse;
 import com.ds.ds.domain.auth.presentation.data.response.TokenResponse;
 import com.ds.ds.domain.user.domain.entity.User;
 
+import javax.mail.internet.MimeMessage;
+
 
 public interface AuthConverter {
     SignInDto toDto(SignInRequest signInRequest);
@@ -26,4 +28,5 @@ public interface AuthConverter {
     SendAuthCodeDto toDto(AuthCode authCode);
     SendAuthCodeResponse toResponse(SendAuthCodeDto sendAuthCodeDto);
     Authentication toEntity(String email);
+    CreateMessageDto toDto(MimeMessage message, String code);
 }
