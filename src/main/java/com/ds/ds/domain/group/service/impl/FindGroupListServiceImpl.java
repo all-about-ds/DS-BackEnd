@@ -19,16 +19,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FindGroupListServiceImpl implements FindGroupListService {
     private final GroupRepository groupRepository;
+    private final MemberRepository memberRepository;
     private final GroupConverter groupConverter;
     @Override
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
-        List<GroupDto> groups = getCroupList(dto).stream()
-                .map(group -> groupConverter.toDto(group))
+        List<GroupDto> groups = getGroupList(dto).stream()
+                .map(group -> groupConverter.toDto(memberRepository.countByGroup(group)+1, group))
                 .collect(Collectors.toList());
 
        return groupConverter.toDto(dto.getPageable(), groups);
     }
-    private List<Group> getCroupList(GroupListSearchRequirementDto dto) {
+    private List<Group> getGroupList(GroupListSearchRequirementDto dto) {
         if(dto.getKeyword().isEmpty()) {
            return groupRepository.findAll(dto.getPageable()).toList();
         } else {
