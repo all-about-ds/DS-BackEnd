@@ -17,6 +17,8 @@ import com.ds.ds.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class JoinGroupServiceImpl implements JoinGroupService {
@@ -33,7 +35,7 @@ public class JoinGroupServiceImpl implements JoinGroupService {
 
         if(group.isSecret()){
             GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(groupIdx);
-            if(!joinGroupDto.getPassword().equals(groupSecret.getPassword())){
+            if(Objects.equals(joinGroupDto.getPassword(), groupSecret.getPassword())){
                 throw new GroupPasswordNotMatchException(ErrorCode.GROUP_PASSWORD_NOT_MATCH);
             }
         }
