@@ -6,10 +6,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@RequiredArgsConstructor
-@Builder
+@Getter
+@Setter
+@AllArgsConstructor
 @ToString
+@Builder
 public class ChatDto {
 
     private Long id;
