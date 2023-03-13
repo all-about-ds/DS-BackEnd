@@ -120,6 +120,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupImg(dto.getGroupImg())
                 .head(toResponse(dto.getHead()))
                 .memberList(memberDto)
+                .isHead(dto.isHead())
                 .build();
     }
 
@@ -191,7 +192,7 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public GroupMainDto toDto(Group group, List<MemberDto> list) {
+    public GroupMainDto toDto(Group group, List<MemberDto> list, boolean isHead) {
         return GroupMainDto.builder()
                 .idx(group.getIdx())
                 .groupName(group.getGroupName())
@@ -199,6 +200,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupImg(group.getGroupImg())
                 .head(toDto(group.getUser()))
                 .memberList(list)
+                .isHead(isHead)
                 .build();
     }
 }
