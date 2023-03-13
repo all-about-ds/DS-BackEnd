@@ -154,9 +154,10 @@ public class GroupConverterImpl implements GroupConverter {
 
     @Override
     public JoinGroupDto toDto(Long groupIdx, Optional<String> password) {
+        String StringPassword = password.toString();
         return JoinGroupDto.builder()
                 .groupIdx(groupIdx)
-                .password(password)
+                .password(StringPassword)
                 .build();
     }
 
