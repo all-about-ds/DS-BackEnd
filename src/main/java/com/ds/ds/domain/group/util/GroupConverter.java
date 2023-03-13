@@ -21,7 +21,7 @@ public interface GroupConverter {
     GroupMainDto toDto(Group group, List<MemberDto> list);
     CreateGroupDto toDto(CreateGroupRequest request);
     DetailGroupDto toDto(Group group, Long memberCount);
-    GroupDto toDto(Group group);
+    GroupDto toDto(Long memberCount, Group group);
     GroupListDto toDto(Pageable pageable, List<GroupDto> dto);
     GroupResponse toResponse(GroupDto dto);
     DetailGroupResponse toResponse(DetailGroupDto dto);
