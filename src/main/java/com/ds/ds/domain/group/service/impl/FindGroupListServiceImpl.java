@@ -24,7 +24,7 @@ public class FindGroupListServiceImpl implements FindGroupListService {
     @Override
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
         List<GroupDto> groups = getGroupList(dto).stream()
-                .map(group -> groupConverter.toDto(memberRepository.countByGroup(group), group))
+                .map(group -> groupConverter.toDto(memberRepository.countByGroup(group)+1, group))
                 .collect(Collectors.toList());
 
        return groupConverter.toDto(dto.getPageable(), groups);
