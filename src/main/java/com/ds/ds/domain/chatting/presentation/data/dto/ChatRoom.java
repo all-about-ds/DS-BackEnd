@@ -1,6 +1,5 @@
 package com.ds.ds.domain.chatting.presentation.data.dto;
 
-import com.ds.ds.domain.chatting.config.WebSocketConfig;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
