@@ -12,6 +12,7 @@ public class GroupResponse {
     private final String groupName;
     private final String groupImg;
     private final String groupDescription;
+    private final Long groupMemberCount;
     private final Long groupMaxCount;
     private final String groupLeaderImg;
     private final String groupLeaderName;

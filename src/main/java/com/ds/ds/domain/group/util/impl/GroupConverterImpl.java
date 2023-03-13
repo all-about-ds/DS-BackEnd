@@ -53,12 +53,13 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public GroupDto toDto(Group group) {
+    public GroupDto toDto(Long memberCount, Group group) {
         return GroupDto.builder()
                 .idx(group.getIdx())
                 .groupName(group.getGroupName())
                 .groupImg(group.getGroupImg())
                 .groupDescription(group.getGroupDescription())
+                .groupMemberCount(memberCount)
                 .groupMaxCount(group.getGroupMaxCount())
                 .groupLeaderImg(group.getUser().getProfileImg())
                 .groupLeaderName(group.getUser().getName())
