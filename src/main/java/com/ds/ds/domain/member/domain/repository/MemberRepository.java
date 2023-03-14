@@ -12,4 +12,5 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
     List<Member> findMemberByGroup(Group group);
     List<Member> findMemberByUser(User user);
     Boolean existsByUser(User user);
+    boolean existsByUserAndGroup(User user, Group group);
 }
