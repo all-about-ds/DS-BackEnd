@@ -11,9 +11,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupMainResponse {
     private final Long idx;
-    private final String groupName;
-    private final String groupImg;
-    private final String groupDescription;
+    private final String name;
+    private final String img;
+    private final String description;
     private final boolean host;
     private final MemberResponse head;
     private final List<MemberResponse> memberList;

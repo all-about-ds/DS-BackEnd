@@ -1,7 +1,6 @@
 package com.ds.ds.domain.group.presentation;
 
 import com.ds.ds.domain.group.presentation.data.dto.*;
-import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;

@@ -44,10 +44,10 @@ public class Group extends BaseIdEntity {
     }
 
     public void updateGroup(UpdateGroupDto updateGroupDto) {
-        this.groupDescription = updateGroupDto.getGroupDescription();
-        this.groupImg = updateGroupDto.getGroupImg();
-        this.groupMaxCount = updateGroupDto.getGroupMaxCount();
+        this.groupDescription = updateGroupDto.getDescription();
+        this.groupImg = updateGroupDto.getImg();
+        this.groupMaxCount = updateGroupDto.getMaxCount();
         this.secret = updateGroupDto.getSecret();
-        this.groupName = updateGroupDto.getGroupName();
+        this.groupName = updateGroupDto.getName();
     }
 }
