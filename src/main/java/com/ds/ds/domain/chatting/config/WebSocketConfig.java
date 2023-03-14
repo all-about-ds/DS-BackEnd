@@ -16,6 +16,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         config.enableSimpleBroker("/sub");
         config.setApplicationDestinationPrefixes("/pub");
     }
+    // ex ) ws://localhost:9000/stomp/chat
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chatting").setAllowedOrigins("*")
