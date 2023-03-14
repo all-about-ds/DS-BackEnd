@@ -11,9 +11,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupMainDto {
     private final Long idx;
-    private final String groupName;
-    private final String groupImg;
-    private final String groupDescription;
+    private final String name;
+    private final String img;
+    private final String description;
     private final boolean host;
     private final MemberDto head;
     private final List<MemberDto> memberList;
