@@ -29,10 +29,10 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public CreateGroupDto toDto(CreateGroupRequest request) {
         return CreateGroupDto.builder()
-                .groupName(request.getGroupName())
-                .groupDescription(request.getGroupDescription())
-                .groupMaxCount(request.getGroupMaxCount())
-                .groupImg(request.getGroupImg())
+                .groupName(request.getName())
+                .groupDescription(request.getDescription())
+                .groupMaxCount(request.getMaxCount())
+                .groupImg(request.getImg())
                 .secret(request.getSecret())
                 .password(request.getPassword())
                 .build();
@@ -41,13 +41,13 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public DetailGroupDto toDto(Group group, Long memberCount) {
         return DetailGroupDto.builder()
-                .groupName(group.getGroupName())
-                .groupImg(group.getGroupImg())
-                .groupDescription(group.getGroupDescription())
-                .groupMemberCount(memberCount)
-                .groupMaxCount(group.getGroupMaxCount())
-                .groupLeaderImg(group.getUser().getProfileImg())
-                .groupLeaderName(group.getUser().getName())
+                .name(group.getGroupName())
+                .img(group.getGroupImg())
+                .description(group.getGroupDescription())
+                .memberCount(memberCount)
+                .maxCount(group.getGroupMaxCount())
+                .leaderImg(group.getUser().getProfileImg())
+                .leaderName(group.getUser().getName())
                 .secret(group.isSecret())
                 .build();
     }
@@ -92,13 +92,13 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public DetailGroupResponse toResponse(DetailGroupDto dto) {
         return DetailGroupResponse.builder()
-                .groupName(dto.getGroupName())
-                .groupImg(dto.getGroupImg())
-                .groupDescription(dto.getGroupDescription())
-                .groupMemberCount(dto.getGroupMemberCount())
-                .groupMaxCount(dto.getGroupMaxCount())
-                .groupLeaderImg(dto.getGroupLeaderImg())
-                .groupLeaderName(dto.getGroupLeaderName())
+                .name(dto.getName())
+                .img(dto.getImg())
+                .description(dto.getDescription())
+                .memberCount(dto.getMemberCount())
+                .maxCount(dto.getMaxCount())
+                .leaderImg(dto.getLeaderImg())
+                .leaderName(dto.getLeaderName())
                 .secret(dto.getSecret())
                 .build();
     }
@@ -116,9 +116,9 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupMainResponse toResponse(GroupMainDto dto, List<MemberResponse> memberDto) {
         return GroupMainResponse.builder()
                 .idx(dto.getIdx())
-                .groupName(dto.getGroupName())
-                .groupDescription(dto.getGroupDescription())
-                .groupImg(dto.getGroupImg())
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .img(dto.getImg())
                 .head(toResponse(dto.getHead()))
                 .memberList(memberDto)
                 .host(dto.isHost())
@@ -174,10 +174,10 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest) {
         return UpdateGroupDto.builder()
-                .groupDescription(updateGroupRequest.getGroupDescription())
-                .groupName(updateGroupRequest.getGroupName())
-                .groupImg(updateGroupRequest.getGroupImg())
-                .groupMaxCount(updateGroupRequest.getGroupMaxCount())
+                .description(updateGroupRequest.getGroupDescription())
+                .name(updateGroupRequest.getGroupName())
+                .img(updateGroupRequest.getGroupImg())
+                .maxCount(updateGroupRequest.getGroupMaxCount())
                 .secret(updateGroupRequest.getSecret())
                 .password(updateGroupRequest.getPassword())
                 .build();
@@ -196,9 +196,9 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupMainDto toDto(Group group, List<MemberDto> list, boolean host) {
         return GroupMainDto.builder()
                 .idx(group.getIdx())
-                .groupName(group.getGroupName())
-                .groupDescription(group.getGroupDescription())
-                .groupImg(group.getGroupImg())
+                .name(group.getGroupName())
+                .description(group.getGroupDescription())
+                .img(group.getGroupImg())
                 .head(toDto(group.getUser()))
                 .memberList(list)
                 .host(host)
