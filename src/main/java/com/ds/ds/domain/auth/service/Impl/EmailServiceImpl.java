@@ -8,12 +8,12 @@ import com.ds.ds.domain.auth.exception.DuplicateEmailException;
 import com.ds.ds.domain.auth.exception.InValidAuthCodeException;
 import com.ds.ds.domain.auth.exception.NotFoundEmailException;
 import com.ds.ds.domain.auth.presentation.data.dto.CheckAuthCodeDto;
+import com.ds.ds.domain.auth.presentation.data.dto.CreateMessageDto;
 import com.ds.ds.domain.auth.presentation.data.dto.SendAuthCodeDto;
 import com.ds.ds.domain.auth.service.EmailService;
 import com.ds.ds.domain.auth.util.AuthConverter;
 import com.ds.ds.domain.user.domain.repository.UserRepository;
 import com.ds.ds.global.error.ErrorCode;
-import com.ds.ds.global.redis.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -38,43 +38,18 @@ public class EmailServiceImpl implements EmailService {
     private final TemplateEngine templateEngine;
     private final AuthenticationRepository authenticationRepository;
     private final UserRepository userRepository;
-    private final RedisUtil redisUtil;
-
-    private final String code = createKey();
-
-    private MimeMessage createMessage(String to)throws MessagingException {
-        if(userRepository.existsByEmail(to)){
-            throw new DuplicateEmailException(ErrorCode.DUPLICATE_EMAIL);
-        }
-        String setFrom = "shgurtns7236@naver.com"; //email-config 에 설정한 자신의 이메일 주소(보내는 사람)
-        String title = "DS 인증 번호"; //제목
-
-        MimeMessage message = javaMailSender.createMimeMessage();
-        message.addRecipients(MimeMessage.RecipientType.TO, to); //보낼 이메일 설정
-        message.setSubject(title); //제목 설정
-        message.setFrom(setFrom); //보내는 이메일
-        message.setText(setContext(code), "utf-8", "html");
-
-        return message;
-    }
-
-    private static String createKey() {
-        StringBuilder key = new StringBuilder();
-        Random rnd = new Random();
-
-        for (int i = 0; i < 6; i++) {
-            key.append((rnd.nextInt(10)));
-        }
-        return key.toString();
-    }
 
     @Override
     @Transactional(rollbackFor = Exception.class, readOnly = true)
     public SendAuthCodeDto sendSimpleMessage(String to)throws Exception {
-        MimeMessage message = createMessage(to);
-        javaMailSender.send(message); // 메일 발송
+        if (userRepository.existsByEmail(to)) {
+            throw new DuplicateEmailException(ErrorCode.DUPLICATE_EMAIL);
+        }
 
-        AuthCode authCode = authConverter.toEntity(to, code);
+        CreateMessageDto message = createMessage(to);
+        javaMailSender.send(message.getMessage()); // 메일 발송
+
+        AuthCode authCode = authConverter.toEntity(to, message.getCode());
         authCodeRepository.save(authCode);
 
         return authConverter.toDto(authCode);
@@ -99,6 +74,33 @@ public class EmailServiceImpl implements EmailService {
         Context context = new Context();
         context.setVariable("code", code);
         return templateEngine.process("mail", context); //mail.html
+    }
+
+    private CreateMessageDto createMessage(String to)throws MessagingException {
+        String code = createKey();
+        if(userRepository.existsByEmail(to)){
+            throw new DuplicateEmailException(ErrorCode.DUPLICATE_EMAIL);
+        }
+        String setFrom = "shgurtns7236@naver.com"; //email-config 에 설정한 자신의 이메일 주소(보내는 사람)
+        String title = "DS 인증 번호"; //제목
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        message.addRecipients(MimeMessage.RecipientType.TO, to); //보낼 이메일 설정
+        message.setSubject(title); //제목 설정
+        message.setFrom(setFrom); //보내는 이메일
+        message.setText(setContext(code), "utf-8", "html");
+
+        return authConverter.toDto(message, code);
+    }
+
+    private static String createKey() {
+        StringBuilder key = new StringBuilder();
+        Random rnd = new Random();
+
+        for (int i = 0; i < 4; i++) {
+            key.append((rnd.nextInt(10)));
+        }
+        return key.toString();
     }
 
 }

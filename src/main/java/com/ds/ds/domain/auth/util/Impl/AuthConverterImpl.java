@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.mail.internet.MimeMessage;
+
 
 @Component
 @RequiredArgsConstructor
@@ -115,6 +117,14 @@ public class AuthConverterImpl implements AuthConverter {
     public Authentication toEntity(String email) {
         return Authentication.builder()
                 .email(email)
+                .build();
+    }
+
+    @Override
+    public CreateMessageDto toDto(MimeMessage message, String code) {
+        return CreateMessageDto.builder()
+                .message(message)
+                .code(code)
                 .build();
     }
 }
