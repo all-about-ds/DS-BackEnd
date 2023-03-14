@@ -18,7 +18,7 @@ public interface GroupConverter {
     GroupListSearchRequirementDto toDto(Pageable pageable, Optional<String> keyword);
     UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest);
     MemberDto toDto(User user);
-    GroupMainDto toDto(Group group, List<MemberDto> list);
+    GroupMainDto toDto(Group group, List<MemberDto> list, boolean isHead);
     CreateGroupDto toDto(CreateGroupRequest request);
     DetailGroupDto toDto(Group group, Long memberCount);
     GroupDto toDto(Long memberCount, Group group);

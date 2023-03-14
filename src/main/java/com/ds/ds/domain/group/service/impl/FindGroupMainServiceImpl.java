@@ -41,7 +41,9 @@ public class FindGroupMainServiceImpl implements FindGroupMainService {
                 .map(member -> groupConverter.toDto(member.getUser()))
                 .collect(Collectors.toList());
 
-        return groupConverter.toDto(group, memberList);
+        boolean isHead = user.getIdx().equals(group.getUser().getIdx());
+
+        return groupConverter.toDto(group, memberList, isHead);
     }
 
     private void checkUserJoin(User user) {
