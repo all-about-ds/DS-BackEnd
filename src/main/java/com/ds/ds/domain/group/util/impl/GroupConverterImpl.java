@@ -80,12 +80,12 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupResponse toResponse(GroupDto dto) {
         return GroupResponse.builder()
                 .idx(dto.getIdx())
-                .groupName(dto.getGroupName())
-                .groupImg(dto.getGroupImg())
-                .groupDescription(dto.getGroupDescription())
-                .groupMaxCount(dto.getGroupMaxCount())
-                .groupLeaderImg(dto.getGroupLeaderImg())
-                .groupLeaderName(dto.getGroupLeaderName())
+                .name(dto.getGroupName())
+                .img(dto.getGroupImg())
+                .description(dto.getGroupDescription())
+                .maxCount(dto.getGroupMaxCount())
+                .leaderImg(dto.getGroupLeaderImg())
+                .leaderName(dto.getGroupLeaderName())
                 .secret(dto.getSecret())
                 .build();
     }
