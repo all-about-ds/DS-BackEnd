@@ -4,6 +4,7 @@ import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.domain.repository.GroupSecretRepository;
+import com.ds.ds.domain.group.exception.DuplicateJoinGroup;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
 import com.ds.ds.domain.group.exception.GroupPasswordNotMatchException;
 import com.ds.ds.domain.group.presentation.data.dto.JoinGroupDto;
@@ -38,6 +39,10 @@ public class JoinGroupServiceImpl implements JoinGroupService {
             if(Objects.equals(joinGroupDto.getPassword(), groupSecret.getPassword())){
                 throw new GroupPasswordNotMatchException(ErrorCode.GROUP_PASSWORD_NOT_MATCH);
             }
+        }
+
+        if(memberRepository.existsByUserAndGroup(user, group)){
+            throw new DuplicateJoinGroup(ErrorCode.DUPLICATE_JOIN_GROUP);
         }
 
         Member member = groupConverter.toEntity(group, user);
