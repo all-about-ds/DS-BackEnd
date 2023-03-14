@@ -41,6 +41,7 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public DetailGroupDto toDto(Group group, Long memberCount) {
         return DetailGroupDto.builder()
+                .idx(group.getIdx())
                 .name(group.getGroupName())
                 .img(group.getGroupImg())
                 .description(group.getGroupDescription())
@@ -92,6 +93,7 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public DetailGroupResponse toResponse(DetailGroupDto dto) {
         return DetailGroupResponse.builder()
+                .idx(dto.getIdx())
                 .name(dto.getName())
                 .img(dto.getImg())
                 .description(dto.getDescription())
