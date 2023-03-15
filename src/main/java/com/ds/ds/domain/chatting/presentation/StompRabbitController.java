@@ -1,6 +1,6 @@
 package com.ds.ds.domain.chatting.presentation;
 
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatRoomDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -21,7 +21,7 @@ public class StompRabbitController {
     private final static String CHAT_QUEUE_NAME = "chat.queue";
 
     @MessageMapping("chat.enter.{chatRoomId}")
-    public void enter(ChatDto chat, @DestinationVariable String chatRommId){
+    public void enter(ChatRoomDto chat, @DestinationVariable String chatRommId){
         chat.setMessage("입장하였습니다");
         chat.setRegDate(LocalDateTime.now());
 
@@ -31,7 +31,7 @@ public class StompRabbitController {
 
     }
     @MessageMapping("chat.message.{chatRoomId}")
-    public void send(ChatDto chat, @DestinationVariable String chatRoomid) {
+    public void send(ChatRoomDto chat, @DestinationVariable String chatRoomid) {
         chat.setRegDate(LocalDateTime.now());
 
         template.convertAndSend(CHAT_EXCHANGE_NAME, "room." + chatRoomid, chat);
@@ -39,7 +39,7 @@ public class StompRabbitController {
         //template.convertAndSend("amq.topic", "room." + chatRoomId, chat);
     }
     @RabbitListener(queues = CHAT_QUEUE_NAME)
-    public void receive(ChatDto chat){
+    public void receive(ChatRoomDto chat){
 
         System.out.printf("received : " + chat.getMessage());
     }
