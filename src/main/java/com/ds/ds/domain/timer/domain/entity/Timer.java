@@ -36,4 +36,7 @@ public class Timer extends BaseIdEntity {
     public Timer( LocalTime timer) {
         this.timer = timer;
     }
+    public void updateActivity(Boolean activity) {
+        this.activity = activity;
+    }
 }
