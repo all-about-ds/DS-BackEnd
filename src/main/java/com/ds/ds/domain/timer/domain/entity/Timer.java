@@ -17,11 +17,10 @@ import java.time.LocalTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Timer extends BaseIdEntity {
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String name;
-
     @Column(name = "timer")
     private LocalTime timer;
+    @Column(name = "activity")
+    private Boolean activity;
 
     @OneToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -34,8 +33,10 @@ public class Timer extends BaseIdEntity {
     private Group group;
 
     @Builder
-    public Timer(String name, LocalTime timer) {
-        this.name = name;
+    public Timer( LocalTime timer) {
         this.timer = timer;
+    }
+    public void updateActivity(Boolean activity) {
+        this.activity = activity;
     }
 }
