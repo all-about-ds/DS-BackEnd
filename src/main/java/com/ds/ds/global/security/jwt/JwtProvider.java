@@ -36,7 +36,6 @@ public class JwtProvider {
 
         private final String value;
     }
-
     public String generateAccessToken(String email){
         return createToken(email,TokenType.ACCESS_TOKEN);
     }
