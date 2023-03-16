@@ -29,6 +29,7 @@ public class GroupController {
     private final DeleteGroupService deleteGroupService;
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
+    private final ForcedKickGroupMemberService forcedKickGroupMemberService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -87,4 +88,12 @@ public class GroupController {
         joinGroupService.joinGroup(joinGroupDto, groupIdx);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/member/{group-idx}/{user-idx}")
+    public ResponseEntity<Void> forcedKickGroupMember(@PathVariable("group-idx")Long groupIdx,
+                                                      @PathVariable("user-idx")Long userIdx) {
+        forcedKickGroupMemberService.forcedKickGroupMember(groupIdx, userIdx);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
