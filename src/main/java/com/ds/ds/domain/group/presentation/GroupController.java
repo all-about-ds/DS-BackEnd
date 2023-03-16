@@ -72,7 +72,7 @@ public class GroupController {
     @PostMapping
     public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{group-idx}")
@@ -86,7 +86,7 @@ public class GroupController {
                                           @RequestParam("password")Optional<String> password) {
         JoinGroupDto joinGroupDto = groupConverter.toDto(groupIdx, password);
         joinGroupService.joinGroup(joinGroupDto, groupIdx);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/member/{group-idx}/{user-idx}")
