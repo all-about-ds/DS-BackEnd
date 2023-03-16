@@ -15,5 +15,5 @@ public class UpdateGroupDto {
     private final String img;
     private final Long maxCount;
     private final Boolean secret;
-    private final Optional<String> password;
+    private final String password;
 }
