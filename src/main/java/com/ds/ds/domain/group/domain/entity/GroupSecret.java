@@ -29,8 +29,4 @@ public class GroupSecret extends BaseIdEntity {
         this.group = group;
         this.password = password;
     }
-
-    public void updatePassword(String password) {
-        this.password = password;
-    }
 }
