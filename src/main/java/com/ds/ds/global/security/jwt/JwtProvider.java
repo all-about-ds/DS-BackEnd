@@ -113,6 +113,15 @@ public class JwtProvider {
                 .setExpiration(new Date(System.currentTimeMillis() + getTokenExpiredTime(tokenType) * 1000))
                 .compact();
     }
+    public String generateToken(String name) {
+        Date now = new Date();
+        return Jwts.builder()
+                .setId(name)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRED_TIME))
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getAccessSecret())
+                .compact();
+    }
 
     private Key getKeyByTokenType(TokenType tokenType){
         if(tokenType == TokenType.ACCESS_TOKEN){
