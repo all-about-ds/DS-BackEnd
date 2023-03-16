@@ -7,6 +7,7 @@ import com.ds.ds.domain.group.domain.repository.GroupSecretRepository;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
 import com.ds.ds.domain.group.exception.InValidMaxCountException;
 import com.ds.ds.domain.group.exception.NotBossException;
+import com.ds.ds.domain.group.exception.PasswordIsEmptyException;
 import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
 import com.ds.ds.domain.group.service.UpdateGroupService;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -41,8 +42,10 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
             throw new NotBossException(ErrorCode.NOT_BOSS);
         } else if (memberList.size() + 1 > dto.getMaxCount()) {
             throw new InValidMaxCountException(ErrorCode.INVALID_MAX_COUNT);
+        } else if (dto.getSecret()){
+            if(dto.getPassword().isEmpty())
+                throw new PasswordIsEmptyException(ErrorCode.PASSWORD_IS_EMPTY);
         }
-
         updateGroup(group, dto);
     }
 

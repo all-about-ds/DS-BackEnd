@@ -13,6 +13,7 @@ public enum ErrorCode {
     NOT_AUTHENTICATED(400, "인증되지 않는 이메일입니다."),
     NOT_FOUND_EMAIL(400, "존재하지 않는 이메일입니다."),
     GROUP_PASSWORD_NOT_MATCH(400, "그룹의 비밀번호가 일치하지 않습니다."),
+    PASSWORD_IS_EMPTY(400, "패스워드의 값이 비워있습니다."),
     INVALID_MAX_COUNT(400, "올바르지 않는 MaxCount 입니다."),
     EXPIRED_TOKEN(401, "만료된 토큰 입니다."),
     INVALID_TOKEN(401, "유효하지 않는 토큰입니다."),
