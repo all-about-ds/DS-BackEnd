@@ -9,6 +9,7 @@ import com.ds.ds.domain.group.exception.InValidMaxCountException;
 import com.ds.ds.domain.group.exception.NotBossException;
 import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
 import com.ds.ds.domain.group.service.UpdateGroupService;
+import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.member.domain.entity.Member;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import com.ds.ds.domain.user.domain.entity.User;
@@ -27,6 +28,7 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
     private final GroupSecretRepository groupSecretRepository;
     private final UserUtil userUtil;
     private final MemberRepository memberRepository;
+    private final GroupConverter groupConverter;
     @Override
     @Transactional
     public void updateGroup(Long groupIdx, UpdateGroupDto updateGroupDto) {
@@ -35,21 +37,24 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
         List<Member> memberList = memberRepository.findMemberByGroup(group);
 
-
         if(!group.getUser().getIdx().equals(user.getIdx())){
             throw new NotBossException(ErrorCode.NOT_BOSS);
         } else if (memberList.size() + 1 > updateGroupDto.getMaxCount()) {
             throw new InValidMaxCountException(ErrorCode.INVALID_MAX_COUNT);
         }
 
-        group.updateGroup(updateGroupDto);
-        updatePassword(group, updateGroupDto);
+        updateGroup(group, updateGroupDto);
     }
 
-    private void updatePassword(Group group, UpdateGroupDto dto){
-        GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(group.getIdx());
-        if(dto.getSecret()){
-            groupSecret.updatePassword(dto.getPassword().toString());
-        }
+    private void updateGroup(Group group, UpdateGroupDto dto){
+        if(!group.isSecret() & dto.getSecret()){
+            group.updateGroup(dto);
+            groupSecretRepository.deleteByGroupIdx(group.getIdx());
+        } else if(group.isSecret() & !dto.getSecret()){
+            group.updateGroup(dto);
+            GroupSecret groupSecret = groupConverter.toEntity(group, dto.getPassword());
+            groupSecretRepository.save(groupSecret);
+        } else
+            group.updateGroup(dto);
     }
 }
