@@ -4,7 +4,6 @@ import  com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
-import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -182,7 +181,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .img(updateGroupRequest.getImg())
                 .maxCount(updateGroupRequest.getMaxCount())
                 .secret(updateGroupRequest.getSecret())
-                .password(updateGroupRequest.getPassword().toString())
+                .password(updateGroupRequest.getPassword())
                 .build();
     }
 
