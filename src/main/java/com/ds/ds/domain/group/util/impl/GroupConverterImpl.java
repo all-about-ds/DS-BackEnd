@@ -177,10 +177,10 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest) {
         return UpdateGroupDto.builder()
-                .description(updateGroupRequest.getGroupDescription())
-                .name(updateGroupRequest.getGroupName())
-                .img(updateGroupRequest.getGroupImg())
-                .maxCount(updateGroupRequest.getGroupMaxCount())
+                .description(updateGroupRequest.getDescription())
+                .name(updateGroupRequest.getName())
+                .img(updateGroupRequest.getImg())
+                .maxCount(updateGroupRequest.getMaxCount())
                 .secret(updateGroupRequest.getSecret())
                 .password(updateGroupRequest.getPassword())
                 .build();
