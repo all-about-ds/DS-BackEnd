@@ -37,7 +37,7 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
 
         GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(group.getIdx());
         if(updateGroupDto.getSecret()){
-            groupSecret.updatePassword(updateGroupDto.getPassword().toString());
+            groupSecret.updatePassword(updateGroupDto.getPassword().get());
         }
     }
 }
