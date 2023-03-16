@@ -66,7 +66,7 @@ public class GroupController {
     public ResponseEntity<Void> updateGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody UpdateGroupRequest updateGroupRequest) {
         UpdateGroupDto updateGroupDto = groupConverter.toDto(updateGroupRequest);
         updateGroupService.updateGroup(groupIdx, updateGroupDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
