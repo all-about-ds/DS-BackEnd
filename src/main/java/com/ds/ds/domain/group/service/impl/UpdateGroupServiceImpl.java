@@ -50,10 +50,13 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
         if(!group.isSecret() & dto.getSecret()){
             group.updateGroup(dto);
             groupSecretRepository.deleteByGroupIdx(group.getIdx());
-        } else if(group.isSecret() & !dto.getSecret()){
+        } else if(group.isSecret() & !dto.getSecret() & dto.getPassword() != null){
             group.updateGroup(dto);
             GroupSecret groupSecret = groupConverter.toEntity(group, dto.getPassword());
             groupSecretRepository.save(groupSecret);
+        } else if(group.isSecret() & dto.getSecret()){
+            GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(group.getIdx());
+            groupSecret.updatePassword(dto.getPassword());
         } else
             group.updateGroup(dto);
     }
