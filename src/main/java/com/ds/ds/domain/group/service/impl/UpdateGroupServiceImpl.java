@@ -31,7 +31,7 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
     private final GroupConverter groupConverter;
     @Override
     @Transactional
-    public void updateGroup(Long groupIdx, UpdateGroupDto updateGroupDto) {
+    public void updateGroup(Long groupIdx, UpdateGroupDto dto) {
         User user = userUtil.currentUser();
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
@@ -39,24 +39,24 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
 
         if(!group.getUser().getIdx().equals(user.getIdx())){
             throw new NotBossException(ErrorCode.NOT_BOSS);
-        } else if (memberList.size() + 1 > updateGroupDto.getMaxCount()) {
+        } else if (memberList.size() + 1 > dto.getMaxCount()) {
             throw new InValidMaxCountException(ErrorCode.INVALID_MAX_COUNT);
         }
 
-        updateGroup(group, updateGroupDto);
+        updateGroup(group, dto);
     }
 
     private void updateGroup(Group group, UpdateGroupDto dto){
         if(!group.isSecret() & dto.getSecret()){
             group.updateGroup(dto);
-            groupSecretRepository.deleteByGroupIdx(group.getIdx());
-        } else if(group.isSecret() & !dto.getSecret() & dto.getPassword() != null){
-            group.updateGroup(dto);
-            GroupSecret groupSecret = groupConverter.toEntity(group, dto.getPassword());
+            GroupSecret groupSecret = groupConverter.toEntity(group, dto.getPassword().get());
             groupSecretRepository.save(groupSecret);
+        } else if(group.isSecret() & !dto.getSecret()){
+            group.updateGroup(dto);
+            groupSecretRepository.deleteByGroupIdx(group.getIdx());
         } else if(group.isSecret() & dto.getSecret()){
             GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(group.getIdx());
-            groupSecret.updatePassword(dto.getPassword());
+            groupSecret.updatePassword(dto.getPassword().get());
         } else
             group.updateGroup(dto);
     }
