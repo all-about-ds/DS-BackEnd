@@ -28,6 +28,7 @@ public class JwtProvider {
     private final AuthDetailsService authDetailsService;
     private final long ACCESS_TOKEN_EXPIRED_TIME = 60L * 2;
     private final long REFRESH_TOKEN_EXPIRED_TIME = 60L * 60 * 24 * 7; // 1주
+    private TokenType tokenType;
 
     @AllArgsConstructor
     public enum TokenType{
@@ -65,7 +66,7 @@ public class JwtProvider {
         return null;
     }
 
-    public void validateToken(String token, TokenType tokenType) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
+    public void validateToken(String token) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
         try{
             getTokenBody(token, tokenType);
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {

@@ -19,7 +19,7 @@ public class LogoutServiceImpl implements LogoutService {
 
     @Override
     public void logout(String accessToken) {
-        jwtProvider.validateToken(accessToken, JwtProvider.TokenType.ACCESS_TOKEN);
+        jwtProvider.validateToken(accessToken);
 
         User user = userUtil.currentUser();
         refreshTokenRepository.deleteById(user.getIdx());
