@@ -10,10 +10,10 @@ import java.util.Optional;
 @Builder
 @RequiredArgsConstructor
 public class CreateGroupDto {
-    private final String groupName;
-    private final String groupDescription;
-    private final String groupImg;
-    private final Long groupMaxCount;
+    private final String name;
+    private final String description;
+    private final String img;
+    private final Long maxCount;
     private final Boolean secret;
     private final Optional<String> password;
 }

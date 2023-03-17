@@ -4,7 +4,6 @@ import  com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
-import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.util.GroupConverter;
@@ -29,10 +28,10 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public CreateGroupDto toDto(CreateGroupRequest request) {
         return CreateGroupDto.builder()
-                .groupName(request.getName())
-                .groupDescription(request.getDescription())
-                .groupMaxCount(request.getMaxCount())
-                .groupImg(request.getImg())
+                .name(request.getName())
+                .description(request.getDescription())
+                .maxCount(request.getMaxCount())
+                .img(request.getImg())
                 .secret(request.getSecret())
                 .password(request.getPassword())
                 .build();
@@ -140,10 +139,10 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public Group toEntity(CreateGroupDto dto, User user) {
         return Group.builder()
-                .groupName(dto.getGroupName())
-                .groupDescription(dto.getGroupDescription())
-                .groupMaxCount(dto.getGroupMaxCount())
-                .groupImg(dto.getGroupImg())
+                .groupName(dto.getName())
+                .groupDescription(dto.getDescription())
+                .groupMaxCount(dto.getMaxCount())
+                .groupImg(dto.getImg())
                 .secret(dto.getSecret())
                 .user(user)
                 .build();
@@ -177,10 +176,10 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public UpdateGroupDto toDto(UpdateGroupRequest updateGroupRequest) {
         return UpdateGroupDto.builder()
-                .description(updateGroupRequest.getGroupDescription())
-                .name(updateGroupRequest.getGroupName())
-                .img(updateGroupRequest.getGroupImg())
-                .maxCount(updateGroupRequest.getGroupMaxCount())
+                .description(updateGroupRequest.getDescription())
+                .name(updateGroupRequest.getName())
+                .img(updateGroupRequest.getImg())
+                .maxCount(updateGroupRequest.getMaxCount())
                 .secret(updateGroupRequest.getSecret())
                 .password(updateGroupRequest.getPassword())
                 .build();
