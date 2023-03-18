@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
                 //Chatting
-                .antMatchers("/websocket/**").permitAll()
+                .antMatchers("/chat/**").authenticated()
                 .anyRequest().denyAll()
 
 
