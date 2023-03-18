@@ -1,7 +1,6 @@
 package com.ds.ds.domain.chatting.config.redis;
 
 import com.ds.ds.domain.chatting.service.RedisSubscriber;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -13,7 +12,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-public class RedisConfig {
+public class ChatRedisConfig {
     /**
      * redis pub/sub 메시지를 처리하는 listener 설정
      */
