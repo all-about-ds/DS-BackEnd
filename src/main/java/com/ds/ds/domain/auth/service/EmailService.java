@@ -5,6 +5,7 @@ import com.ds.ds.domain.auth.presentation.data.dto.SendAuthCodeDto;
 
 public interface EmailService {
     SendAuthCodeDto sendSimpleMessage(String email) throws Exception;
+    SendAuthCodeDto sendSimpleMessagePasswordVersion(String email) throws Exception;
 
     CheckAuthCodeDto checkAuthCode(String code, String email);
 }

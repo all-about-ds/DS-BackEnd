@@ -56,6 +56,18 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public SendAuthCodeDto sendSimpleMessagePasswordVersion(String to)throws Exception {
+        CreateMessageDto message = createMessage(to);
+        javaMailSender.send(message.getMessage()); // 메일 발송
+
+        AuthCode authCode = authConverter.toEntity(to, message.getCode());
+        authCodeRepository.save(authCode);
+
+        return authConverter.toDto(authCode);
+    }
+
+    @Override
     public CheckAuthCodeDto checkAuthCode(String authCode, String email) {
         AuthCode authCodeEntity = authCodeRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundEmailException(ErrorCode.NOT_FOUND_EMAIL));
@@ -78,9 +90,7 @@ public class EmailServiceImpl implements EmailService {
 
     private CreateMessageDto createMessage(String to)throws MessagingException {
         String code = createKey();
-        if(userRepository.existsByEmail(to)){
-            throw new DuplicateEmailException(ErrorCode.DUPLICATE_EMAIL);
-        }
+
         String setFrom = "shgurtns7236@naver.com"; //email-config 에 설정한 자신의 이메일 주소(보내는 사람)
         String title = "DS 인증 번호"; //제목
 
