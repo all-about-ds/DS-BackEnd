@@ -105,4 +105,15 @@ public class AuthController {
         logoutService.logout(token);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /*
+    담당자: 노혁
+    기능: 인증번호 전송 password .ver
+     */
+    @PostMapping("/password/email")
+    public ResponseEntity<Void> sendAuthCodePassword(@RequestParam("email") String email) throws Exception {
+        SendAuthCodeDto sendAuthCodeDto = emailService.sendSimpleMessagePasswordVersion(email);
+        authConverter.toResponse(sendAuthCodeDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
