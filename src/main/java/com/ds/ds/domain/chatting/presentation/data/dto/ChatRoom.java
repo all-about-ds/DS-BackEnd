@@ -1,31 +1,25 @@
 package com.ds.ds.domain.chatting.presentation.data.dto;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.web.socket.WebSocketSession;
+import lombok.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
-public class ChatRoom {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ChatRoom implements Serializable {
+    private static final long serialVersionUID = 6494678977089006639L;
+
     private String roomId;
-    private String roomName;
-    private Long userCount;
+    private String name;
 
-    private final HashMap<String,String> userList = new HashMap<String,String>();
-    private Set<WebSocketSession> sessions = new HashSet<>();
-
-    public static ChatRoom create(String roomName){
+    public static ChatRoom create(String name) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.roomId = UUID.randomUUID().toString();
-        chatRoom.roomName =roomName;
-
+        chatRoom.name = name;
         return chatRoom;
     }
+
 }
