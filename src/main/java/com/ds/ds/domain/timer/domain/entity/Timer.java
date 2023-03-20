@@ -18,7 +18,7 @@ import java.time.LocalTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Timer extends BaseIdEntity {
     @Column(name = "timer")
-    private LocalTime timer;
+    private Long timer;
     @Column(name = "activity")
     private Boolean activity;
 
@@ -33,14 +33,14 @@ public class Timer extends BaseIdEntity {
     private Group group;
 
     @Builder
-    public Timer( LocalTime timer) {
+    public Timer( Long timer) {
         this.timer = timer;
     }
     public void updateActivity(Boolean activity) {
         this.activity = activity;
     }
 
-    public void updateTime(LocalTime time) {
+    public void updateTime(Long time) {
         this.timer = time;
     }
 }
