@@ -2,11 +2,13 @@ package com.ds.ds.domain.user.util.Impl;
 
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.user.domain.entity.User;
+import com.ds.ds.domain.user.presentation.data.dto.HeaderDto;
 import com.ds.ds.domain.user.presentation.data.dto.UpdateUserNameDto;
 import com.ds.ds.domain.user.presentation.data.dto.UpdateUserProfileImgDto;
 import com.ds.ds.domain.user.presentation.data.dto.UserDto;
 import com.ds.ds.domain.user.presentation.data.request.UpdateUserNameRequest;
 import com.ds.ds.domain.user.presentation.data.request.UpdateUserProfileImgRequest;
+import com.ds.ds.domain.user.presentation.data.response.HeaderResponse;
 import com.ds.ds.domain.user.presentation.data.response.UserResponse;
 import com.ds.ds.domain.user.util.UserConverter;
 import org.springframework.stereotype.Component;
@@ -45,6 +47,14 @@ public class UserConverterImpl implements UserConverter {
     }
 
     @Override
+    public HeaderDto toDto(User user) {
+        return HeaderDto.builder()
+                .name(user.getName())
+                .img(user.getProfileImg())
+                .build();
+    }
+
+    @Override
     public UserResponse toResponse(UserDto dto, List<UserResponse.GroupResponse> responses) {
         return UserResponse.builder()
                 .idx(dto.getIdx())
@@ -57,5 +67,13 @@ public class UserConverterImpl implements UserConverter {
     @Override
     public UserResponse.GroupResponse toResponse(UserDto.GroupDto dto) {
         return new UserResponse.GroupResponse(dto.getIdx(), dto.getName(), dto.getImg());
+    }
+
+    @Override
+    public HeaderResponse toResponse(HeaderDto headerDto) {
+        return HeaderResponse.builder()
+                .name(headerDto.getName())
+                .img(headerDto.getImg())
+                .build();
     }
 }
