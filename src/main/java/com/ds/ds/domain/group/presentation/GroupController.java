@@ -30,6 +30,7 @@ public class GroupController {
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
     private final ForcedKickGroupMemberService forcedKickGroupMemberService;
+    private final ManDateGroupMemberService manDateGroupMemberService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -93,6 +94,13 @@ public class GroupController {
     public ResponseEntity<Void> forcedKickGroupMember(@PathVariable("group-idx")Long groupIdx,
                                                       @PathVariable("user-idx")Long userIdx) {
         forcedKickGroupMemberService.forcedKickGroupMember(groupIdx, userIdx);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/mandate/{group-idx}/{user-idx}")
+    public ResponseEntity<Void> mandateGroupMember(@PathVariable("group-idx")Long groupIdx,
+                                        @PathVariable("user-idx")Long userIdx) {
+        manDateGroupMemberService.mandateGroupMember(groupIdx, userIdx);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
