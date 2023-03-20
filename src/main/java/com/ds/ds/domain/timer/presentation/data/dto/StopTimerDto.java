@@ -4,11 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalTime;
-
 @Getter
 @Builder
 @RequiredArgsConstructor
 public class StopTimerDto {
-    private final LocalTime time;
+    private final Long time;
 }

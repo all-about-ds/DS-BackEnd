@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimerResponse {
     private final Long idx;
-    private final LocalTime time;
+    private final Long time;
     private final Boolean activity;
     private final List<MemberTimerResponse> memberTimerList;
 
@@ -21,7 +21,7 @@ public class TimerResponse {
     @RequiredArgsConstructor
     public static class MemberTimerResponse {
         private final Long idx;
-        private final LocalTime time;
+        private final Long time;
         private final Boolean activity;
     }
 }
