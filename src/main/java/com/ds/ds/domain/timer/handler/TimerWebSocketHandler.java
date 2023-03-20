@@ -5,6 +5,10 @@ import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
 import com.ds.ds.domain.timer.domain.entity.Timer;
 import com.ds.ds.domain.timer.domain.repository.TimerRepository;
+import com.ds.ds.domain.timer.presentation.data.dto.TimerDto;
+import com.ds.ds.domain.timer.presentation.data.response.TimerResponse;
+import com.ds.ds.domain.timer.service.FindTimerService;
+import com.ds.ds.domain.timer.util.TimerConverter;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.util.UserUtil;
 import com.ds.ds.global.error.ErrorCode;
@@ -19,13 +23,13 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class TimerWebSocketHandler extends TextWebSocketHandler {
-    private final TimerRepository timerRepository;
-    private final GroupRepository groupRepository;
-    private final UserUtil userUtil;
+    private final FindTimerService findTimerService;
+    private final TimerConverter timerConverter;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -35,17 +39,19 @@ public class TimerWebSocketHandler extends TextWebSocketHandler {
 
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         Long groupId = Long.valueOf(message.getPayload());
-        User user = userUtil.currentUser();
 
         // 지정된 시간마다 데이터를 조회하여 전송
         scheduler.scheduleAtFixedRate(() -> {
-            Group group = groupRepository.findById(groupId).orElseThrow(()-> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
-            List<Timer> timerList = timerRepository.findAllByGroup(group);
+            TimerDto dto = findTimerService.findTimer(groupId);
+            List<TimerResponse.MemberTimerResponse> memberTimerList = dto.getMemberTimerList().stream()
+                    .map(it -> timerConverter.toResponse(it))
+                    .collect(Collectors.toList());
+            TimerResponse response = timerConverter.toResponse(dto, memberTimerList);
 
-
-            if (myEntity != null) {
-
-                sendMessage(session, information);
+            try {
+                sendMessage(session, response.toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }, 0, 5, TimeUnit.SECONDS);
     }
