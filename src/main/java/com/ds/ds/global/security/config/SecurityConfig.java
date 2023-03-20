@@ -56,6 +56,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/group/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/group/join/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/group/member/**/**").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/group/mandate/**/**").authenticated()
 
                 //user
                 .antMatchers(HttpMethod.GET, "/user").authenticated()
