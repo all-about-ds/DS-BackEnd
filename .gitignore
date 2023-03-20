@@ -37,4 +37,6 @@ out/
 .vscode/
 
 application.yml
+application-alpha.yml
+application-local.yml
 docker-compose.yml

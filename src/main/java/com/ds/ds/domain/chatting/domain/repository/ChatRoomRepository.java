@@ -1,46 +1,40 @@
 package com.ds.ds.domain.chatting.domain.repository;
 
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatRoom;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
 
-@Repository
+@RequiredArgsConstructor
+@Service
 public class ChatRoomRepository {
-
-    private Map<String, ChatRoom> chatRoomMap;
-
+    // Redis
+    private static final String CHAT_ROOMS = "CHAT_ROOM";
+    private final RedisTemplate<String, Object> redisTemplate;
+    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
     @PostConstruct
-    private void init(){
-        chatRoomMap = new LinkedHashMap<>();
+    private void init() {
+        opsHashChatRoom = redisTemplate.opsForHash();
     }
-    public List<ChatRoom> findAllRooms(){
-        List<ChatRoom> result = new ArrayList<>(chatRoomMap.values());
-        Collections.reverse(result);
-
-        return result;
+    // 모든 채팅방 조회
+    public List<ChatRoom> findAllRoom() {
+        return opsHashChatRoom.values(CHAT_ROOMS);
     }
-    public ChatRoom findRoomById(String id){
-        return chatRoomMap.get(id);
+    // 특정 채팅방 조회
+    public ChatRoom findRoomById(String id) {
+        return opsHashChatRoom.get(CHAT_ROOMS, id);
     }
-    public ChatRoom createChatRoomDto(String name) {
-        ChatRoom room = ChatRoom.create(name);
-        chatRoomMap.put(room.getRoomId(),room);
-
-        return room;
-    }
-    //채팅방 유저 이름 중복확인
-    //중복시 랜덤한 숫자를 붙임
-    public String isDuplicateName(String roomId, String username) {
-        ChatRoom room = chatRoomMap.get(roomId);
-        String tmp = username;
-
-        while (room.getUserList().containsValue(tmp)){
-            int ranNum = (int) (Math.random()*100)+1;
-
-            tmp = username+ranNum;
-        }
-        return tmp;
+    // 채팅방 생성 : 서버간 채팅방 공유를 위해 redis hash에 저장한다.
+    public ChatRoom createChatRoom(String name) {
+        ChatRoom chatRoom = ChatRoom.create(name);
+        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
+        return chatRoom;
     }
 }

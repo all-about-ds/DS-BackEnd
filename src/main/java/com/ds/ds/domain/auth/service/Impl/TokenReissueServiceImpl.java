@@ -21,7 +21,7 @@ public class TokenReissueServiceImpl implements TokenReissueService {
 
     @Override
     public TokenDto reissue(String refreshToken) throws UnsupportedJwtTokenException {
-        jwtProvider.validateToken(refreshToken, JwtProvider.TokenType.REFRESH_TOKEN);
+        jwtProvider.validateToken(refreshToken);
 
         String email = jwtProvider.getTokenSubject(refreshToken, JwtProvider.TokenType.REFRESH_TOKEN);
         RefreshToken existingRefreshToken = refreshTokenRepository.findByToken(refreshToken);
