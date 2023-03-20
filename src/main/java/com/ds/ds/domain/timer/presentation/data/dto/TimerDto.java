@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimerDto {
     private final Long idx;
-    private final LocalTime time;
+    private final Long time;
     private final Boolean activity;
     private final List<MemberTimerDto> memberTimerList;
 
@@ -21,7 +21,7 @@ public class TimerDto {
     @RequiredArgsConstructor
     public static class MemberTimerDto {
         private final Long idx;
-        private final LocalTime time;
+        private final Long time;
         private final Boolean activity;
     }
 }

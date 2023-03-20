@@ -1,17 +1,9 @@
 package com.ds.ds.domain.timer.handler;
 
-import com.ds.ds.domain.group.domain.entity.Group;
-import com.ds.ds.domain.group.domain.repository.GroupRepository;
-import com.ds.ds.domain.group.exception.GroupNotFoundException;
-import com.ds.ds.domain.timer.domain.entity.Timer;
-import com.ds.ds.domain.timer.domain.repository.TimerRepository;
 import com.ds.ds.domain.timer.presentation.data.dto.TimerDto;
 import com.ds.ds.domain.timer.presentation.data.response.TimerResponse;
 import com.ds.ds.domain.timer.service.FindTimerService;
 import com.ds.ds.domain.timer.util.TimerConverter;
-import com.ds.ds.domain.user.domain.entity.User;
-import com.ds.ds.domain.user.util.UserUtil;
-import com.ds.ds.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
