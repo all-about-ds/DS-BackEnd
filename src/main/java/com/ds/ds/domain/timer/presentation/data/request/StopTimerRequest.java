@@ -8,5 +8,5 @@ import java.time.LocalTime;
 @Getter
 @RequiredArgsConstructor
 public class StopTimerRequest {
-    private final LocalTime time;
+    private final Long time;
 }
