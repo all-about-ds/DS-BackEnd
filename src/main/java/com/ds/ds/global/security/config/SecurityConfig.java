@@ -56,23 +56,21 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/group/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/group/join/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/group/member/**/**").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/group/mandate/**/**").authenticated()
 
                 //user
                 .antMatchers(HttpMethod.GET, "/user").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/user/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/user").authenticated()
+                .antMatchers(HttpMethod.GET, "/user/header").authenticated()
 
-                //Chatting
-                .antMatchers("/chat/**").authenticated()
+
                 //chatting
                 .antMatchers("/websocket/**").permitAll()
 
                 //timer
                 .antMatchers(HttpMethod.PATCH, "/timer/**}").authenticated()
                 .antMatchers("/timer").authenticated()
-
-                //header
-                .antMatchers(HttpMethod.GET, "/header").authenticated()
 
                 .anyRequest().denyAll()
 

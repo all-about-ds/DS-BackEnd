@@ -1,13 +1,12 @@
 package com.ds.ds.domain.user.presentation;
 
+import com.ds.ds.domain.user.presentation.data.dto.HeaderDto;
 import com.ds.ds.domain.user.presentation.data.dto.UserDto;
 import com.ds.ds.domain.user.presentation.data.request.UpdateUserNameRequest;
 import com.ds.ds.domain.user.presentation.data.request.UpdateUserProfileImgRequest;
+import com.ds.ds.domain.user.presentation.data.response.HeaderResponse;
 import com.ds.ds.domain.user.presentation.data.response.UserResponse;
-import com.ds.ds.domain.user.service.FindUserService;
-import com.ds.ds.domain.user.service.UpdateUserNameService;
-import com.ds.ds.domain.user.service.UpdateUserProfileService;
-import com.ds.ds.domain.user.service.WithdrawUserService;
+import com.ds.ds.domain.user.service.*;
 import com.ds.ds.domain.user.util.UserConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +29,8 @@ public class UserController {
     private final UpdateUserProfileService updateUserProfileService;
     private final WithdrawUserService withdrawUserService;
     private final UpdateUserNameService updateUserNameService;
+    private final GetHeaderService getHeaderService;
+
 
     @GetMapping
     public ResponseEntity<UserResponse> findUser() {
@@ -59,7 +60,13 @@ public class UserController {
     @DeleteMapping
     public ResponseEntity<Void> withdrawUser() {
         withdrawUserService.withdrawUser();
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/header")
+    public ResponseEntity<HeaderResponse> get(){
+        HeaderDto headerDto = getHeaderService.getHeader();
+        HeaderResponse headerResponse = userConverter.toResponse(headerDto);
+        return new ResponseEntity<>(headerResponse, HttpStatus.OK);
     }
 }

@@ -50,4 +50,8 @@ public class Group extends BaseIdEntity {
         this.secret = updateGroupDto.getSecret();
         this.groupName = updateGroupDto.getName();
     }
+
+    public void updateUser(User mandateUser) {
+        this.user = mandateUser;
+    }
 }
