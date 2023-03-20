@@ -42,4 +42,5 @@ public class Timer extends BaseIdEntity {
     public void updateTime(Long time) {
         this.timer = time;
     }
+    public void initializeTime() { this.timer = 0L; }
 }

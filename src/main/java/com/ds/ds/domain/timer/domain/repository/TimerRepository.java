@@ -10,4 +10,5 @@ import java.util.List;
 public interface TimerRepository extends CrudRepository<Timer, Long> {
     Timer findByUser(User user);
     List<Timer> findAllByGroup(Group group);
+    List<Timer> findAll();
 }
