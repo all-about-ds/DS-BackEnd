@@ -53,7 +53,7 @@ public class TimerWebSocketHandler extends TextWebSocketHandler {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 30, TimeUnit.SECONDS);
     }
 
     private void sendMessage(WebSocketSession session, String message) throws IOException {
