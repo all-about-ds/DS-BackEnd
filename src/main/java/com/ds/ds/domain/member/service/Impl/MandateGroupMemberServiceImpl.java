@@ -1,11 +1,11 @@
-package com.ds.ds.domain.group.service.impl;
+package com.ds.ds.domain.member.service.Impl;
 
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.repository.GroupRepository;
-import com.ds.ds.domain.group.exception.AlreadyBossException;
+import com.ds.ds.domain.member.exception.AlreadyBossException;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
 import com.ds.ds.domain.group.exception.NotBossException;
-import com.ds.ds.domain.group.service.ManDateGroupMemberService;
+import com.ds.ds.domain.member.service.ManDateGroupMemberService;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.domain.repository.UserRepository;
 import com.ds.ds.domain.user.exception.UserNotFoundException;
