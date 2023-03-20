@@ -10,7 +10,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 @EnableWebSocket
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketConfigurer {
+public class TimerSocketConfig implements WebSocketConfigurer {
     private final TimerWebSocketHandler timerWebSocketHandler;
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
