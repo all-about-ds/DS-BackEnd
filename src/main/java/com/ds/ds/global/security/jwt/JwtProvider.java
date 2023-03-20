@@ -28,6 +28,7 @@ public class JwtProvider {
     private final AuthDetailsService authDetailsService;
     private final long ACCESS_TOKEN_EXPIRED_TIME = 60L * 2;
     private final long REFRESH_TOKEN_EXPIRED_TIME = 60L * 60 * 24 * 7; // 1주
+    private TokenType tokenType;
 
     @AllArgsConstructor
     public enum TokenType{
@@ -36,7 +37,6 @@ public class JwtProvider {
 
         private final String value;
     }
-
     public String generateAccessToken(String email){
         return createToken(email,TokenType.ACCESS_TOKEN);
     }
@@ -66,7 +66,7 @@ public class JwtProvider {
         return null;
     }
 
-    public void validateToken(String token, TokenType tokenType) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
+    public void validateToken(String token) throws InvalidJwtSignatureException, UnsupportedJwtTokenException {
         try{
             getTokenBody(token, tokenType);
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
@@ -112,6 +112,15 @@ public class JwtProvider {
                 .setIssuedAt(new Date())
                 .setSubject(email)
                 .setExpiration(new Date(System.currentTimeMillis() + getTokenExpiredTime(tokenType) * 1000))
+                .compact();
+    }
+    public String generateToken(String name) {
+        Date now = new Date();
+        return Jwts.builder()
+                .setId(name)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRED_TIME))
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getAccessSecret())
                 .compact();
     }
 

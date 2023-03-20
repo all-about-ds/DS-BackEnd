@@ -70,6 +70,8 @@ public class SecurityConfig {
                 //chatting
                 .antMatchers("/websocket/**").permitAll()
 
+                //header
+                .antMatchers(HttpMethod.GET, "/header").authenticated()
 
                 .anyRequest().denyAll()
 
