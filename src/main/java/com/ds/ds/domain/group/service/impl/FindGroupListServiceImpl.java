@@ -11,7 +11,6 @@ import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,7 @@ public class FindGroupListServiceImpl implements FindGroupListService {
     private final GroupConverter groupConverter;
     @Override
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
+
         List<GroupDto> groups = getGroupList(dto).stream()
                 .map(group -> groupConverter.toDto(memberRepository.countByGroup(group)+1, group))
                 .collect(Collectors.toList());

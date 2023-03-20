@@ -1,7 +1,6 @@
 package com.ds.ds.domain.group.presentation;
 
 import com.ds.ds.domain.group.presentation.data.dto.*;
-import com.ds.ds.domain.group.presentation.data.request.JoinGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
@@ -30,6 +29,7 @@ public class GroupController {
     private final DeleteGroupService deleteGroupService;
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
+    private final ForcedKickGroupMemberService forcedKickGroupMemberService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -66,13 +66,13 @@ public class GroupController {
     public ResponseEntity<Void> updateGroup(@PathVariable("group-idx")Long groupIdx, @RequestBody UpdateGroupRequest updateGroupRequest) {
         UpdateGroupDto updateGroupDto = groupConverter.toDto(updateGroupRequest);
         updateGroupService.updateGroup(groupIdx, updateGroupDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
     public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{group-idx}")
@@ -86,6 +86,14 @@ public class GroupController {
                                           @RequestParam("password")Optional<String> password) {
         JoinGroupDto joinGroupDto = groupConverter.toDto(groupIdx, password);
         joinGroupService.joinGroup(joinGroupDto, groupIdx);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/member/{group-idx}/{user-idx}")
+    public ResponseEntity<Void> forcedKickGroupMember(@PathVariable("group-idx")Long groupIdx,
+                                                      @PathVariable("user-idx")Long userIdx) {
+        forcedKickGroupMemberService.forcedKickGroupMember(groupIdx, userIdx);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

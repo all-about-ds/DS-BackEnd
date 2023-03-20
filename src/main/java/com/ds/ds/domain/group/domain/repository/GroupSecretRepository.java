@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface GroupSecretRepository extends CrudRepository<GroupSecret, Long> {
     GroupSecret findByGroupIdx(Long idx);
+    void deleteByGroupIdx(Long groupIdx);
 }

@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/search").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/auth/logout").authenticated()
+                .antMatchers(HttpMethod.POST, "/auth/password/email/**").permitAll()
 
                 //group
                 .antMatchers(HttpMethod.GET, "/group").permitAll()
@@ -54,14 +55,33 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/group/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/group/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/group/join/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/group/member/**/**").authenticated()
 
                 //user
                 .antMatchers(HttpMethod.GET, "/user").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/user/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/user").authenticated()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                 //Chatting
                 .antMatchers("/chat/**").authenticated()
+                //chatting
+                .antMatchers("/websocket/**").permitAll()
+                //header
+                .antMatchers(HttpMethod.GET, "/header").authenticated()
+
                 .anyRequest().denyAll()
 
 

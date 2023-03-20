@@ -5,9 +5,14 @@ import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.domain.repository.GroupSecretRepository;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
+import com.ds.ds.domain.group.exception.InValidMaxCountException;
 import com.ds.ds.domain.group.exception.NotBossException;
+import com.ds.ds.domain.group.exception.PasswordIsEmptyException;
 import com.ds.ds.domain.group.presentation.data.dto.UpdateGroupDto;
 import com.ds.ds.domain.group.service.UpdateGroupService;
+import com.ds.ds.domain.group.util.GroupConverter;
+import com.ds.ds.domain.member.domain.entity.Member;
+import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.util.UserUtil;
 import com.ds.ds.global.error.ErrorCode;
@@ -15,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,22 +28,39 @@ public class UpdateGroupServiceImpl implements UpdateGroupService {
     private final GroupRepository groupRepository;
     private final GroupSecretRepository groupSecretRepository;
     private final UserUtil userUtil;
+    private final MemberRepository memberRepository;
+    private final GroupConverter groupConverter;
     @Override
     @Transactional
-    public void updateGroup(Long groupIdx, UpdateGroupDto updateGroupDto) {
+    public void updateGroup(Long groupIdx, UpdateGroupDto dto) {
         User user = userUtil.currentUser();
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
+        List<Member> memberList = memberRepository.findMemberByGroup(group);
 
         if(!group.getUser().getIdx().equals(user.getIdx())){
             throw new NotBossException(ErrorCode.NOT_BOSS);
+        } else if (memberList.size() + 1 > dto.getMaxCount()) {
+            throw new InValidMaxCountException(ErrorCode.INVALID_MAX_COUNT);
+        } else if (dto.getSecret()){
+            if(dto.getPassword().isEmpty())
+                throw new PasswordIsEmptyException(ErrorCode.PASSWORD_IS_EMPTY);
         }
+        updateGroup(group, dto);
+    }
 
-        group.updateGroup(updateGroupDto);
-
-        GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(group.getIdx());
-        if(updateGroupDto.getSecret()){
-            groupSecret.updatePassword(updateGroupDto.getPassword().toString());
-        }
+    private void updateGroup(Group group, UpdateGroupDto dto){
+        if(!group.isSecret() & dto.getSecret()){
+            group.updateGroup(dto);
+            GroupSecret groupSecret = groupConverter.toEntity(group, dto.getPassword().get());
+            groupSecretRepository.save(groupSecret);
+        } else if(group.isSecret() & !dto.getSecret()){
+            group.updateGroup(dto);
+            groupSecretRepository.deleteByGroupIdx(group.getIdx());
+        } else if(group.isSecret() & dto.getSecret()){
+            GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(group.getIdx());
+            groupSecret.updatePassword(dto.getPassword().get());
+        } else
+            group.updateGroup(dto);
     }
 }
