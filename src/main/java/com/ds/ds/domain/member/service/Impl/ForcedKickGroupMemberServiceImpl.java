@@ -1,11 +1,11 @@
-package com.ds.ds.domain.group.service.impl;
+package com.ds.ds.domain.member.service.Impl;
 
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
 import com.ds.ds.domain.group.exception.NotBossException;
 import com.ds.ds.domain.group.exception.NotGroupMemberException;
-import com.ds.ds.domain.group.service.ForcedKickGroupMemberService;
+import com.ds.ds.domain.member.service.ForcedKickGroupMemberService;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.domain.repository.UserRepository;

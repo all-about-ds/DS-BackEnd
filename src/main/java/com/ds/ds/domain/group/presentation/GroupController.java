@@ -6,6 +6,8 @@ import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.service.*;
 import com.ds.ds.domain.group.util.GroupConverter;
+import com.ds.ds.domain.member.service.ForcedKickGroupMemberService;
+import com.ds.ds.domain.member.service.ManDateGroupMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -30,6 +32,7 @@ public class GroupController {
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
     private final ForcedKickGroupMemberService forcedKickGroupMemberService;
+    private final ManDateGroupMemberService manDateGroupMemberService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -88,12 +91,4 @@ public class GroupController {
         joinGroupService.joinGroup(joinGroupDto, groupIdx);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    @DeleteMapping("/member/{group-idx}/{user-idx}")
-    public ResponseEntity<Void> forcedKickGroupMember(@PathVariable("group-idx")Long groupIdx,
-                                                      @PathVariable("user-idx")Long userIdx) {
-        forcedKickGroupMemberService.forcedKickGroupMember(groupIdx, userIdx);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
 }

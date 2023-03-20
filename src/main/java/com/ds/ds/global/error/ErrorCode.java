@@ -29,7 +29,8 @@ public enum ErrorCode {
     DUPLICATE_NAME(409, "이미 존재하는 닉네임입니다."),
     DUPLICATE_EMAIL(409, "이미 존재하는 이메일입니다."),
     DUPLICATE_JOIN_GROUP(409, "이미 가입된 그룹입니다."),
-    BLACKLIST_ALREADY_EXIST(409, "블랙리스트에 이미 등록되어있습니다."),
+    BLACKLIST_ALREADY_EXIST(409, "이미 블랙리스트에 등록되어있습니다."),
+    ALREADY_BOSS(409, "이미 방장입니다."),
 
     INTERNAL_SERVER_ERROR(500, "internal server error");
 
