@@ -1,10 +1,17 @@
 package com.ds.ds.domain.user.presentation.data.request;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class UpdateUserNameRequest {
-    private final String name;
+    private String name;
+
+    @JsonCreator
+    public UpdateUserNameRequest(@JsonProperty("name") String name) {
+        this.name = name;
+    }
 }
