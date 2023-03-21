@@ -73,7 +73,7 @@ public class SecurityConfig {
                 .antMatchers("/timer").authenticated()
 
                 //image
-                .antMatchers(HttpMethod.POST, "/image").permitAll()
+                .antMatchers(HttpMethod.POST, "/image").authenticated()
 
                 .anyRequest().denyAll()
 
