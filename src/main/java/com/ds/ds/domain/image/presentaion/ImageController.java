@@ -23,7 +23,7 @@ public class ImageController {
     private final ImageConverter imageConverter;
 
     @PostMapping
-    public ResponseEntity<ImageResponse> uploadFile(@Valid @RequestPart(value = "files", required = false) MultipartFile multipartFile){
+    public ResponseEntity<ImageResponse> uploadFile(@Valid @RequestPart(value = "file", required = false) MultipartFile multipartFile){
         ImageDto imageDto = imageService.uploadImage(multipartFile);
         return new ResponseEntity<>(imageConverter.toResponse(imageDto), HttpStatus.OK);
     }

@@ -44,6 +44,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private String createFileName(String fileName) {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID() + fileName;
     }
 }
