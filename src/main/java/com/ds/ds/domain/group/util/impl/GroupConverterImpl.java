@@ -38,7 +38,7 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public DetailGroupDto toDto(Group group, Long memberCount, Boolean isGroupMember) {
+    public DetailGroupDto toDto(Group group, Long memberCount, Boolean isMember) {
         return DetailGroupDto.builder()
                 .idx(group.getIdx())
                 .name(group.getGroupName())
@@ -49,7 +49,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .leaderImg(group.getUser().getProfileImg())
                 .leaderName(group.getUser().getName())
                 .secret(group.isSecret())
-                .groupMember(isGroupMember)
+                .isMember(isMember)
                 .build();
     }
 
@@ -103,7 +103,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .leaderImg(dto.getLeaderImg())
                 .leaderName(dto.getLeaderName())
                 .secret(dto.getSecret())
-                .groupMember(dto.getGroupMember())
+                .isMember(dto.getIsMember())
                 .build();
     }
 

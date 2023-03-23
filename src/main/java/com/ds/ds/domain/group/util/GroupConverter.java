@@ -20,7 +20,7 @@ public interface GroupConverter {
     MemberDto toDto(User user);
     GroupMainDto toDto(Group group, List<MemberDto> list, boolean isHead);
     CreateGroupDto toDto(CreateGroupRequest request);
-    DetailGroupDto toDto(Group group, Long memberCount, Boolean isGroupMember);
+    DetailGroupDto toDto(Group group, Long memberCount, Boolean isMember);
     GroupDto toDto(Long memberCount, Group group);
     GroupListDto toDto(Pageable pageable, List<GroupDto> dto);
     GroupResponse toResponse(GroupDto dto);

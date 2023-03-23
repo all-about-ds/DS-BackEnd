@@ -17,5 +17,5 @@ public class DetailGroupResponse {
     private final String leaderImg;
     private final String leaderName;
     private final Boolean secret;
-    private final Boolean groupMember;
+    private final Boolean isMember;
 }
