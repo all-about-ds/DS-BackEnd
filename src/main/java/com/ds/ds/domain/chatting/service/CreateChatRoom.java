@@ -1,4 +1,5 @@
 package com.ds.ds.domain.chatting.service;
 
-public class CreateChatRoom {
+public interface CreateChatRoom {
+    void createChatRoom(String name);
 }
