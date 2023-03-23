@@ -34,14 +34,12 @@ public class JoinGroupServiceImpl implements JoinGroupService {
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
 
-        if(group.isSecret()){
+        if (group.isSecret()) {
             GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(groupIdx);
             if(Objects.equals(joinGroupDto.getPassword(), groupSecret.getPassword())){
                 throw new GroupPasswordNotMatchException(ErrorCode.GROUP_PASSWORD_NOT_MATCH);
             }
-        }
-
-        if(memberRepository.existsByUserAndGroup(user, group)){
+        } else if(memberRepository.existsByUserAndGroup(user, group) | group.getUser().equals(user)) {
             throw new DuplicateJoinGroup(ErrorCode.DUPLICATE_JOIN_GROUP);
         }
 
