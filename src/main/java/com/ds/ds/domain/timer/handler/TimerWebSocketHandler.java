@@ -29,7 +29,7 @@ public class TimerWebSocketHandler extends TextWebSocketHandler {
         sendMessage(session, "Connected to the server!");
     }
 
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         Long groupId = Long.valueOf(message.getPayload());
 
         // 지정된 시간마다 데이터를 조회하여 전송
@@ -41,15 +41,19 @@ public class TimerWebSocketHandler extends TextWebSocketHandler {
             TimerResponse response = timerConverter.toResponse(dto, memberTimerList);
 
             try {
-                sendMessage(session, response.toString());
+                sendMessage(session, response);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.SECONDS);
     }
-
     private void sendMessage(WebSocketSession session, String message) throws IOException {
         TextMessage textMessage = new TextMessage(message);
+        session.sendMessage(textMessage);
+    }
+
+    private void sendMessage(WebSocketSession session, TimerResponse message) throws IOException {
+        TextMessage textMessage = new TextMessage((CharSequence) message);
         session.sendMessage(textMessage);
     }
 }
