@@ -8,6 +8,7 @@ import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.member.domain.entity.Member;
+import com.ds.ds.domain.timer.domain.entity.Timer;
 import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -173,6 +174,17 @@ public class GroupConverterImpl implements GroupConverter {
                 .group(group)
                 .user(user)
                 .build();
+    }
+
+    @Override
+    public Timer toEntity(Group group, User user, boolean activity) {
+        return Timer.builder()
+                .group(group)
+                .user(user)
+                .activity(activity)
+                .timer(0L)
+                .build();
+
     }
 
     @Override
