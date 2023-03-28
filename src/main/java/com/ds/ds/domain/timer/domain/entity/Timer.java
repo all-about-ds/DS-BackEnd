@@ -31,10 +31,6 @@ public class Timer extends BaseIdEntity {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @Builder
-    public Timer( Long timer) {
-        this.timer = timer;
-    }
     public void updateActivity(Boolean activity) {
         this.activity = activity;
     }
@@ -43,4 +39,12 @@ public class Timer extends BaseIdEntity {
         this.timer = time;
     }
     public void initializeTime() { this.timer = 0L; }
+
+    @Builder
+    public Timer(Long timer, Boolean activity, User user, Group group){
+        this.timer = timer;
+        this.activity = activity;
+        this.user = user;
+        this.group = group;
+    }
 }
