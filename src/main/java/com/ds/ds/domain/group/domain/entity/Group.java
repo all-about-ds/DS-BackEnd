@@ -33,6 +33,11 @@ public class Group extends BaseIdEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "ds_group_hits_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private GroupHits groupHits;
+
     @Builder
     public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, boolean secret, User user) {
         this.groupName = groupName;
