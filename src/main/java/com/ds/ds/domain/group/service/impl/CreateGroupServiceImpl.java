@@ -1,6 +1,7 @@
 package com.ds.ds.domain.group.service.impl;
 
 import com.ds.ds.domain.group.domain.entity.Group;
+import com.ds.ds.domain.group.domain.entity.GroupHits;
 import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.domain.repository.GroupSecretRepository;
 import com.ds.ds.domain.group.presentation.data.dto.CreateGroupDto;
@@ -24,7 +25,9 @@ public class CreateGroupServiceImpl implements CreateGroupService {
     @Transactional(rollbackFor = Exception.class)
     public void createGroup(CreateGroupDto dto) {
         User user = userUtil.currentUser();
-        Group group = groupConverter.toEntity(dto, user);
+        GroupHits groupHits = new GroupHits(0L);
+        Group group = groupConverter.toEntity(dto, user, groupHits);
+
 
         groupRepository.save(group);
 
