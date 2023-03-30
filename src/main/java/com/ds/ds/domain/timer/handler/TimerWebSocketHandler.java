@@ -3,6 +3,7 @@ package com.ds.ds.domain.timer.handler;
 import com.ds.ds.domain.timer.presentation.data.dto.TimerDto;
 import com.ds.ds.domain.timer.presentation.data.response.TimerResponse;
 import com.ds.ds.domain.timer.service.FindTimerService;
+import com.ds.ds.domain.timer.service.IncreaseTimerService;
 import com.ds.ds.domain.timer.util.TimerConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TimerWebSocketHandler extends TextWebSocketHandler {
     private final FindTimerService findTimerService;
+    private final IncreaseTimerService increaseTimerService;
     private final TimerConverter timerConverter;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -35,6 +37,7 @@ public class TimerWebSocketHandler extends TextWebSocketHandler {
         // 지정된 시간마다 데이터를 조회하여 전송
         scheduler.scheduleAtFixedRate(() -> {
             TimerDto dto = findTimerService.findTimer(groupId);
+            increaseTimerService.increaseTimer();
             List<TimerResponse.MemberTimerResponse> memberTimerList = dto.getMemberTimerList().stream()
                     .map(it -> timerConverter.toResponse(it))
                     .collect(Collectors.toList());
