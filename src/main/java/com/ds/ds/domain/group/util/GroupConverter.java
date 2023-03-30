@@ -1,6 +1,7 @@
 package com.ds.ds.domain.group.util;
 
 import com.ds.ds.domain.group.domain.entity.Group;
+import com.ds.ds.domain.group.domain.entity.GroupHits;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
@@ -28,7 +29,7 @@ public interface GroupConverter {
     MemberResponse toResponse(MemberDto dto);
     GroupMainResponse toResponse(GroupMainDto dto, List<MemberResponse> memberResponses);
     GroupListResponse toResponse(Pageable pageable, List<GroupResponse> response);
-    Group toEntity(CreateGroupDto dto, User user);
+    Group toEntity(CreateGroupDto dto, User user, GroupHits groupHits);
     GroupSecret toEntity(Group entity, String password);
     JoinGroupDto toDto(Long groupIdx, Optional<String> password);
     Member toEntity(Group group, User user);

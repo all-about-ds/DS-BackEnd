@@ -1,6 +1,7 @@
 package com.ds.ds.domain.group.util.impl;
 
 import  com.ds.ds.domain.group.domain.entity.Group;
+import com.ds.ds.domain.group.domain.entity.GroupHits;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
@@ -140,7 +141,7 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public Group toEntity(CreateGroupDto dto, User user) {
+    public Group toEntity(CreateGroupDto dto, User user, GroupHits groupHits) {
         return Group.builder()
                 .groupName(dto.getName())
                 .groupDescription(dto.getDescription())
@@ -148,6 +149,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupImg(dto.getImg())
                 .secret(dto.getSecret())
                 .user(user)
+                .groupHits(groupHits)
                 .build();
     }
 
