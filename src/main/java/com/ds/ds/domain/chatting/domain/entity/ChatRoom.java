@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.ds.ds.domain.chatting.presentation.data.dto.UserIdDto;
-import groovyjarjarantlr.collections.List;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -26,15 +26,9 @@ public class ChatRoom implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chatroom_id")
     private String id;
-
-    private static final long serialVersionUID = 6494678977089006639L;
-
     private String name;
-
     private UserIdDto customer;
-
     private UserIdDto store;
-
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
