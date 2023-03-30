@@ -33,19 +33,19 @@ public class Group extends BaseIdEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "ds_group_hits_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_hits_id")
     private GroupHits groupHits;
 
     @Builder
-    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, boolean secret, User user) {
+    public Group(String groupName, String groupDescription, String groupImg, Long groupMaxCount, boolean secret, User user, GroupHits groupHits) {
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupImg = groupImg;
         this.groupMaxCount = groupMaxCount;
         this.secret = secret;
         this.user = user;
+        this.groupHits = groupHits;
     }
 
     public void updateGroup(UpdateGroupDto updateGroupDto) {

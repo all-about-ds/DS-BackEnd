@@ -16,13 +16,12 @@ import javax.persistence.*;
 public class GroupHits extends BaseIdEntity {
     private Long hits;
 
-    @OneToOne(mappedBy = "ds_group_hits")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Group group;
-
     @Builder
-    public GroupHits(Long hits, Group group){
+    public GroupHits(Long hits) {
         this.hits = hits;
-        this.group = group;
+    }
+
+    public void updateHits() {
+        ++this.hits;
     }
 }
