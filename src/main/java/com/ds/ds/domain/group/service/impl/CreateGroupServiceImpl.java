@@ -6,6 +6,7 @@ import com.ds.ds.domain.group.domain.repository.GroupSecretRepository;
 import com.ds.ds.domain.group.presentation.data.dto.CreateGroupDto;
 import com.ds.ds.domain.group.service.CreateGroupService;
 import com.ds.ds.domain.group.util.GroupConverter;
+import com.ds.ds.domain.timer.domain.repository.TimerRepository;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.util.UserUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class CreateGroupServiceImpl implements CreateGroupService {
     private final GroupRepository groupRepository;
     private final GroupConverter groupConverter;
     private final GroupSecretRepository groupSecretRepository;
+    private final TimerRepository timerRepository;
     private final UserUtil userUtil;
 
     @Override
@@ -27,6 +29,7 @@ public class CreateGroupServiceImpl implements CreateGroupService {
         Group group = groupConverter.toEntity(dto, user);
 
         groupRepository.save(group);
+        timerRepository.save(groupConverter.toEntity(group, user, false));
 
         if(dto.getSecret()) {
             groupSecretRepository.save(groupConverter.toEntity(group, dto.getPassword().get()));
