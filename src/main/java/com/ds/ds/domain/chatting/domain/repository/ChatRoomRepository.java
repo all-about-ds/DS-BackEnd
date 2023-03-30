@@ -1,13 +1,12 @@
 package com.ds.ds.domain.chatting.domain.repository;
 
-import lombok.RequiredArgsConstructor;
+import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
+import com.ds.ds.domain.chatting.presentation.data.dto.UserIdDto;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@RequiredArgsConstructor
-@Service
-public class ChatRoomRepository extends JpaRepository<ChatRoom,String> {
-    List<ChatRoom> findChatRoomByCustomer(UserIdDto customer);
+public interface ChatRoomRepository extends JpaRepository<ChatRoom,String> {
+    List<ChatRoom> findChatRoomsByCustomer(UserIdDto customer);
+    List<ChatRoom>findChatRoomsByStore(UserIdDto store);
 }
