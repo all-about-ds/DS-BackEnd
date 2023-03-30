@@ -1,6 +1,6 @@
 package com.ds.ds.domain.timer.schedule;
 
-import com.ds.ds.domain.timer.service.UpdateTimerService;
+import com.ds.ds.domain.timer.service.InitializeTimerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class TimerSchedule {
-    private final UpdateTimerService updateTimerService;
+    private final InitializeTimerService initializeTimerService;
 
     @Scheduled(cron = "0 0 0 ? * MON-SUN")
     public void timerReset() {
-        updateTimerService.updateTimer();
+        initializeTimerService.updateTimer();
     }
 }

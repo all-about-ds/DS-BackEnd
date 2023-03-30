@@ -1,5 +1,5 @@
 package com.ds.ds.domain.timer.service;
 
-public interface UpdateTimerService {
+public interface InitializeTimerService {
     void updateTimer();
 }
