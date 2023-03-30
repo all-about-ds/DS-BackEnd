@@ -1,32 +1,13 @@
 package com.ds.ds.domain.chatting.domain.repository;
 
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatRoom;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RequiredArgsConstructor
 @Service
-public class ChatRoomRepository {
-    // Redis
-    private static final String CHAT_ROOMS = "CHAT_ROOM";
-    private final RedisTemplate<String, Object> redisTemplate;
-    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
-    @PostConstruct
-    private void init() {
-        opsHashChatRoom = redisTemplate.opsForHash();
-    }
-    // 채팅방 생성 : 서버간 채팅방 공유를 위해 redis hash에 저장한다.
-    public ChatRoom createChatRoom(String name) {
-        ChatRoom chatRoom = ChatRoom.create(name);
-        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
-        return chatRoom;
-    }
+public class ChatRoomRepository extends JpaRepository<ChatRoom,String> {
+    List<ChatRoom> findChatRoomByCustomer(UserIdDto customer);
 }

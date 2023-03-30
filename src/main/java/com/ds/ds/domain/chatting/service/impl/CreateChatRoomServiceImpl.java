@@ -1,6 +1,5 @@
 package com.ds.ds.domain.chatting.service.impl;
 
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatRoom;
 import com.ds.ds.domain.chatting.service.CreateChatRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

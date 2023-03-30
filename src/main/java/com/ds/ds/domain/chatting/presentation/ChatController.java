@@ -1,16 +1,13 @@
 package com.ds.ds.domain.chatting.presentation;
 
 import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatRoom;
 import com.ds.ds.domain.chatting.service.ChatService;
 import com.ds.ds.domain.user.util.Impl.UserUtilImpl;
-import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

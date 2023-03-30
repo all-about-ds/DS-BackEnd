@@ -1,23 +1,42 @@
 package com.ds.ds.domain.chatting.domain.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
+import javax.persistence.*;
+
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Entity
 public class ChatMessage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private MessageType type;
+    private String sender;
+    private String message;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chatroom_id")
+    private ChatRoom chatRoom;
 
-    public enum MessageType {
-        ENTER,
-        TALK,
-        JOIN
+    public static ChatMessage createChatMessage(ChatRoom chatRoom, String sender, String message, MessageType type) {
+        ChatMessage chatMessage = ChatMessage.builder()
+                .chatRoom(chatRoom)
+                .sender(sender)
+                .message(message)
+                .type(type)
+                .build();
+        return chatMessage;
     }
-
-    private MessageType type;   // 메시지 타입
-    private String roomId;      // 방번호
-    private String sender;      // 메시지 보낸 사람
-    private String message;     // 메시지
+    public void setSender(String sender) {
+        this.sender=sender;
+    }
+    public void setMessage(String message) {
+        this.message=message;
+    }
+    public enum MessageType {
+      ENTER,QUIT,TALK
+    }
 
 }

@@ -1,18 +1,13 @@
 package com.ds.ds.domain.chatting.presentation;
 
 import com.ds.ds.domain.chatting.domain.repository.ChatRoomRepository;
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatRoom;
 import com.ds.ds.domain.chatting.presentation.data.dto.LoginInfo;
-import com.ds.ds.domain.user.util.Impl.UserUtilImpl;
 import com.ds.ds.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,8 +15,6 @@ import java.util.List;
 public class ChatRoomController {
     private final ChatRoomRepository chatRoomRepository;
     private final JwtProvider jwtProvider;
-    private final UserUtilImpl userUtil;
-
     @GetMapping("/user")
     @ResponseBody
     public LoginInfo getUserInfo() {
@@ -35,13 +28,6 @@ public class ChatRoomController {
     @ResponseBody
     public ChatRoom createRoom(@RequestParam String name) {
         return chatRoomRepository.createChatRoom(name);
-    }
-
-    // 채팅방 입장 화면
-    @GetMapping("/room/enter/{roomId}")
-    public String roomDetail(Model model, @PathVariable String roomId) {
-        model.addAttribute("roomId", roomId);
-        return "/chat/roomdetail";
     }
 
 }
