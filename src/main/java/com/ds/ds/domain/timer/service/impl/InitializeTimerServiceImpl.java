@@ -20,7 +20,7 @@ public class UpdateTimerServiceImpl implements UpdateTimerService {
         List<Timer> timerList = timerRepository.findAll();
 
         timerList.stream()
-                .forEach(timer -> timer.initializeTime());
+                .forEach(Timer::initializeTime);
 
         timerRepository.saveAll(timerList);
     }
