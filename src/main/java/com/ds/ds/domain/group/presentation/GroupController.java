@@ -31,8 +31,6 @@ public class GroupController {
     private final DeleteGroupService deleteGroupService;
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
-    private final ForcedKickGroupMemberService forcedKickGroupMemberService;
-    private final ManDateGroupMemberService manDateGroupMemberService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
