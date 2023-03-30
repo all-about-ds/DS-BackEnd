@@ -6,8 +6,6 @@ import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.service.*;
 import com.ds.ds.domain.group.util.GroupConverter;
-import com.ds.ds.domain.member.service.ForcedKickGroupMemberService;
-import com.ds.ds.domain.member.service.ManDateGroupMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
