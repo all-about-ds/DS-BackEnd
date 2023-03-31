@@ -1,5 +1,6 @@
 package com.ds.ds.domain.chatting.presentation;
 
+import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
 import com.ds.ds.domain.chatting.domain.repository.ChatRoomRepository;
 import com.ds.ds.domain.chatting.presentation.data.dto.LoginInfo;
 import com.ds.ds.global.security.jwt.JwtProvider;
