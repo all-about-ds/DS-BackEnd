@@ -9,7 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.ds.ds.domain.chatting.presentation.data.dto.UserIdDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -20,29 +22,19 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatRoom implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chatroom_id")
     private String id;
     private String name;
-    private UserIdDto customer;
-    private UserIdDto store;
-    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
-    private List<ChatMessage> chatMessages = new ArrayList<>();
+    private String profileImg;
 
-    public static ChatRoom create(String name,UserIdDto customer,UserIdDto store) {
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.id = UUID.randomUUID().toString();
-        chatRoom.name = name;
-        chatRoom.customer=customer;
-        chatRoom.store=store;
-        return chatRoom;
+    public ChatRoom(String name, String profileImg) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.profileImg = profileImg;
     }
-
-    public void addChatMessages(ChatMessage chatMessage) {
-        this.chatMessages.add(chatMessage);
-    }
-
 }

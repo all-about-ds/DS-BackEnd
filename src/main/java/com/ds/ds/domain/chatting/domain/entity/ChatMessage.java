@@ -16,13 +16,11 @@ public class ChatMessage {
     private MessageType type;
     private String sender;
     private String message;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chatroom_id")
-    private ChatRoom chatRoom;
+    private String roomId;
 
-    public static ChatMessage createChatMessage(ChatRoom chatRoom, String sender, String message, MessageType type) {
+    public static ChatMessage createChatMessage(String roomId ,String sender, String message, MessageType type) {
         ChatMessage chatMessage = ChatMessage.builder()
-                .chatRoom(chatRoom)
+                .roomId(roomId)
                 .sender(sender)
                 .message(message)
                 .type(type)
