@@ -25,6 +25,7 @@ public interface GroupConverter {
     GroupDto toDto(Long memberCount, Group group);
     GroupListDto toDto(Pageable pageable, List<GroupDto> dto);
     GroupResponse toResponse(GroupDto dto);
+    PopularityGroupResponse toResponse(PopularityGroupDto dto);
     DetailGroupResponse toResponse(DetailGroupDto dto);
     MemberResponse toResponse(MemberDto dto);
     GroupMainResponse toResponse(GroupMainDto dto, List<MemberResponse> memberResponses);
@@ -34,4 +35,7 @@ public interface GroupConverter {
     JoinGroupDto toDto(Long groupIdx, Optional<String> password);
     Member toEntity(Group group, User user);
     Timer toEntity(Group group, User user, boolean activity);
+    PopularityGroupDto toGroupDto(Long memberCount, Group group);
+    PopularityGroupListDto toGroupListDto(Pageable pageable, List<PopularityGroupDto> popularityGroups);
+    PopularityGroupListResponse toGroupResponse(Pageable pageable, List<PopularityGroupResponse> popularityGroupResponses);
 }

@@ -94,6 +94,21 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
+    public PopularityGroupResponse toResponse(PopularityGroupDto dto) {
+        return PopularityGroupResponse.builder()
+                .idx(dto.getIdx())
+                .name(dto.getGroupName())
+                .img(dto.getGroupImg())
+                .description(dto.getGroupDescription())
+                .memberCount(dto.getGroupMemberCount())
+                .maxCount(dto.getGroupMaxCount())
+                .leaderImg(dto.getGroupLeaderImg())
+                .leaderName(dto.getGroupLeaderName())
+                .secret(dto.getSecret())
+                .build();
+    }
+
+    @Override
     public DetailGroupResponse toResponse(DetailGroupDto dto) {
         return DetailGroupResponse.builder()
                 .idx(dto.getIdx())
@@ -187,6 +202,39 @@ public class GroupConverterImpl implements GroupConverter {
                 .timer(0L)
                 .build();
 
+    }
+
+    @Override
+    public PopularityGroupDto toGroupDto(Long memberCount, Group group) {
+        return PopularityGroupDto.builder()
+                .idx(group.getIdx())
+                .groupName(group.getGroupName())
+                .groupImg(group.getGroupImg())
+                .groupDescription(group.getGroupDescription())
+                .groupMemberCount(memberCount)
+                .groupMaxCount(group.getGroupMaxCount())
+                .groupLeaderImg(group.getUser().getProfileImg())
+                .groupLeaderName(group.getUser().getName())
+                .secret(group.isSecret())
+                .hits(group.getGroupHits().getHits())
+                .build();
+    }
+
+    @Override
+    public PopularityGroupListDto toGroupListDto(Pageable pageable, List<PopularityGroupDto> popularityGroups) {
+        return PopularityGroupListDto.builder()
+                .pageable(pageable)
+                .groups(popularityGroups)
+                .build();
+    }
+
+    @Override
+    public PopularityGroupListResponse toGroupResponse(Pageable pageable, List<PopularityGroupResponse> popularityGroupResponses) {
+        return PopularityGroupListResponse.builder()
+                .size(pageable.getPageSize())
+                .page(pageable.getPageNumber())
+                .popularityGroups(popularityGroupResponses)
+                .build();
     }
 
     @Override
