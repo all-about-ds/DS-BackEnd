@@ -1,6 +1,5 @@
 package com.ds.ds.domain.chatting.config.redis;
 
-import com.ds.ds.domain.chatting.service.RedisSubscriber;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

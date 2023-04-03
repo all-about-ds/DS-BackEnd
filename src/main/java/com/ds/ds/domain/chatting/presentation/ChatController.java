@@ -2,7 +2,6 @@ package com.ds.ds.domain.chatting.presentation;
 
 import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
 import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
-import com.ds.ds.domain.chatting.service.ChatService;
 import com.ds.ds.domain.user.util.Impl.UserUtilImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
