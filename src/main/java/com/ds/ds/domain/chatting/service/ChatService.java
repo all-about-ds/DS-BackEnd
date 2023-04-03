@@ -44,24 +44,11 @@ public class ChatService {
 
     @PostConstruct
     private void init() {
-        chatRooms = new LinkedHashMap<>();
-    }
-    public List<ChatRoom> findAllRoom() {
-        return new ArrayList<>(chatRooms.values());
-    }
+        opsHashChatRoom = redisTemplate.opsForHash();
+        hashOpsEnterInfo = redisTemplate.opsForHash();
 
-    public ChatRoom findRoomById(String roomId) {
-        return chatRooms.get(roomId);
+        topics = new HashMap<>();
     }
-
-    public ChatRoom createRoom(String name) {
-        String randomId = UUID.randomUUID().toString();
-        ChatRoom chatRoom = new ChatRoom(randomId, name);
-
-        chatRooms.put(randomId, chatRoom);
-        return chatRoom;
-    }
-
     public <T> void sendMessage(WebSocketSession session, T message) {
         try {
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
