@@ -31,14 +31,13 @@ public class ViewGroupDetailServiceImpl implements ViewGroupDetailService {
         User user = userUtil.currentUser();
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
-        Long groupMemberCount = memberRepository.countByGroup(group);
 
         publisher.publishEvent(new SawGroupDetailEvent(group.getGroupHits()));
 
         if(user.equals(group.getUser()) | memberRepository.existsByUserAndGroup(user, group)) {
-            return groupConverter.toDto(group, groupMemberCount, true);
+            return groupConverter.toDto(true);
         } else{
-            return groupConverter.toDto(group, groupMemberCount, false);
+            return groupConverter.toDto(false);
         }
     }
 }
