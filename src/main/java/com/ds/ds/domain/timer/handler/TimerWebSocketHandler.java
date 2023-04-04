@@ -3,6 +3,7 @@ package com.ds.ds.domain.timer.handler;
 import com.ds.ds.domain.timer.presentation.data.dto.TimerDto;
 import com.ds.ds.domain.timer.presentation.data.response.TimerResponse;
 import com.ds.ds.domain.timer.service.FindTimerService;
+import com.ds.ds.domain.timer.service.IncreaseTimerService;
 import com.ds.ds.domain.timer.util.TimerConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TimerWebSocketHandler extends TextWebSocketHandler {
     private final FindTimerService findTimerService;
+    private final IncreaseTimerService increaseTimerService;
     private final TimerConverter timerConverter;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -29,27 +31,32 @@ public class TimerWebSocketHandler extends TextWebSocketHandler {
         sendMessage(session, "Connected to the server!");
     }
 
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         Long groupId = Long.valueOf(message.getPayload());
 
         // 지정된 시간마다 데이터를 조회하여 전송
         scheduler.scheduleAtFixedRate(() -> {
             TimerDto dto = findTimerService.findTimer(groupId);
+            increaseTimerService.increaseTimer();
             List<TimerResponse.MemberTimerResponse> memberTimerList = dto.getMemberTimerList().stream()
                     .map(it -> timerConverter.toResponse(it))
                     .collect(Collectors.toList());
             TimerResponse response = timerConverter.toResponse(dto, memberTimerList);
 
             try {
-                sendMessage(session, response.toString());
+                sendMessage(session, response);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.SECONDS);
     }
-
     private void sendMessage(WebSocketSession session, String message) throws IOException {
         TextMessage textMessage = new TextMessage(message);
+        session.sendMessage(textMessage);
+    }
+
+    private void sendMessage(WebSocketSession session, TimerResponse message) throws IOException {
+        TextMessage textMessage = new TextMessage((CharSequence) message);
         session.sendMessage(textMessage);
     }
 }

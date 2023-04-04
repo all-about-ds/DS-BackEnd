@@ -3,6 +3,7 @@ package com.ds.ds.domain.group.util.impl;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
 import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import  com.ds.ds.domain.group.domain.entity.Group;
+import com.ds.ds.domain.group.domain.entity.GroupHits;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
@@ -10,6 +11,7 @@ import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.member.domain.entity.Member;
+import com.ds.ds.domain.timer.domain.entity.Timer;
 import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -40,7 +42,7 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public DetailGroupDto toDto(Group group, Long memberCount) {
+    public DetailGroupDto toDto(Group group, Long memberCount, Boolean isMember) {
         return DetailGroupDto.builder()
                 .idx(group.getIdx())
                 .name(group.getGroupName())
@@ -51,6 +53,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .leaderImg(group.getUser().getProfileImg())
                 .leaderName(group.getUser().getName())
                 .secret(group.isSecret())
+                .isMember(isMember)
                 .build();
     }
 
@@ -58,13 +61,13 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupDto toDto(Long memberCount, Group group) {
         return GroupDto.builder()
                 .idx(group.getIdx())
-                .groupName(group.getGroupName())
-                .groupImg(group.getGroupImg())
-                .groupDescription(group.getGroupDescription())
-                .groupMemberCount(memberCount)
-                .groupMaxCount(group.getGroupMaxCount())
-                .groupLeaderImg(group.getUser().getProfileImg())
-                .groupLeaderName(group.getUser().getName())
+                .name(group.getGroupName())
+                .img(group.getGroupImg())
+                .description(group.getGroupDescription())
+                .memberCount(memberCount)
+                .maxCount(group.getGroupMaxCount())
+                .leaderImg(group.getUser().getProfileImg())
+                .leaderName(group.getUser().getName())
                 .secret(group.isSecret())
                 .build();
     }
@@ -81,13 +84,28 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupResponse toResponse(GroupDto dto) {
         return GroupResponse.builder()
                 .idx(dto.getIdx())
-                .name(dto.getGroupName())
-                .img(dto.getGroupImg())
-                .description(dto.getGroupDescription())
-                .memberCount(dto.getGroupMemberCount())
-                .maxCount(dto.getGroupMaxCount())
-                .leaderImg(dto.getGroupLeaderImg())
-                .leaderName(dto.getGroupLeaderName())
+                .name(dto.getName())
+                .img(dto.getImg())
+                .description(dto.getDescription())
+                .memberCount(dto.getMemberCount())
+                .maxCount(dto.getMaxCount())
+                .leaderImg(dto.getLeaderImg())
+                .leaderName(dto.getLeaderName())
+                .secret(dto.getSecret())
+                .build();
+    }
+
+    @Override
+    public PopularityGroupResponse toResponse(PopularityGroupDto dto) {
+        return PopularityGroupResponse.builder()
+                .idx(dto.getIdx())
+                .name(dto.getName())
+                .img(dto.getImg())
+                .description(dto.getDescription())
+                .memberCount(dto.getMemberCount())
+                .maxCount(dto.getMaxCount())
+                .leaderImg(dto.getLeaderImg())
+                .leaderName(dto.getLeaderName())
                 .secret(dto.getSecret())
                 .build();
     }
@@ -104,6 +122,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .leaderImg(dto.getLeaderImg())
                 .leaderName(dto.getLeaderName())
                 .secret(dto.getSecret())
+                .isMember(dto.getIsMember())
                 .build();
     }
 
@@ -139,7 +158,7 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public Group toEntity(CreateGroupDto dto, User user) {
+    public Group toEntity(CreateGroupDto dto, User user, GroupHits groupHits) {
         return Group.builder()
                 .groupName(dto.getName())
                 .groupDescription(dto.getDescription())
@@ -147,6 +166,7 @@ public class GroupConverterImpl implements GroupConverter {
                 .groupImg(dto.getImg())
                 .secret(dto.getSecret())
                 .user(user)
+                .groupHits(groupHits)
                 .build();
     }
 
@@ -162,7 +182,7 @@ public class GroupConverterImpl implements GroupConverter {
     public JoinGroupDto toDto(Long groupIdx, Optional<String> password) {
         String StringPassword = password.toString();
         return JoinGroupDto.builder()
-                .groupIdx(groupIdx)
+                .idx(groupIdx)
                 .password(StringPassword)
                 .build();
     }
@@ -172,6 +192,50 @@ public class GroupConverterImpl implements GroupConverter {
         return Member.builder()
                 .group(group)
                 .user(user)
+                .build();
+    }
+
+    @Override
+    public Timer toEntity(Group group, User user, boolean activity) {
+        return Timer.builder()
+                .group(group)
+                .user(user)
+                .activity(activity)
+                .timer(0L)
+                .build();
+
+    }
+
+    @Override
+    public PopularityGroupDto toGroupDto(Long memberCount, Group group) {
+        return PopularityGroupDto.builder()
+                .idx(group.getIdx())
+                .name(group.getGroupName())
+                .img(group.getGroupImg())
+                .description(group.getGroupDescription())
+                .memberCount(memberCount)
+                .maxCount(group.getGroupMaxCount())
+                .leaderImg(group.getUser().getProfileImg())
+                .leaderName(group.getUser().getName())
+                .secret(group.isSecret())
+                .hits(group.getGroupHits().getHits())
+                .build();
+    }
+
+    @Override
+    public PopularityGroupListDto toGroupListDto(Pageable pageable, List<PopularityGroupDto> popularityGroups) {
+        return PopularityGroupListDto.builder()
+                .pageable(pageable)
+                .groups(popularityGroups)
+                .build();
+    }
+
+    @Override
+    public PopularityGroupListResponse toGroupResponse(Pageable pageable, List<PopularityGroupResponse> popularityGroupResponses) {
+        return PopularityGroupListResponse.builder()
+                .size(pageable.getPageSize())
+                .page(pageable.getPageNumber())
+                .popularityGroups(popularityGroupResponses)
                 .build();
     }
 

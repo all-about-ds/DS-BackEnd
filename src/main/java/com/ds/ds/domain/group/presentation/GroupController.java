@@ -2,6 +2,7 @@ package com.ds.ds.domain.group.presentation;
 
 import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
+import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import com.ds.ds.domain.chatting.service.CreateChatRoomService;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
@@ -37,6 +38,7 @@ public class GroupController {
     private final ForcedKickGroupMemberService forcedKickGroupMemberService;
     private final ManDateGroupMemberService manDateGroupMemberService;
     private final CreateChatRoomService createChatRoomService;
+    private final FindPopularityGroupService findPopularityGroupService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -46,6 +48,17 @@ public class GroupController {
                 .map(groupConverter::toResponse)
                 .collect(Collectors.toList());
         GroupListResponse result = groupConverter.toResponse(dto.getPageable(), groupResponses);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/popularity")
+    public ResponseEntity<PopularityGroupListResponse> findPopularityGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
+                                                                     @RequestParam("keyword")Optional<String> keyword) {
+        PopularityGroupListDto dto = findPopularityGroupService.findPopularityGroupList(groupConverter.toDto(pageable, keyword));
+        List<PopularityGroupResponse> popularityGroupResponses = dto.getGroups().stream()
+                .map(groupConverter::toResponse)
+                .collect(Collectors.toList());
+        PopularityGroupListResponse result = groupConverter.toGroupResponse(dto.getPageable(), popularityGroupResponses);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -77,9 +90,9 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createGroupWithChatRoom(@RequestBody CreateGroupRequest request) {
+    public ResponseEntity<Void> createGroupWithChatRoom(@RequestBody CreateGroupRequest request, CreateChatRequest chatRequest) {
         createGroupService.createGroup(groupConverter.toDto(request));
-        createChatRoomService.createChatRoom();
+        createChatRoomService.createChatRoom(groupConverter.toDto(chatRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

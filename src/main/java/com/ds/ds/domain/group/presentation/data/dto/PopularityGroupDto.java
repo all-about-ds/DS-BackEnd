@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class DetailGroupDto {
+public class PopularityGroupDto {
     private final Long idx;
     private final String name;
     private final String img;
@@ -17,5 +17,5 @@ public class DetailGroupDto {
     private final String leaderImg;
     private final String leaderName;
     private final Boolean secret;
-    private final Boolean isMember;
+    private final Long hits;
 }

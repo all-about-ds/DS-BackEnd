@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 public class JoinGroupDto {
-    private final Long groupIdx;
+    private final Long idx;
     private final String password;
 }

@@ -12,6 +12,8 @@ import com.ds.ds.domain.group.service.JoinGroupService;
 import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.member.domain.entity.Member;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
+import com.ds.ds.domain.timer.domain.entity.Timer;
+import com.ds.ds.domain.timer.domain.repository.TimerRepository;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.util.UserUtil;
 import com.ds.ds.global.error.ErrorCode;
@@ -28,24 +30,26 @@ public class JoinGroupServiceImpl implements JoinGroupService {
     private final GroupSecretRepository groupSecretRepository;
     private final MemberRepository memberRepository;
     private final GroupConverter groupConverter;
+    private final TimerRepository timerRepository;
     @Override
     public void joinGroup(JoinGroupDto joinGroupDto, Long groupIdx) {
         User user = userUtil.currentUser();
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
 
-        if(group.isSecret()){
+        if (group.isSecret()) {
             GroupSecret groupSecret = groupSecretRepository.findByGroupIdx(groupIdx);
             if(Objects.equals(joinGroupDto.getPassword(), groupSecret.getPassword())){
                 throw new GroupPasswordNotMatchException(ErrorCode.GROUP_PASSWORD_NOT_MATCH);
             }
-        }
-
-        if(memberRepository.existsByUserAndGroup(user, group)){
+        } else if(memberRepository.existsByUserAndGroup(user, group) | group.getUser().equals(user)) {
             throw new DuplicateJoinGroup(ErrorCode.DUPLICATE_JOIN_GROUP);
         }
 
         Member member = groupConverter.toEntity(group, user);
         memberRepository.save(member);
+
+        Timer timer = groupConverter.toEntity(group, user, false);
+        timerRepository.save(timer);
     }
 }

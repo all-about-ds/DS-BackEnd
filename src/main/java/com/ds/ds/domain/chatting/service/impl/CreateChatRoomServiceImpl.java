@@ -1,6 +1,7 @@
 package com.ds.ds.domain.chatting.service.impl;
 
 import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
 import com.ds.ds.domain.chatting.service.CreateChatRoomService;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
 import com.ds.ds.domain.user.domain.entity.User;
@@ -22,9 +23,9 @@ public class CreateChatRoomServiceImpl implements CreateChatRoomService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ChatRoom createChatRoom(String name) {
+    public ChatRoom createChatRoom(ChatDto chatDto) {
         String randomId = UUID.randomUUID().toString();
-        ChatRoom chatRoom = new ChatRoom(randomId, name);
+        ChatRoom chatRoom = new ChatRoom(randomId, chatDto);
 
         HashOperations<String, String, ChatRoom> hashOperations = redisTemplate.opsForHash();
         hashOperations.put("chatRooms", randomId, chatRoom);
