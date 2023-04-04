@@ -49,6 +49,7 @@ public class SecurityConfig {
 
                 //group
                 .antMatchers(HttpMethod.GET, "/group").permitAll()
+                .antMatchers(HttpMethod.GET,"/group/popularity").permitAll()
                 .antMatchers(HttpMethod.GET, "/group/detail/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/group/information/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/group").authenticated()

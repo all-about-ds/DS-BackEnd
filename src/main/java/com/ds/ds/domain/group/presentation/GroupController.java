@@ -29,6 +29,7 @@ public class GroupController {
     private final DeleteGroupService deleteGroupService;
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
+    private final FindPopularityGroupService findPopularityGroupService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -38,6 +39,17 @@ public class GroupController {
                 .map(groupConverter::toResponse)
                 .collect(Collectors.toList());
         GroupListResponse result = groupConverter.toResponse(dto.getPageable(), groupResponses);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/popularity")
+    public ResponseEntity<PopularityGroupListResponse> findPopularityGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
+                                                                     @RequestParam("keyword")Optional<String> keyword) {
+        PopularityGroupListDto dto = findPopularityGroupService.findPopularityGroupList(groupConverter.toDto(pageable, keyword));
+        List<PopularityGroupResponse> popularityGroupResponses = dto.getGroups().stream()
+                .map(groupConverter::toResponse)
+                .collect(Collectors.toList());
+        PopularityGroupListResponse result = groupConverter.toGroupResponse(dto.getPageable(), popularityGroupResponses);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

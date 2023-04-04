@@ -1,4 +1,4 @@
-package com.ds.ds.domain.group.presentation.data.dto;
+package com.ds.ds.domain.group.presentation.data.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class GroupDto {
+public class PopularityGroupResponse {
     private final Long idx;
     private final String name;
     private final String img;
