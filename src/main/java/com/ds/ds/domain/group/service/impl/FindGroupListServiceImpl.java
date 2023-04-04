@@ -8,11 +8,11 @@ import com.ds.ds.domain.group.presentation.data.dto.GroupListSearchRequirementDt
 import com.ds.ds.domain.group.service.FindGroupListService;
 import com.ds.ds.domain.group.util.GroupConverter;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
-import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +27,7 @@ public class FindGroupListServiceImpl implements FindGroupListService {
     public GroupListDto findGroupList(GroupListSearchRequirementDto dto) {
         List<GroupDto> groups = getGroupList(dto).stream()
                 .map(group -> groupConverter.toDto(memberRepository.countByGroup(group)+1, group))
+                .sorted(Comparator.comparing(GroupDto::getIdx).reversed())
                 .collect(Collectors.toList());
 
        return groupConverter.toDto(dto.getPageable(), groups);
