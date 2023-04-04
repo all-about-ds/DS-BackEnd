@@ -59,13 +59,13 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupDto toDto(Long memberCount, Group group) {
         return GroupDto.builder()
                 .idx(group.getIdx())
-                .groupName(group.getGroupName())
-                .groupImg(group.getGroupImg())
-                .groupDescription(group.getGroupDescription())
-                .groupMemberCount(memberCount)
-                .groupMaxCount(group.getGroupMaxCount())
-                .groupLeaderImg(group.getUser().getProfileImg())
-                .groupLeaderName(group.getUser().getName())
+                .name(group.getGroupName())
+                .img(group.getGroupImg())
+                .description(group.getGroupDescription())
+                .memberCount(memberCount)
+                .maxCount(group.getGroupMaxCount())
+                .leaderImg(group.getUser().getProfileImg())
+                .leaderName(group.getUser().getName())
                 .secret(group.isSecret())
                 .build();
     }
@@ -82,13 +82,13 @@ public class GroupConverterImpl implements GroupConverter {
     public GroupResponse toResponse(GroupDto dto) {
         return GroupResponse.builder()
                 .idx(dto.getIdx())
-                .name(dto.getGroupName())
-                .img(dto.getGroupImg())
-                .description(dto.getGroupDescription())
-                .memberCount(dto.getGroupMemberCount())
-                .maxCount(dto.getGroupMaxCount())
-                .leaderImg(dto.getGroupLeaderImg())
-                .leaderName(dto.getGroupLeaderName())
+                .name(dto.getName())
+                .img(dto.getImg())
+                .description(dto.getDescription())
+                .memberCount(dto.getMemberCount())
+                .maxCount(dto.getMaxCount())
+                .leaderImg(dto.getLeaderImg())
+                .leaderName(dto.getLeaderName())
                 .secret(dto.getSecret())
                 .build();
     }
@@ -97,13 +97,13 @@ public class GroupConverterImpl implements GroupConverter {
     public PopularityGroupResponse toResponse(PopularityGroupDto dto) {
         return PopularityGroupResponse.builder()
                 .idx(dto.getIdx())
-                .name(dto.getGroupName())
-                .img(dto.getGroupImg())
-                .description(dto.getGroupDescription())
-                .memberCount(dto.getGroupMemberCount())
-                .maxCount(dto.getGroupMaxCount())
-                .leaderImg(dto.getGroupLeaderImg())
-                .leaderName(dto.getGroupLeaderName())
+                .name(dto.getName())
+                .img(dto.getImg())
+                .description(dto.getDescription())
+                .memberCount(dto.getMemberCount())
+                .maxCount(dto.getMaxCount())
+                .leaderImg(dto.getLeaderImg())
+                .leaderName(dto.getLeaderName())
                 .secret(dto.getSecret())
                 .build();
     }
@@ -180,7 +180,7 @@ public class GroupConverterImpl implements GroupConverter {
     public JoinGroupDto toDto(Long groupIdx, Optional<String> password) {
         String StringPassword = password.toString();
         return JoinGroupDto.builder()
-                .groupIdx(groupIdx)
+                .idx(groupIdx)
                 .password(StringPassword)
                 .build();
     }
@@ -208,13 +208,13 @@ public class GroupConverterImpl implements GroupConverter {
     public PopularityGroupDto toGroupDto(Long memberCount, Group group) {
         return PopularityGroupDto.builder()
                 .idx(group.getIdx())
-                .groupName(group.getGroupName())
-                .groupImg(group.getGroupImg())
-                .groupDescription(group.getGroupDescription())
-                .groupMemberCount(memberCount)
-                .groupMaxCount(group.getGroupMaxCount())
-                .groupLeaderImg(group.getUser().getProfileImg())
-                .groupLeaderName(group.getUser().getName())
+                .name(group.getGroupName())
+                .img(group.getGroupImg())
+                .description(group.getGroupDescription())
+                .memberCount(memberCount)
+                .maxCount(group.getGroupMaxCount())
+                .leaderImg(group.getUser().getProfileImg())
+                .leaderName(group.getUser().getName())
                 .secret(group.isSecret())
                 .hits(group.getGroupHits().getHits())
                 .build();

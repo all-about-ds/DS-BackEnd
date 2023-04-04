@@ -9,13 +9,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PopularityGroupDto {
     private final Long idx;
-    private final String groupName;
-    private final String groupImg;
-    private final String groupDescription;
-    private final Long groupMemberCount;
-    private final Long groupMaxCount;
-    private final String groupLeaderImg;
-    private final String groupLeaderName;
+    private final String name;
+    private final String img;
+    private final String description;
+    private final Long memberCount;
+    private final Long maxCount;
+    private final String leaderImg;
+    private final String leaderName;
     private final Boolean secret;
     private final Long hits;
 }
