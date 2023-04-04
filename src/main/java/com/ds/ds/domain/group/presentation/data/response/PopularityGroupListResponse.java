@@ -12,5 +12,5 @@ import java.util.List;
 public class PopularityGroupListResponse {
     private final Integer size;
     private final Integer page;
-    private final List<PopularityGroupResponse> popularityGroups;
+    private final List<PopularityGroupResponse> groups;
 }

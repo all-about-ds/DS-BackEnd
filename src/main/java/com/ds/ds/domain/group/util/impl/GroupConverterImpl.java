@@ -215,7 +215,7 @@ public class GroupConverterImpl implements GroupConverter {
         return PopularityGroupListResponse.builder()
                 .size(pageable.getPageSize())
                 .page(pageable.getPageNumber())
-                .popularityGroups(popularityGroupResponses)
+                .groups(popularityGroupResponses)
                 .build();
     }
 
