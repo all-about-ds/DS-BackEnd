@@ -1,5 +1,7 @@
 package com.ds.ds.domain.group.util.impl;
 
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
+import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import  com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
 import com.ds.ds.domain.group.presentation.data.dto.*;
@@ -204,6 +206,15 @@ public class GroupConverterImpl implements GroupConverter {
                 .head(toDto(group.getUser()))
                 .memberList(list)
                 .host(host)
+                .build();
+    }
+    @Override
+    public ChatDto toDto(CreateChatRequest chatRequest) {
+        return ChatDto.builder()
+                .id(chatRequest.getId())
+                .chatRoomId(chatRequest.getChatRoomId())
+                .members(chatRequest.getMembers())
+                .messages(chatRequest.getMessages())
                 .build();
     }
 }

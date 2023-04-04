@@ -1,5 +1,8 @@
 package com.ds.ds.domain.group.presentation;
 
+import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
+import com.ds.ds.domain.chatting.service.CreateChatRoomService;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
@@ -33,6 +36,7 @@ public class GroupController {
     private final JoinGroupService joinGroupService;
     private final ForcedKickGroupMemberService forcedKickGroupMemberService;
     private final ManDateGroupMemberService manDateGroupMemberService;
+    private final CreateChatRoomService createChatRoomService;
 
     @GetMapping
     public ResponseEntity<GroupListResponse> findGroupList(@PageableDefault(size = 5, page = 0) Pageable pageable,
@@ -73,8 +77,9 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
+    public ResponseEntity<Void> createGroupWithChatRoom(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
+        createChatRoomService.createChatRoom();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
