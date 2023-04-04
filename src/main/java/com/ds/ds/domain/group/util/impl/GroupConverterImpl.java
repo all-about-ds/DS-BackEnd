@@ -40,17 +40,8 @@ public class GroupConverterImpl implements GroupConverter {
     }
 
     @Override
-    public DetailGroupDto toDto(Group group, Long memberCount, Boolean isMember) {
+    public DetailGroupDto toDto(Boolean isMember) {
         return DetailGroupDto.builder()
-                .idx(group.getIdx())
-                .name(group.getGroupName())
-                .img(group.getGroupImg())
-                .description(group.getGroupDescription())
-                .memberCount(memberCount)
-                .maxCount(group.getGroupMaxCount())
-                .leaderImg(group.getUser().getProfileImg())
-                .leaderName(group.getUser().getName())
-                .secret(group.isSecret())
                 .isMember(isMember)
                 .build();
     }
@@ -111,15 +102,6 @@ public class GroupConverterImpl implements GroupConverter {
     @Override
     public DetailGroupResponse toResponse(DetailGroupDto dto) {
         return DetailGroupResponse.builder()
-                .idx(dto.getIdx())
-                .name(dto.getName())
-                .img(dto.getImg())
-                .description(dto.getDescription())
-                .memberCount(dto.getMemberCount())
-                .maxCount(dto.getMaxCount())
-                .leaderImg(dto.getLeaderImg())
-                .leaderName(dto.getLeaderName())
-                .secret(dto.getSecret())
                 .isMember(dto.getIsMember())
                 .build();
     }
@@ -233,7 +215,7 @@ public class GroupConverterImpl implements GroupConverter {
         return PopularityGroupListResponse.builder()
                 .size(pageable.getPageSize())
                 .page(pageable.getPageNumber())
-                .popularityGroups(popularityGroupResponses)
+                .groups(popularityGroupResponses)
                 .build();
     }
 

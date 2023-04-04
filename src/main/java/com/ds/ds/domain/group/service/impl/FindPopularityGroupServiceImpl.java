@@ -26,7 +26,8 @@ public class FindPopularityGroupServiceImpl implements FindPopularityGroupServic
     public PopularityGroupListDto findPopularityGroupList(GroupListSearchRequirementDto dto) {
         List<PopularityGroupDto> popularityGroups = getGroupList(dto).stream()
                 .map(group -> groupConverter.toGroupDto(memberRepository.countByGroup(group)+1, group))
-                .sorted(Comparator.comparing(PopularityGroupDto::getHits)).collect(Collectors.toList());
+                .sorted(Comparator.comparing(PopularityGroupDto::getHits).reversed())
+                .collect(Collectors.toList());
 
         return groupConverter.toGroupListDto(dto.getPageable(), popularityGroups);
     }
