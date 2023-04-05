@@ -65,6 +65,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/user").authenticated()
                 .antMatchers(HttpMethod.GET, "/user/header").authenticated()
 
+                //member
+                .antMatchers(HttpMethod.PATCH,"/member/**/**").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/member/**/**").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/member/exit/**").authenticated()
 
                 //chatting
                 .antMatchers("/websocket/**").permitAll()
