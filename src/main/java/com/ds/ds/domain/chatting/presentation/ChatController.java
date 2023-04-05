@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
-    private final SendMessageService sendMessageService;
 }

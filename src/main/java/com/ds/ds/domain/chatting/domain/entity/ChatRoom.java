@@ -26,9 +26,8 @@ public class ChatRoom implements Serializable {
     private String name;
     private String profileImg;
 
-    public ChatRoom(String name, ChatDto profileImg) {
+    public ChatRoom(String name, ChatDto chatDto) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
-        this.profileImg = profileImg;
     }
 }
