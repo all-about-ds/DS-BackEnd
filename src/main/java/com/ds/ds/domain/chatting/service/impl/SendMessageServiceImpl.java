@@ -4,6 +4,7 @@ import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
 import com.ds.ds.domain.chatting.service.SendMessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class SendMessageServiceImpl implements SendMessageService {
     public void sendMessage(ChatMessage message) {
         redisTemplate.convertAndSend("chat",message);
         redisTemplate.opsForList().rightPush("chat_history_" + message.getRoomId(), message);
+        redisTemplate.convertAndSend("chat_message_"+ message.getRoomId(), message);
     }
 
     @Override
@@ -30,7 +32,6 @@ public class SendMessageServiceImpl implements SendMessageService {
             return Collections.emptyList();
         }
         List<ChatMessage> result = new ArrayList<>();
-
         for (Object obj : chatHistory) {
             result.add((ChatMessage) obj);
         }
