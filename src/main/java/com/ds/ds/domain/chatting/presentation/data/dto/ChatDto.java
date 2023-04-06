@@ -18,6 +18,5 @@ import java.util.List;
 public class ChatDto {
     private Long id;
     private Long chatRoomId;
-    private List<ChatDto> messages;
-    private List<Member> members;
+    private List<Long> members;
 }
