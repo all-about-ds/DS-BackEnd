@@ -1,5 +1,6 @@
 package com.ds.ds.domain.chatting.service;
 
+import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
