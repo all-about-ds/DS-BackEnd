@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChatMessage {
     private MessageType type;
@@ -23,30 +24,31 @@ public class ChatMessage {
     }
 
     public static ChatMessage enterMessage(String sender, String roomId) {
-        ChatMessage message = new ChatMessage();
-        message.setType(MessageType.ENTER);
-        message.setSender(sender);
-        message.setRoomId(roomId);
-        message.setTimestamp(LocalDateTime.now());
-        return message;
+        return ChatMessage.builder()
+                .type(MessageType.ENTER)
+                .sender(sender)
+                .roomId(roomId)
+                .timestamp(LocalDateTime.now())
+                .build();
     }
 
     public static ChatMessage quitMessage(String sender, String roomId) {
-        ChatMessage message = new ChatMessage();
-        message.setType(MessageType.QUIT);
-        message.setSender(sender);
-        message.setRoomId(roomId);
-        message.setTimestamp(LocalDateTime.now());
-        return message;
+      return ChatMessage.builder()
+              .type(MessageType.QUIT)
+              .sender(sender)
+              .roomId(roomId)
+              .timestamp(LocalDateTime.now())
+              .build();
+
     }
 
     public static ChatMessage talkMessage(String sender, String message, String roomId) {
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setType(MessageType.TALK);
-        chatMessage.setSender(sender);
-        chatMessage.setMessage(message);
-        chatMessage.setRoomId(roomId);
-        chatMessage.setTimestamp(LocalDateTime.now());
-        return chatMessage;
+        return ChatMessage.builder()
+                .type(MessageType.TALK)
+                .sender(sender)
+                .message(message)
+                .roomId(roomId)
+                .timestamp(LocalDateTime.now())
+                .build();
     }
 }
