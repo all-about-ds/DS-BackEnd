@@ -278,7 +278,6 @@ public class GroupConverterImpl implements GroupConverter {
                 .id(chatRequest.getId())
                 .chatRoomId(chatRequest.getChatRoomId())
                 .members(chatRequest.getMembers())
-                .messages(chatRequest.getMessages())
                 .build();
     }
 }
