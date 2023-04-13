@@ -14,4 +14,6 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
     Boolean existsByUser(User user);
     boolean existsByUserAndGroup(User user, Group group);
     void deleteByUserAndGroup(User user, Group group);
+    void deleteByUserIdxAndGroupIdx(Long idx, Long groupIdx);
+    boolean existsByUserIdxAndGroupIdx(Long idx, Long groupIdx);
 }
