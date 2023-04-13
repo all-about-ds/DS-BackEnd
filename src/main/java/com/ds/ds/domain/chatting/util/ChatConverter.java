@@ -1,7 +1,6 @@
 package com.ds.ds.domain.chatting.util;
 
 import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
-import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
 import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
 

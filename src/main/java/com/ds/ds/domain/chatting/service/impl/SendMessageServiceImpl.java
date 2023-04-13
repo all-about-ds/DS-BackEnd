@@ -10,12 +10,7 @@ import com.ds.ds.domain.chatting.service.SendMessageService;
 import com.ds.ds.domain.chatting.util.ChatConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.Instant;
 import java.util.List;

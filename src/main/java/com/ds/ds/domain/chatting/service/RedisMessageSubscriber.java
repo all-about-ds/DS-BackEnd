@@ -7,7 +7,6 @@ import com.ds.ds.domain.chatting.domain.repository.ChatRoomRepository;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
 import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
 import com.ds.ds.domain.chatting.util.ChatConverter;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;

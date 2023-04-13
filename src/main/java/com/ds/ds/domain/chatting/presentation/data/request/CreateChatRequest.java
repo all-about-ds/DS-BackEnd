@@ -1,8 +1,6 @@
 package com.ds.ds.domain.chatting.presentation.data.request;
 
 
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
-import com.ds.ds.domain.member.domain.entity.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
