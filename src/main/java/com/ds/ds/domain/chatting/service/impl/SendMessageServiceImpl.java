@@ -1,15 +1,25 @@
 package com.ds.ds.domain.chatting.service.impl;
 
 import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
+import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
+import com.ds.ds.domain.chatting.domain.repository.ChatMessageRepository;
+import com.ds.ds.domain.chatting.domain.repository.ChatRoomRepository;
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
+import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
 import com.ds.ds.domain.chatting.service.SendMessageService;
+import com.ds.ds.domain.chatting.util.ChatConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,24 +27,41 @@ import java.util.List;
 public class SendMessageServiceImpl implements SendMessageService {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ChatConverter chatConverter;
+    private final ChatRoomRepository chatRoomRepository;
+    private final ChatMessageRepository chatMessageRepository;
 
     @Override
-    public void sendMessage(ChatMessage message) {
-        redisTemplate.convertAndSend("chat",message);
-        redisTemplate.opsForList().rightPush("chat_history_" + message.getRoomId(), message);
-        redisTemplate.convertAndSend("chat_message_"+ message.getRoomId(), message);
+    public ChatMessageDto sendMessage(String roomId, ChatRequest chatRequest) {
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid roomId: " + roomId));
+        ChatMessage chatMessage = chatConverter.toEntity(chatConverter.toDto(chatRequest));
+        chatMessage.setChatRoom(chatRoom);
+
+        // ChatMessage를 데이터베이스에 저장
+        chatMessageRepository.save(chatMessage);
+
+        // Redis 채팅방 구독자들에게 메시지를 발행
+        redisTemplate.convertAndSend("/sub/chat/room/" + chatRoom.getId(), chatConverter.toDto(chatMessage));
+
+        // 채팅방의 채팅 내역 저장
+        redisTemplate.opsForList().rightPush("chat_history_" + chatRoom.getId(), chatConverter.toDto(chatMessage));
+
+        return chatConverter.toDto(chatMessage);
     }
 
+
     @Override
-    public List<ChatMessage> getChatHistory(String roomId, Long startIndex, Long endIndex) {
-        List<Object> chatHistory = redisTemplate.opsForList().range("chat_history_"+ roomId, startIndex, endIndex);
-        if (chatHistory == null){
-            return Collections.emptyList();
-        }
-        List<ChatMessage> result = new ArrayList<>();
-        for (Object obj : chatHistory) {
-            result.add((ChatMessage) obj);
-        }
-        return result;
+    public List<ChatMessageDto> getChatHistory(String roomId, Long startIndex, Long endIndex) {
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid roomId: " + roomId));
+        List<ChatMessage> chatHistory = chatMessageRepository.findByChatRoomAndTimestampBetween(
+                chatRoom, Instant.ofEpochMilli(startIndex), Instant.ofEpochMilli(endIndex));
+        return chatHistory.stream()
+                .map(chatConverter::toDto)
+                .collect(Collectors.toList());
     }
+
+
+
 }
