@@ -21,6 +21,7 @@ public enum ErrorCode {
     INVALID_JWT_SIGNATURE(401, "올바르지 않는 서명입니다."),
     UNSUPPORTED_JWT(401, "지원되지 않는 JWT 토큰입니다."),
     ILLEGAL_ARGUMENT_JWT(401, "JWT 토큰이 잘못되었습니다."),
+    GROUP_BOSS(403, "당신은 그룹의 보스입니다."),
     USER_NOT_MEMBER(403,"멤버가 아닙니다."),
     NOT_BOSS(403, "방장이 아닙니다."),
     NOT_GROUP_MEMBER(403, "그룹의 멤버가 아닙니다."),

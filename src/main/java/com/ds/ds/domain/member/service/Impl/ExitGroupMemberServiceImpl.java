@@ -5,6 +5,7 @@ import com.ds.ds.domain.group.domain.repository.GroupRepository;
 import com.ds.ds.domain.group.exception.GroupNotFoundException;
 import com.ds.ds.domain.group.exception.NotGroupMemberException;
 import com.ds.ds.domain.member.domain.repository.MemberRepository;
+import com.ds.ds.domain.member.exception.GroupBossException;
 import com.ds.ds.domain.member.service.ExitGroupMemberService;
 import com.ds.ds.domain.user.domain.entity.User;
 import com.ds.ds.domain.user.util.UserUtil;
@@ -26,7 +27,10 @@ public class ExitGroupMemberServiceImpl implements ExitGroupMemberService {
         Group group = groupRepository.findById(groupIdx)
                 .orElseThrow(() -> new GroupNotFoundException(ErrorCode.GROUP_NOT_FOUND));
 
-        if(!memberRepository.existsByUserIdxAndGroupIdx(user.getIdx(), groupIdx) && !group.getUser().equals(user))
+        if(group.getUser().equals(user))
+            throw new GroupBossException(ErrorCode.GROUP_BOSS);
+
+        if(!memberRepository.existsByUserIdxAndGroupIdx(user.getIdx(), groupIdx))
             throw new NotGroupMemberException(ErrorCode.NOT_GROUP_MEMBER);
 
         memberRepository.deleteByUserIdxAndGroupIdx(user.getIdx(), groupIdx);

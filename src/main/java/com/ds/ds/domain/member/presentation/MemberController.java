@@ -34,6 +34,5 @@ public class MemberController {
     public ResponseEntity<Void> exitGroupMember(@PathVariable("group-idx") Long groupIdx) {
         exitGroupMemberService.exitGroupMember(groupIdx);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
     }
 }
