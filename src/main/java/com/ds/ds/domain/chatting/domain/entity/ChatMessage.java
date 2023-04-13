@@ -1,54 +1,43 @@
 package com.ds.ds.domain.chatting.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ChatMessage {
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class ChatMessage implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
     private MessageType type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_room_id")
+    private ChatRoom chatRoom;
     private String sender;
     private String message;
-    private String roomId;
     private LocalDateTime timestamp;
 
     public enum MessageType {
         ENTER, TALK, QUIT
     }
-
-    public static ChatMessage enterMessage(String sender, String roomId) {
-        return ChatMessage.builder()
-                .type(MessageType.ENTER)
-                .sender(sender)
-                .roomId(roomId)
-                .timestamp(LocalDateTime.now())
-                .build();
+    public String getRoomId() {
+        return chatRoom.getId();
     }
-
-    public static ChatMessage quitMessage(String sender, String roomId) {
-      return ChatMessage.builder()
-              .type(MessageType.QUIT)
-              .sender(sender)
-              .roomId(roomId)
-              .timestamp(LocalDateTime.now())
-              .build();
-
-    }
-
-    public static ChatMessage talkMessage(String sender, String message, String roomId) {
-        return ChatMessage.builder()
-                .type(MessageType.TALK)
-                .sender(sender)
-                .message(message)
-                .roomId(roomId)
-                .timestamp(LocalDateTime.now())
-                .build();
+    @Builder
+    public ChatMessage(MessageType type, ChatRoom chatRoom, String sender, String message, LocalDateTime timestamp) {
+        this.type = type;
+        this.chatRoom = chatRoom;
+        this.sender = sender;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 }
