@@ -1,11 +1,17 @@
 package com.ds.ds.domain.group.presentation;
 
+import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
+import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
+import com.ds.ds.domain.chatting.service.CreateChatRoomService;
 import com.ds.ds.domain.group.presentation.data.dto.*;
 import com.ds.ds.domain.group.presentation.data.request.UpdateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.request.CreateGroupRequest;
 import com.ds.ds.domain.group.presentation.data.response.*;
 import com.ds.ds.domain.group.service.*;
 import com.ds.ds.domain.group.util.GroupConverter;
+import com.ds.ds.domain.member.service.ForcedKickGroupMemberService;
+import com.ds.ds.domain.member.service.ManDateGroupMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +35,9 @@ public class GroupController {
     private final DeleteGroupService deleteGroupService;
     private final FindGroupMainService findGroupMainService;
     private final JoinGroupService joinGroupService;
+    private final ForcedKickGroupMemberService forcedKickGroupMemberService;
+    private final ManDateGroupMemberService manDateGroupMemberService;
+    private final CreateChatRoomService createChatRoomService;
     private final FindPopularityGroupService findPopularityGroupService;
 
     @GetMapping
@@ -81,8 +90,9 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createGroup(@RequestBody CreateGroupRequest request) {
+    public ResponseEntity<Void> createGroupWithChatRoom(@RequestBody CreateGroupRequest request, CreateChatRequest chatRequest) {
         createGroupService.createGroup(groupConverter.toDto(request));
+        createChatRoomService.createChatRoom(groupConverter.toDto(chatRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

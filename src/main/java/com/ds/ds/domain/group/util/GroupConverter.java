@@ -1,5 +1,7 @@
 package com.ds.ds.domain.group.util;
 
+import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
+import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import com.ds.ds.domain.group.domain.entity.Group;
 import com.ds.ds.domain.group.domain.entity.GroupHits;
 import com.ds.ds.domain.group.domain.entity.GroupSecret;
@@ -34,6 +36,8 @@ public interface GroupConverter {
     GroupSecret toEntity(Group entity, String password);
     JoinGroupDto toDto(Long groupIdx, Optional<String> password);
     Member toEntity(Group group, User user);
+
+    ChatDto toDto(CreateChatRequest chatRequest);
     Timer toEntity(Group group, User user, boolean activity);
     PopularityGroupDto toGroupDto(Long memberCount, Group group);
     PopularityGroupListDto toGroupListDto(Pageable pageable, List<PopularityGroupDto> popularityGroups);
