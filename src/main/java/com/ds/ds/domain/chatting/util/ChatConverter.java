@@ -12,5 +12,4 @@ public interface ChatConverter {
     List<ChatMessageDto>  toChatMessageDtoList(List<ChatMessage> chatMessages);
 
     ChatMessageDto toDto(ChatRequest chatRequest);
-    ChatRequest toRequest(ChatMessageDto chatMessageDto);
 }

@@ -56,14 +56,5 @@ public class ChatConverterImpl implements ChatConverter {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
-    @Override
-    public ChatRequest toRequest(ChatMessageDto chatMessageDto) {
-        return ChatRequest.builder()
-                .type(chatMessageDto.getType())
-                .sender(chatMessageDto.getSender())
-                .message(chatMessageDto.getMessage())
-                .roomId(chatMessageDto.getRoomId())
-                .build();
-    }
 }
 
