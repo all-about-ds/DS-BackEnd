@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @RequiredArgsConstructor
@@ -14,4 +16,6 @@ public class ChatResponse {
     private String message;
     private String roomId;
     private ChatMessage.MessageType type;
+    private LocalDateTime timestamp;
+
 }

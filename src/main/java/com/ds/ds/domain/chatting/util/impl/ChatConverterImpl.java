@@ -4,6 +4,7 @@ import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
 import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
 import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
+import com.ds.ds.domain.chatting.presentation.data.response.ChatResponse;
 import com.ds.ds.domain.chatting.util.ChatConverter;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +56,17 @@ public class ChatConverterImpl implements ChatConverter {
                 .roomId(chatRequest.getRoomId())
                 .timestamp(LocalDateTime.now())
                 .build();
+    }
+
+    @Override
+    public ChatResponse toResponse(ChatMessageDto chatMessageDto) {
+        return ChatResponse.builder()
+                .type(chatMessageDto.getType())
+                .sender(chatMessageDto.getSender())
+                .message(chatMessageDto.getMessage())
+
+
+
     }
 }
 
