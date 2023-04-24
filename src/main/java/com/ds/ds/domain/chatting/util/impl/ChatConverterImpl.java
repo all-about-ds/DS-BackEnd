@@ -64,9 +64,9 @@ public class ChatConverterImpl implements ChatConverter {
                 .type(chatMessageDto.getType())
                 .sender(chatMessageDto.getSender())
                 .message(chatMessageDto.getMessage())
-
-
-
+                .roomId(chatMessageDto.getRoomId())
+                .timestamp(chatMessageDto.getTimestamp())
+                .build();
     }
 }
 
