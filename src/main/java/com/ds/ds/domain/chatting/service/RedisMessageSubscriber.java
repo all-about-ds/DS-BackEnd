@@ -39,7 +39,6 @@ public class RedisMessageSubscriber implements MessageListener {
             // ChatMessage를 데이터베이스에 저장
             chatMessageRepository.save(chatMessage);
 
-            ChatRequest chatRequest = chatConverter.toRequest(chatMessageDto);
             sendMessageService.sendMessage(chatMessageDto.getRoomId(), chatRequest);
         } catch (IOException e) {
             e.printStackTrace();
