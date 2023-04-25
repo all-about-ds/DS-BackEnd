@@ -25,6 +25,8 @@ public class RedisMessageSubscriber implements MessageListener {
     private final ChatConverter chatConverter;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
+    private final ChatRequest chatRequest;
+
 
     @SneakyThrows
     @Override
@@ -34,8 +36,6 @@ public class RedisMessageSubscriber implements MessageListener {
             ChatMessage chatMessage = chatConverter.toEntity(chatMessageDto);
             ChatRoom chatRoom = chatRoomRepository.findById(chatMessage.getRoomId())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid roomId: " + chatMessageDto.getRoomId()));
-            chatMessage.setChatRoom(chatRoom);
-
             // ChatMessage를 데이터베이스에 저장
             chatMessageRepository.save(chatMessage);
 
