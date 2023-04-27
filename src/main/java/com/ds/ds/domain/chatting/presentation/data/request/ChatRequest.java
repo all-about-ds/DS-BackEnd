@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @Getter
 @RequiredArgsConstructor
 public class ChatRequest {
-    private String sender;
-    private String message;
-    private String roomId;
-    private ChatMessage.MessageType type;
-    private LocalDateTime timestamp;
+    private final String sender;
+    private final String message;
+    private final String roomId;
+    private final ChatMessage.MessageType type;
+    private final LocalDateTime timestamp;
 
 }
