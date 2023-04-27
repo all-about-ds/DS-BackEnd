@@ -1,12 +1,14 @@
 package com.ds.ds.domain.chatting.presentation.data.request;
 
+import com.amazonaws.services.kms.model.MessageType;
 import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 @RequiredArgsConstructor
 public class ChatRequest {
     private final String sender;
@@ -14,5 +16,4 @@ public class ChatRequest {
     private final String roomId;
     private final ChatMessage.MessageType type;
     private final LocalDateTime timestamp;
-
 }
