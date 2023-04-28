@@ -1,6 +1,6 @@
 package com.ds.ds.domain.chatting.domain.entity;
 
-import com.amazonaws.services.kms.model.MessageType;
+import com.ds.ds.domain.chatting.presentation.data.type.MessageType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +31,8 @@ public class ChatMessage implements Serializable {
         return chatRoom.getId();
     }
     @Builder
-    public ChatMessage(ChatRoom chatRoom, String sender, String message, LocalDateTime timestamp) {
+    public ChatMessage(ChatRoom chatRoom, String sender, String message, LocalDateTime timestamp, MessageType type) {
+        this.type = type;
         this.chatRoom = chatRoom;
         this.sender = sender;
         this.message = message;
