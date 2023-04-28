@@ -27,7 +27,6 @@ RedisMessageSubscriber implements MessageListener {
     private final ChatConverter chatConverter;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
-    private final ChatRequest chatRequest;
 
     @SneakyThrows
     @Override
