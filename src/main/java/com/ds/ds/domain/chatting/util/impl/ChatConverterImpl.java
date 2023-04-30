@@ -51,8 +51,8 @@ public class ChatConverterImpl implements ChatConverter {
     public ChatMessageDto toDto(ChatRequest chatRequest) {
         return ChatMessageDto.builder()
                 .type(chatRequest.getType())
-                .sender(chatRequest.getSender())
-                .message(chatRequest.getMessage())
+                /*.sender(chatRequest.getSender())
+                .message(chatRequest.getMessage())*/
                 .roomId(chatRequest.getRoomId())
                 .timestamp(LocalDateTime.now())
                 .build();
