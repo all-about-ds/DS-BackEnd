@@ -1,18 +1,15 @@
 package com.ds.ds.domain.chatting.presentation.data.request;
 
-import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ds.ds.domain.chatting.presentation.data.type.MessageType;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@RequiredArgsConstructor
 public class ChatRequest {
-    private String sender;
-    private String message;
-    private String roomId;
-    private ChatMessage.MessageType type;
+    private final String roomId;
+    private final MessageType type;
+    private final LocalDateTime timestamp;
 }

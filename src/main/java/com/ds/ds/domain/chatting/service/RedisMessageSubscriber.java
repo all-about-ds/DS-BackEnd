@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RedisMessageSubscriber implements MessageListener {
+public class
+
+RedisMessageSubscriber implements MessageListener {
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
     private final SendMessageService sendMessageService;
@@ -34,13 +36,8 @@ public class RedisMessageSubscriber implements MessageListener {
             ChatMessage chatMessage = chatConverter.toEntity(chatMessageDto);
             ChatRoom chatRoom = chatRoomRepository.findById(chatMessage.getRoomId())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid roomId: " + chatMessageDto.getRoomId()));
-            chatMessage.setChatRoom(chatRoom);
-
             // ChatMessage를 데이터베이스에 저장
             chatMessageRepository.save(chatMessage);
-
-            ChatRequest chatRequest = chatConverter.toRequest(chatMessageDto);
-            sendMessageService.sendMessage(chatMessageDto.getRoomId(), chatRequest);
         } catch (IOException e) {
             e.printStackTrace();
         }

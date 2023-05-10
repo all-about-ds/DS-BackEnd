@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RedisMessagePublisher {
     private final RedisTemplate<String, Object> redisTemplate;
-    public void publish(ChatMessageDto chatMessage) {
-        redisTemplate.convertAndSend("/sub/chat/room/" + chatMessage.getRoomId(),chatMessage);
+    public void publish(ChatMessageDto dto) {
+        redisTemplate.convertAndSend("/sub/chat/room/" + dto.getRoomId(),dto);
     }
 }
