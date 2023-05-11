@@ -90,9 +90,8 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createGroupWithChatRoom(@RequestBody CreateGroupRequest request, CreateChatRequest chatRequest) {
+    public ResponseEntity<Void> createGroupWithChatRoom(@RequestBody CreateGroupRequest request) {
         createGroupService.createGroup(groupConverter.toDto(request));
-        createChatRoomService.createChatRoom(groupConverter.toDto(chatRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
