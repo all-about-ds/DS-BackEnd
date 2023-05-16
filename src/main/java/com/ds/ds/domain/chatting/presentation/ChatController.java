@@ -3,6 +3,7 @@ package com.ds.ds.domain.chatting.presentation;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
 import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
+import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import com.ds.ds.domain.chatting.presentation.data.response.ChatResponse;
 import com.ds.ds.domain.chatting.service.CreateChatRoomService;
 import com.ds.ds.domain.chatting.service.SendMessageService;
@@ -25,7 +26,6 @@ public class ChatController {
     private final SendMessageService sendMessageService;
     private final ChatConverter chatConverter;
     private final CreateChatRoomService createChatRoomService;
-    private final ChatDto chatDto;
 
     @MessageMapping("/send")
     @SendTo("/sub/chat/room/{roomId}")
@@ -36,8 +36,8 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createChatRoom(){
-        createChatRoomService.createChatRoom(chatDto);
+    public ResponseEntity<Void> createChatRoom(@RequestBody CreateChatRequest chatRequest){
+        createChatRoomService.createChatRoom(chatConverter);
         return new  ResponseEntity<>(HttpStatus.CREATED);
     }
 
