@@ -37,7 +37,7 @@ public class ChatController {
 
     @PostMapping
     public ResponseEntity<Void> createChatRoom(@RequestBody CreateChatRequest chatRequest){
-        createChatRoomService.createChatRoom(chatConverter);
+        createChatRoomService.createChatRoom(chatConverter.toDto(chatRequest));
         return new  ResponseEntity<>(HttpStatus.CREATED);
     }
 
