@@ -85,7 +85,7 @@ public class EmailServiceImpl implements EmailService {
     private String setContext(String code) {
         Context context = new Context();
         context.setVariable("code", code);
-        return templateEngine.process("mail", context); //mail.html
+        return templateEngine.process("Mail", context); //Mail.html
     }
 
     private CreateMessageDto createMessage(String to)throws MessagingException {
