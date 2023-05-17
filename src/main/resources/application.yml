@@ -15,6 +15,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    database-platform: ${DB_PLATFORM}
   servlet:
     multipart:
       max-file-size: ${MULTIPART_MAX_FILE}
