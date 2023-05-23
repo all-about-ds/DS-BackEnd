@@ -1,34 +1,33 @@
 spring:
   redis:
-    host: ${REDIS_HOST}
-    port: ${REDIS_PORT}
-    password: ${REDIS_PASSWORD}
-    time-out: ${REDIS_TIME_OUT}
+    host: redis-17106.c261.us-east-1-4.ec2.cloud.redislabs.com
+    port: 17106
+    password: MQrUFccuQ269fbqIPsRqx1CjmHjcepza
+    time-out: 1000
   datasource:
-    driver-class-name: ${DB_DRIVER}
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ds?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: root
+    password: wlstldbs1!
   jpa:
     hibernate:
-      ddl-auto: ${JPA_DDL}
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-    database-platform: ${DB_PLATFORM}
   servlet:
     multipart:
-      max-file-size: ${MULTIPART_MAX_FILE}
-      max-request-size: ${MULTIPART_MAX_REQUEST}
+      max-file-size: 300MB
+      max-request-size: 300MB
   main:
     allow-bean-definition-overriding: true
 
   mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    host: smtp.naver.com
+    port: 465
+    username: shgurtns7236
+    password: pynn2409!
     properties:
       mail:
         smtp:
@@ -39,11 +38,11 @@ spring:
             enable: true
 
 jwt:
-  access-secret: ${ACCESS_SECRET}
-  refresh-secret: ${REFRESH_SECRET}
+  access-secret: zdeRaZg/EiMrAVuOX6pZeU5cdas5VqExPhTGje3dzIw=
+  refresh-secret: 3Koh9ZqwkJOkjTSe1Y9k+r1gnTo8C5gPlAckjufNQYQ=
 
 server:
-  port: ${SERVER_PORT}
+  port: 3306
 logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
@@ -53,11 +52,11 @@ cloud:
     stack:
       auto: false
     s3:
-      bucket: ${S3_BUCKET}
-      url: ${S3_URL}
+      bucket: dss3-bucket
+      url: https://dss3-bucket.s3.ap-northeast-2.amazonaws.com/
     region:
-      static: ${S3_STATIC}
+      static: ap-northeast-2
       auto: false
     credentials:
-      access-Key: ${S3_ACCESS_KEY}
-      secret-Key: ${S3_REFRESH_KEY}
+      access-Key: AKIARR5DC36KBXT2LFLV
+      secret-Key: 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
