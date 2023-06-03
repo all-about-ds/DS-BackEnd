@@ -32,6 +32,7 @@ public enum ErrorCode {
     DUPLICATE_JOIN_GROUP(409, "이미 가입된 그룹입니다."),
     BLACKLIST_ALREADY_EXIST(409, "이미 블랙리스트에 등록되어있습니다."),
     ALREADY_BOSS(409, "이미 방장입니다."),
+    DUPLICATE_GROUP_NAME(409, "이미 존재하는 그룹 이름입니다."),
 
     INTERNAL_SERVER_ERROR(500, "internal server error");
 
