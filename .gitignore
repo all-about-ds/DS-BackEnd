@@ -35,8 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
-
+applicaltion.yml
 application-dev.yml
 application-alpha.yml
 application-local.yml
 docker-compose.yml
+prometheus.yml
