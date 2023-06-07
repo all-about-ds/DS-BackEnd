@@ -15,4 +15,5 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     Page<Group> findAllByGroupNameContaining(Pageable pageable, String groupName);
     List<Group> findByUser(User user);
     Boolean existsByUser(User user);
+    Boolean existsByGroupName(String groupName);
 }
