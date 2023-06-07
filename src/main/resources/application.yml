@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ds
   redis:
     host: redis-17106.c261.us-east-1-4.ec2.cloud.redislabs.com
     port: 17106
@@ -42,7 +44,7 @@ jwt:
   refresh-secret: 3Koh9ZqwkJOkjTSe1Y9k+r1gnTo8C5gPlAckjufNQYQ=
 
 server:
-  port: 3306
+  port: 8080
 logging:
   level:
     org.springframework.boot.autoconfigure: ERROR
@@ -60,3 +62,23 @@ cloud:
     credentials:
       access-Key: AKIARR5DC36KBXT2LFLV
       secret-Key: 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
+
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, prometheus
+        exclude:
+      base-path: /management
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
