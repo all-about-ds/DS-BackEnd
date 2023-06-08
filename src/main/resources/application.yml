@@ -1,1 +1,82 @@
+spring:
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
+    time-out: ${REDIS_TIME_OUT}
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL}
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: ${DB_PLATFORM}
+  servlet:
+    multipart:
+      max-file-size: ${MULTIPART_MAX_FILE}
+      max-request-size: ${MULTIPART_MAX_REQUEST}
+  main:
+    allow-bean-definition-overriding: true
 
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            auth: true
+          ssl:
+            enable: true
+
+jwt:
+  access-secret: ${ACCESS_SECRET}
+  refresh-secret: ${REFRESH_SECRET}
+
+server:
+  port: ${SERVER_PORT}
+logging:
+  level:
+    org.springframework.boot.autoconfigure: ERROR
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    s3:
+      bucket: ${S3_BUCKET}
+      url: ${S3_URL}
+    region:
+      static: ${S3_STATIC}
+      auto: false
+    credentials:
+      access-Key: ${S3_ACCESS_KEY}
+      secret-Key: ${S3_REFRESH_KEY}
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, prometheus
+        exclude:
+      base-path: /management
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
