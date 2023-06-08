@@ -4,7 +4,7 @@ import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.Authentication;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.*;
-import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
+import com.ds.ds.domain.auth.presentation.data.request.UpdatePasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
@@ -24,7 +24,7 @@ public interface AuthConverter {
     AuthCode toEntity(String email, String code);
     CheckAuthCodeDto toDto(String code);
     CheckAuthCodeResponse toResponse(CheckAuthCodeDto checkAuthCodeDto);
-    SearchPasswordDto toDto(SearchPasswordRequest searchPasswordRequest);
+    UpdatePasswordDto toDto(UpdatePasswordRequest searchPasswordRequest);
     SendAuthCodeDto toDto(AuthCode authCode);
     SendAuthCodeResponse toResponse(SendAuthCodeDto sendAuthCodeDto);
     Authentication toEntity(String email);
