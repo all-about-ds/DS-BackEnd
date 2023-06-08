@@ -4,7 +4,7 @@ import com.ds.ds.domain.auth.domain.entity.AuthCode;
 import com.ds.ds.domain.auth.domain.entity.Authentication;
 import com.ds.ds.domain.auth.domain.entity.RefreshToken;
 import com.ds.ds.domain.auth.presentation.data.dto.*;
-import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
+import com.ds.ds.domain.auth.presentation.data.request.UpdatePasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
@@ -91,10 +91,10 @@ public class AuthConverterImpl implements AuthConverter {
     }
 
     @Override
-    public SearchPasswordDto toDto(SearchPasswordRequest searchPasswordRequest) {
-        return SearchPasswordDto.builder()
-                .email(searchPasswordRequest.getEmail())
-                .password(searchPasswordRequest.getPassword())
+    public UpdatePasswordDto toDto(UpdatePasswordRequest updatePasswordRequest) {
+        return UpdatePasswordDto.builder()
+                .email(updatePasswordRequest.getEmail())
+                .password(updatePasswordRequest.getPassword())
                 .build();
     }
 

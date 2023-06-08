@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class SearchPasswordDto {
+public class UpdatePasswordDto {
     private final String email;
     private final String password;
 }

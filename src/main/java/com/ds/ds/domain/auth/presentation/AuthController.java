@@ -1,7 +1,7 @@
 package com.ds.ds.domain.auth.presentation;
 
 import com.ds.ds.domain.auth.presentation.data.dto.*;
-import com.ds.ds.domain.auth.presentation.data.request.SearchPasswordRequest;
+import com.ds.ds.domain.auth.presentation.data.request.UpdatePasswordRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignInRequest;
 import com.ds.ds.domain.auth.presentation.data.request.SignupRequest;
 import com.ds.ds.domain.auth.presentation.data.response.CheckAuthCodeResponse;
@@ -25,7 +25,7 @@ public class AuthController {
     private final SignUpService signUpService;
     private final EmailService emailService;
     private final TokenReissueService tokenReissueService;
-    private final SearchPasswordService searchPasswordService;
+    private final UpdatePasswordService updatePasswordService;
     private final LogoutService logoutService;
 
     /*
@@ -89,9 +89,9 @@ public class AuthController {
     기능: 비밀번호 찾기
      */
     @PatchMapping("/password")
-    public ResponseEntity<Void> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
-        SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
-        searchPasswordService.search(searchPasswordDto);
+    public ResponseEntity<Void> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest){
+        UpdatePasswordDto updatePasswordDto = authConverter.toDto(updatePasswordRequest);
+        updatePasswordService.update(updatePasswordDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
