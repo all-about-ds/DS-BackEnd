@@ -88,11 +88,11 @@ public class AuthController {
     담당자: 노혁
     기능: 비밀번호 찾기
      */
-    @PostMapping("/search")
+    @PatchMapping("/password")
     public ResponseEntity<Void> searchPassword(@RequestBody SearchPasswordRequest searchPasswordRequest){
         SearchPasswordDto searchPasswordDto = authConverter.toDto(searchPasswordRequest);
         searchPasswordService.search(searchPasswordDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /*
