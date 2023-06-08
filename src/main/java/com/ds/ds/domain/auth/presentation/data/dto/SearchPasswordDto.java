@@ -10,5 +10,4 @@ import lombok.RequiredArgsConstructor;
 public class SearchPasswordDto {
     private final String email;
     private final String password;
-    private final String checkPassword;
 }

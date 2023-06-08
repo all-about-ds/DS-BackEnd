@@ -8,5 +8,4 @@ import lombok.RequiredArgsConstructor;
 public class SearchPasswordRequest {
     private final String email;
     private final String password;
-    private final String checkPassword;
 }

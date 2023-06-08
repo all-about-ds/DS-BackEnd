@@ -21,10 +21,6 @@ public class SearchPasswordServiceImpl implements SearchPasswordService {
     @Override
     @Transactional
     public void search(SearchPasswordDto searchPasswordDto) {
-        if(!searchPasswordDto.getPassword().equals(searchPasswordDto.getCheckPassword())){
-            throw new PasswordNotMatchException(ErrorCode.PASSWORD_NOT_MATCH);
-        }
-
         String encodingPassword = passwordEncoder.encode(searchPasswordDto.getPassword());
         User user = userUtil.findUserByEmail(searchPasswordDto.getEmail());
         user.updatePassword(encodingPassword);

@@ -95,7 +95,6 @@ public class AuthConverterImpl implements AuthConverter {
         return SearchPasswordDto.builder()
                 .email(searchPasswordRequest.getEmail())
                 .password(searchPasswordRequest.getPassword())
-                .checkPassword(searchPasswordRequest.getCheckPassword())
                 .build();
     }
 
