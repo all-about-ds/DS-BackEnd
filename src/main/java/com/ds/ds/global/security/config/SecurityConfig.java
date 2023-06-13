@@ -75,6 +75,7 @@ public class SecurityConfig {
 
                 //chatting
                 .antMatchers("/websocket/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/chat").authenticated()
 
                 //timer
                 .antMatchers(HttpMethod.PATCH, "/timer/**}").authenticated()
