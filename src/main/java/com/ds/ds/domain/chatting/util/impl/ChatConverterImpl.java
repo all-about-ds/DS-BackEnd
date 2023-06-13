@@ -4,10 +4,13 @@ import com.ds.ds.domain.chatting.domain.entity.ChatMessage;
 import com.ds.ds.domain.chatting.domain.entity.ChatRoom;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
+import com.ds.ds.domain.chatting.presentation.data.dto.GetUserUidDto;
 import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
 import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import com.ds.ds.domain.chatting.presentation.data.response.ChatResponse;
+import com.ds.ds.domain.chatting.presentation.data.response.GetUserUidResponse;
 import com.ds.ds.domain.chatting.util.ChatConverter;
+import com.ds.ds.domain.user.domain.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -77,6 +80,20 @@ public class ChatConverterImpl implements ChatConverter {
                 .id(createChatRequest.getId())
                 .chatRoomId(createChatRequest.getChatRoomId())
                 .members(createChatRequest.getMembers())
+                .build();
+    }
+
+    @Override
+    public GetUserUidDto toDto(User currentUser) {
+        return GetUserUidDto.builder()
+                .uid(currentUser.getIdx())
+                .build();
+    }
+
+    @Override
+    public GetUserUidResponse toResponse(GetUserUidDto getUserUidDto) {
+        return GetUserUidResponse.builder()
+                .uid(getUserUidDto.getUid())
                 .build();
     }
 }
