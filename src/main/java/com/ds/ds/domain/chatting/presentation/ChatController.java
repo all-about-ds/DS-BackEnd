@@ -52,7 +52,7 @@ public class ChatController {
 
     @GetMapping
     public ResponseEntity<GetUserUidResponse> getUserUid() {
-        return new ResponseEntity<>( chatConverter.toResponse(getUserUidService.get()) ,HttpStatus.OK);
+        return new ResponseEntity<>(chatConverter.toResponse(getUserUidService.get()) ,HttpStatus.OK);
     }
 }
 
