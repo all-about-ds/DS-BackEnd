@@ -1,11 +1,12 @@
 package com.ds.ds.domain.chatting.presentation;
 
-import com.ds.ds.domain.chatting.presentation.data.dto.ChatDto;
 import com.ds.ds.domain.chatting.presentation.data.dto.ChatMessageDto;
 import com.ds.ds.domain.chatting.presentation.data.request.ChatRequest;
 import com.ds.ds.domain.chatting.presentation.data.request.CreateChatRequest;
 import com.ds.ds.domain.chatting.presentation.data.response.ChatResponse;
+import com.ds.ds.domain.chatting.presentation.data.response.GetUserUidResponse;
 import com.ds.ds.domain.chatting.service.CreateChatRoomService;
+import com.ds.ds.domain.chatting.service.GetUserUidService;
 import com.ds.ds.domain.chatting.service.SendMessageService;
 import com.ds.ds.domain.chatting.util.ChatConverter;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class ChatController {
     private final SendMessageService sendMessageService;
     private final ChatConverter chatConverter;
     private final CreateChatRoomService createChatRoomService;
+    private final GetUserUidService getUserUidService;
 
     @MessageMapping("/send")
     @SendTo("/sub/chat/room/{roomId}")
@@ -46,6 +48,11 @@ public class ChatController {
     public ResponseEntity<List<ChatMessageDto>> getChatHistory(@PathVariable String roomId, @RequestParam("startIndex") Long startIndex, @RequestParam("endIndex") Long endIndex) {
         List<ChatMessageDto> chatHistory = sendMessageService.getChatHistory(roomId, startIndex, endIndex);
         return ResponseEntity.ok(chatHistory);
-        }
     }
+
+    @GetMapping
+    public ResponseEntity<GetUserUidResponse> getUserUid() {
+        return new ResponseEntity<>(chatConverter.toResponse(getUserUidService.get()) ,HttpStatus.OK);
+    }
+}
 
