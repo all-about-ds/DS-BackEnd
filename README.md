@@ -1,7 +1,5 @@
 # Do Study
 
-## Summary
-
 Do Study는 다양한 사람들과 간단하게 스터디를 맺고 동기부여를 주고 받으며 함께 성장하는 그룹 스터디 웹 서비스입니다.
 
 ## Mockup
@@ -10,6 +8,8 @@ Do Study는 다양한 사람들과 간단하게 스터디를 맺고 동기부여
 
 
 ## Skills
+<b>JDK</b> : `java 11`
 
-## How To Start
+<b>DB</b> : `mariadb` `redis`
 
+<b>Framework</b> :  `spring boot 2.7.6` 
