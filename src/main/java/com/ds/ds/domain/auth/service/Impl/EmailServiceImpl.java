@@ -91,7 +91,7 @@ public class EmailServiceImpl implements EmailService {
     private CreateMessageDto createMessage(String to)throws MessagingException {
         String code = createKey();
 
-        String setFrom = "offical-dostudy@naver.com"; //email-config 에 설정한 자신의 이메일 주소(보내는 사람)
+        String setFrom = "official-dostudy@naver.com"; //email-config 에 설정한 자신의 이메일 주소(보내는 사람)
         String title = "DS 인증 번호"; //제목
 
         MimeMessage message = javaMailSender.createMimeMessage();
